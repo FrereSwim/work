@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="innerFile.action" method="post" enctype="multipart/form-data">
+    　　	
+        username: <input type="text" id="name" name="showName"><br>
+        file: <input type="file" name="file"><br>
+        
+        <input type="submit" value="submit">
+    </form>
+</body>
+
+<script type="text/javascript" src="../custom/jquery.min.js"></script>
+<script type="text/javascript">
+	function daochu(){
+		window.location.href="aa.action"; 
+	}
+	
+	$(function(){
+		var result = GetUID("result");
+		$("#di").html(result);
+	});
+	
+	 function GetUID(name){
+	        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	        var r = window.location.search.substr(1).match(reg);
+	        if(r!=null)return  unescape(r[2]); return null;
+	   	}
+	 
+
+</script>
+</html>

@@ -1,0 +1,791 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>工作台</title> 
+
+<link href="css/base.css" rel="stylesheet">
+<link rel="stylesheet" href="../custom/uimaker/easyui.css">
+<link rel="stylesheet" href="css/workbench.css">
+<style type="text/css">
+#test {
+    width:100%;
+    height:100%;
+    background-color:#000;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+    opacity:0.3;
+    filter: alpha(opacity=30);
+    display:none;
+}
+#log_window {
+    width:400px;
+    height:200px;
+    background-color:white;    
+    margin-top: 150px;
+    margin-left: 380px;
+    position: absolute;
+    z-index:3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display:none;
+}
+	</style>
+</head> 
+<body>
+    <div class="container">
+        <div id="hd">
+            
+        </div>
+
+        <div id="bd">
+            <div class="bd-content">
+                <div class="right-zone">
+                    <div class="inform item-box">
+                        <div class="inform-hd">
+                            <label>通知公告</label>
+                            <!-- <a href="javascript:;">更多<span>&gt;</span></a> -->
+                        </div>
+                        <div id="Inform_div">
+	                        <ul id="Inform_ul">
+	                        </ul>
+                        </div>
+                    </div>
+                    <div class="price item-box">
+                        <div class="inform-hd">
+                            <label>获奖名单</label>
+                            <!-- <a href="javascript:;">更多<span>&gt;</span></a> -->
+                        </div>
+                        <div id="Winners_div">
+	                        <ul id="Winners_ul">
+	                        </ul>
+                        </div>
+                    </div>
+                    <div class="attached item-box">
+                        <div class="inform-hd">
+                            <label>常用附件下载</label>
+                            <a href="javascript:;">更多<span>&gt;</span></a>
+                        </div>
+                        <div class="attached-tab">
+                            <a href="javascript:;" class="current item-left" attached="public-attached">公开附件</a>
+                            <a href="javascript:;" class="item-right" attached="inner-attached">内部附件</a>
+                        </div>
+                      	<ul id="publicAttached" class="public-attached">
+                       	</ul>
+                        <ul id="innerAttached" class="inner-attached hide">
+                        </ul>
+                    </div>
+                </div>
+                <div class="center-part">
+                    <div class="center-items todo">
+                        <div class="calendar-part">
+                             <div class="easyui-calendar" style="width:205px;height:231px;"></div>
+                        </div>
+                        <ul class="work-items clearfix">
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item green">
+                                        <i class="iconfont">&#xe61f;</i>
+                                        <span id="Backlog_1" class="num"></span>
+                                        <label>待办事项</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item red">
+                                         <i class="iconfont">&#xe622;</i>
+                                        <span id="Warning_1" class="num"></span>
+                                        <label>预警信息</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item yellow">
+                                         <i class="iconfont">&#xe61d;</i>
+                                        <span id="Mail_1" class="num"></span>
+                                        <label>邮件信息</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item blue">
+                                         <i class="iconfont">&#xe621;</i>
+                                        <span title="2000,00万" class="num">9999,99&nbsp;<span class="unit">万</span></span>
+                                        <label>今年预计获取总收益</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item purple">
+                                         <i class="iconfont">&#xe61e;</i>
+                                        <span title="2000,00万" class="num">8888,88&nbsp;<span class="unit">万</span></span>
+                                        <label>已完成的收益金额</label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="work-inner">
+                                    <div class="work-item gray">
+                                         <i class="iconfont">&#xe620;</i>
+                                        <span id="Partner_1" class="num"></span>
+                                        <label>合作商</label>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="center-items chart0 clearfix">
+                        <div class="chart0-item">
+                            <div class="item-inner">
+                                <div class="item-content">
+                                    <div class="content-hd">年度收入占比</div>
+                                    <div class="chart-chart" id="chart0"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart0-item">
+                            <div class="item-inner">
+                                <div class="item-content">
+                                    <div class="content-hd">季度收入明细</div>
+                                    <div class="chart-chart" id="chart1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="center-items chart1">
+                        <div class="chart1-inner">
+                             <div class="item-hd">支出占有</div>
+                             <div class="chart1-chart" id="chart2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ft"></div>
+    </div>
+    
+    <div id="Backlog" class="todo-panel">
+         <div class="todo-title">
+            <i class="iconfont">&#xe61f;</i>
+            <span id="Backlog_2" class="num"></span>
+            <label>待办事项</label>
+        </div>
+        <div class="todo-items">
+            <ul id="Backlog_ul">
+            </ul>
+        </div>
+    </div>
+    
+    <div id="Warning" class="todo-panel">
+        <div class="todo-title">
+            <i class="iconfont">&#xe622;</i>
+            <span id="Warning_2" class="num"></span>
+            <label>预警信息</label>
+        </div>
+        <div class="todo-items">
+            <ul id="Warning_ul">
+            </ul>
+        </div>
+    </div>
+    
+    <div id="Mail" class="todo-panel">
+        <div class="todo-title">
+            <i class="iconfont">&#xe61d;</i>
+            <span id="Mail_2" class="num"></span>
+            <label>邮件信息</label>
+        </div>
+        <div class="todo-items">
+            <ul id="Mail_ul">
+            </ul>
+        </div>
+    </div>
+    
+    <div id="Partner" class="todo-panel">
+        <div class="todo-title">
+            <i class="iconfont">&#xe620;</i>
+            <span id="Partner_2" class="num"></span>
+            <label>合作商</label>
+        </div>
+        <div class="todo-items">
+            <ul id="Partner_ul">
+            </ul>
+        </div>
+    </div>
+    
+	<div id="test"></div>
+	<div id="log_window">
+		<div id="showInfo" style="margin-top:20px;margin-left:20px;"></div>
+		<button  style="margin-top:120px;margin-left:180px;"  onclick="cancel_shield()" type="button" ><font id="btnFont" color="green">关闭</font></button>
+	</div>
+    
+    <script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <!-- <script type="text/javascript" src="js/menu.js"></script> -->
+    <script type="text/javascript" src="js/echarts-all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/umeditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/umeditor/umeditor.min.js"></script>
+    <script type="text/javascript" src="js/umeditor/lang/zh-cn/zh-cn.js"></script>
+  
+
+    
+<script type="text/javascript">
+	var infoMap = new Map();
+	var id = "";
+	
+	 $(document).ready(function(){
+	    	getInfo();//六个模块信息
+	    	showClick();//模块点击效果
+	    	downloadFile();//附件下载信息
+	    	informInfo();//通知信息
+	    	winnersInfo();//获奖名单信息
+	    	chart0();//图表一信息
+	    	chart1();//图表二信息
+	    	chart2();//图表三信息
+	              
+	    });
+	
+    //获取代办,预警，邮件信息
+    function getInfo(){
+    	$.ajax({
+		      type:"post",
+		      url: "getPendingEvent.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  var len = obj.pendinglist.length;
+		    	  $("#Backlog_1").html(len + "&nbsp;<span class='unit'>个</span>");
+		    	  $("#Backlog_2").html(len + "&nbsp;<span class='unit'>个</span>");
+		    	  var htmlTemp ="";
+		    	  $.each(obj.pendinglist,function(index,val){
+		    		  var key = val.id;
+		    		  var value = val.content;
+		    		  infoMap.set(key,value);
+		    		  htmlTemp += "<li><span></span>";
+		    		  htmlTemp += "<a href=\"javascript:getInfoByid('" + val.id + "');\" class='ellipsis'><span>类型：" + val.type + "&nbsp;&nbsp;</span>状态：" + val.state + "&nbsp;&nbsp;标题：" + val.title;
+		    		  if(index < 3){
+		    			  htmlTemp += "<i></i></a>";
+		    		  }else{
+		    			  htmlTemp += "</a>";
+		    		  }
+		    		  htmlTemp += "<label>" + val.createTime + "</label></li>";
+		    	  });
+		    	  $("#Backlog_ul").append(htmlTemp);
+		      }
+		});
+    	
+    	$.ajax({
+		      type:"post",
+		      url: "getWarningInfo.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  var len = obj.warninglist.length;
+		    	  $("#Warning_1").html(len + "&nbsp;<span class='unit'>条</span>");
+		    	  $("#Warning_2").html(len + "&nbsp;<span class='unit'>条</span>");
+		    	  var htmlTemp ="";
+		    	  $.each(obj.warninglist,function(index,val){
+		    		  var createTime = new Date(val.createTime.time);
+		    		  createTime = changeDate(createTime);
+		    		  var key = val.id;
+		    		  var value = val.content;
+		    		  infoMap.set(key,value);
+		    		  htmlTemp += "<li><span></span>";
+		    		  if(val.level == "0"){
+		    			  htmlTemp += "<a href=\"javascript:getInfoByid('" + val.id + "');\" class='ellipsis'>级别：<span>已消除预警 &nbsp;&nbsp;</span>类型：" + val.type +"&nbsp;&nbsp;" + val.content + "</a>";
+		    		  }else{
+		    			  htmlTemp += "<a href=\"javascript:getInfoByid('" + val.id + "');\" class='ellipsis'>级别：<span>" + val.level + "级&nbsp;&nbsp;</span>类型：" + val.type +"&nbsp;&nbsp;" + val.content + "</a>";
+		    		  }
+		    		  htmlTemp += "<label>" + createTime + "</label></li>";
+		    	  });
+		    	  $("#Warning_ul").append(htmlTemp);
+		      }
+		});
+    	
+    	$.ajax({
+		      type:"post",
+		      url: "getMailInfo.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  var len = obj.maillist.length;
+		    	  $("#Mail_1").html(len + "&nbsp;<span class='unit'>封</span>");
+		    	  $("#Mail_2").html(len + "&nbsp;<span class='unit'>封</span>");
+		    	  var htmlTemp ="";
+		    	  $.each(obj.maillist,function(index,val){
+		    		  var createTime = new Date(val.createTime.time);
+		    		  createTime = changeDate(createTime);
+		    		  var key = val.id;
+		    		  var value = val.content;
+		    		  infoMap.set(key,value);
+		    		  htmlTemp += "<li><span></span>";
+		    		  htmlTemp += "<a href=\"javascript:getInfoByid('" + val.id + "');\" class='ellipsis'>标题：<span>" + val.title + "&nbsp;&nbsp;</span>发送者:" + val.sendName +"&nbsp;&nbsp;" + val.content;
+		    		  if(index < 3){
+		    			  htmlTemp += "<i></i></a>";
+		    		  }else{
+		    			  htmlTemp += "</a>";
+		    		  }
+		    		  htmlTemp += "<label>" + createTime + "</label></li>";
+		    	  });
+		    	  $("#Mail_ul").append(htmlTemp);
+		      }
+		});
+    	
+    	$.ajax({
+		      type:"post",
+		      url: "getPartnerInfo.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  var len = obj.partnerlist.length;
+		    	  $("#Partner_1").html(len + "&nbsp;<span class='unit'>个</span>");
+		    	  $("#Partner_2").html(len + "&nbsp;<span class='unit'>个</span>");
+		    	  var htmlTemp ="";
+		    	  $.each(obj.partnerlist,function(index,val){
+		    		  htmlTemp += "<li><span></span>";
+		    		  htmlTemp += "&nbsp;<a href='javascript:;' class='ellipsis'><span>" + (index + 1) + "&nbsp;&nbsp;&nbsp;&nbsp;</span>" + val.partnerName +"</a>";
+		    		  htmlTemp += "<label></label></li>";
+		    	  });
+		    	  $("#Partner_ul").append(htmlTemp);
+		      }
+		});
+    	
+    }
+    
+    function informInfo(){
+    	$.ajax({
+		      type:"post",
+		      url: "getInformInfo.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  var len = obj.informList.length;
+		    	  if(len > 5){
+		    		  $("#Inform_div").attr("style","width:288px;height:191px;overflow-y:scroll;");
+		    	  }
+		    	  var htmlTemp ="";
+		    	  $.each(obj.informList,function(index,val){
+		    		  var createTime = new Date(val.createTime.time);
+		    		  createTime = changeDate(createTime);
+		    		  var key = val.id;
+		    		  var value = val.content;
+		    		  infoMap.set(key,value);
+		    		  htmlTemp += "<li><span></span>";
+		    		  htmlTemp += "<a href=\"javascript:getInfoByid('" + val.id + "');\" class='ellipsis'>" + val.title + "</a>";
+		    		  htmlTemp += "<label>" + createTime + "</label></li>";
+		    	  });
+		    	  $("#Inform_ul").append(htmlTemp);
+		      }
+		});
+    }
+    
+    function winnersInfo(){
+    	$.ajax({
+		      type:"post",
+		      url: "getWinnersInfo.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  var len = obj.winnersList.length;
+		    	  if(len > 6){
+		    		  $("#Winners_div").attr("style","width:288px;height:191px;overflow-y:scroll;");
+		    	  }
+		    	  var htmlTemp ="";
+		    	  $.each(obj.winnersList,function(index,val){
+		    		  var createTime = new Date(val.createTime.time);
+		    		  createTime = changeDate(createTime);
+		    		  var key = val.id;
+		    		  var value = val.content + "-----" + val.winnerName;
+		    		  infoMap.set(key,value);
+		    		  htmlTemp += "<li><span></span>";
+		    		  htmlTemp += "<a href=\"javascript:getInfoByid('" + val.id + "');\" class='ellipsis'>" + val.title + "</a>";
+		    		  htmlTemp += "<label>" + createTime + "</label></li>";
+		    	  });
+		    	  $("#Winners_ul").append(htmlTemp);
+		      }
+		});
+    }
+    
+    function downloadFile(){
+    	$.ajax({
+		      type:"post",
+		      url: "downloadFile.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  var innerList = obj.downloadFile[0];
+		    	  var publicList = obj.downloadFile[1];
+		    	  //console.log(innerList);
+		    	  var innerhtml ="";
+		    	  $.each(innerList,function(index,val){
+		    		  innerhtml += "<li>";
+		    		  innerhtml += "<span></span>";
+		    		  innerhtml += "<a href='download.jsp?uploadName=" + val.uploadName + "' class='ellipsis'>&nbsp;" + val.showName + "</a>";
+		    		  innerhtml += "</li>";
+		    	  });
+		    	  $("#innerAttached").append(innerhtml);
+		    	  var publcihtml ="";
+		    	  $.each(publicList,function(index,val){
+		    		  publcihtml += "<li>";
+		    		  publcihtml += "<span></span>";
+		    		  publcihtml += "<a href='download.jsp?uploadName=" + val.uploadName + "' class='ellipsis'>&nbsp;" + val.showName + "</a>";
+		    		  publcihtml += "</li>";
+		    	  });
+		    	  $("#publicAttached").append(publcihtml);
+		    	  
+		      }
+		});
+    }
+    
+    function changeDate(a){
+    	var date = a.toLocaleString();
+		date = date.split(' ');
+		var dateTime = date[0];
+		dateTime = dateTime.split('/');
+		var dateTime1 = dateTime[1] + "-" + dateTime[2];
+		return dateTime1;
+    }
+    
+    function getInfoByid(id){
+   	    $("#test").show();
+   	    $("#log_window").show();
+   	    //console.log(infoMap);
+   	 	$("#showInfo").html("详细信息：" + infoMap.get(id));
+    }
+
+   function chart0(){
+	   var income = new Array;
+	   var total = new Array;
+	   $.ajax({
+		      type:"post",
+		      url: "getchart0Info.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  $.each(obj.Totallist,function(index,val){
+		    		  income[index] = val.income;
+		    		  total[index] = val.total;
+		    	  });
+		   	   	  var option0 = {
+		   	            tooltip : {
+		   	                trigger: 'item',
+		   	                formatter: "{a} <br/>{b} : {c} ({d}%)"
+		   	            },
+		   	            legend: {
+		   	                orient : 'vertical',
+		   	                x : 'left',
+		   	                data:[income[0],income[1],income[2],income[3],income[4]],
+		   	                show:true
+		   	            },
+		   	            toolbox: {
+		   	                show : false,
+		   	                feature : {
+		   	                    mark : {show: true},
+		   	                    dataView : {show: true, readOnly: false},
+		   	                    magicType : {
+		   	                        show: true, 
+		   	                        type: ['pie', 'funnel'],
+		   	                        option: {
+		   	                            funnel: {
+		   	                                x: '25%',
+		   	                                width: '50%',
+		   	                                funnelAlign: 'center',
+		   	                                max: 1548
+		   	                            }
+		   	                        }
+		   	                    },
+		   	                    restore : {show: true},
+		   	                    saveAsImage : {show: true}
+		   	                }
+		   	            },
+		   	            calculable : true,
+		   	            series : [
+		   	                {
+		   	                    name:'访问来源 : ',
+		   	                    type:'pie',
+		   	                    radius : ['50%', '70%'],
+		   	                    itemStyle : {
+		   	                        normal : {
+		   	                            label : {
+		   	                                show : false
+		   	                            },
+		   	                            labelLine : {
+		   	                                show : false
+		   	                            }
+		   	                        },
+		   	                        emphasis : {
+		   	                            label : {
+		   	                                show : true,
+		   	                                position : 'center',
+		   	                                textStyle : {
+		   	                                    fontSize : '25',
+		   	                                    fontWeight : 'bold'
+		   	                                }
+		   	                            }
+		   	                        }
+		   	                    },
+		   	                    data:[
+		   	                        {value:total[0], name:income[0]},
+		   	                        {value:total[1], name:income[1]},
+		   	                        {value:total[2], name:income[2]},
+		   	                        {value:total[3], name:income[3]},
+		   	                        {value:total[4], name:income[4]}
+		   	                    ]
+		   	                }
+		   	            ]
+		   	        };
+		   			
+		   	      var myChart0 = echarts.init(document.getElementById('chart0'));
+		   	      myChart0.setOption(option0);
+		    	  
+		      }
+		      
+	   });
+	   
+   }
+   
+   function chart1(){
+	   var income = new Array;
+	   var total = new Array;
+	   var first = new Array;
+	   var second = new Array;
+	   var third = new Array;
+	   var fouth = new Array;
+	   $.ajax({
+		      type:"post",
+		      url: "getchart0Info.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  $.each(obj.Totallist,function(index,val){
+		    		  income[index] = val.income;
+		    		  total[index] = val.total;
+		    		  first[index] = val.firstQuarter;
+		    		  second[index] = val.secondQuarter;
+		    		  third[index] = val.thirdQuarter;
+		    		  fouth[index] = val.fourthQuarter;
+		    	  });
+		    	  var option1 = {
+		  	            tooltip : {
+		  	                trigger: 'axis'
+		  	            },
+		  	            legend: {
+		  	                data:[income[0],income[1],income[2],income[3],income[4]],
+		  	                show:true
+		  	            },
+		  	            toolbox: {
+		  	                show : false,
+		  	                feature : {
+		  	                    mark : {show: true},
+		  	                    dataView : {show: true, readOnly: false},
+		  	                    magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+		  	                    restore : {show: true},
+		  	                    saveAsImage : {show: true}
+		  	                }
+		  	            },
+		  	            calculable : true,
+		  	            xAxis : [
+		  	                {
+		  	                    type : 'category',
+		  	                    boundaryGap : false,
+		  	                    data : ['第一季度','第二季度','第三季度','第四季度']
+		  	                }
+		  	            ],
+		  	            yAxis : [
+		  	                {
+		  	                    type : 'value'
+		  	                }
+		  	            ],
+		  	            series : [
+		  	                {
+		  	                    name:income[0],
+		  	                    type:'line',
+		  	                    stack: '总量',
+		  	                    data:[parseInt(first[0]), parseInt(second[0]), parseInt(third[0]), parseInt(fouth[0])]
+		  	                },
+		  	                {
+		  	                    name:income[1],
+		  	                    type:'line',
+		  	                    stack: '总量',
+		  	                    data:[parseInt(first[1]), parseInt(second[1]), parseInt(third[1]),parseInt(fouth[1])]
+		  	                },
+		  	                {
+		  	                    name:income[2],
+		  	                    type:'line',
+		  	                    stack: '总量',
+		  	                    data:[parseInt(first[2]), parseInt(second[2]),  parseInt(third[2]), parseInt(fouth[2])]
+		  	                },
+		  	                {
+		  	                    name:income[3],
+		  	                    type:'line',
+		  	                    stack: '总量',
+		  	                    data:[parseInt(first[3]), parseInt(second[3]),  parseInt(third[3]), parseInt(fouth[3])]
+		  	                },
+		  	                {
+		  	                    name:income[4],
+		  	                    type:'line',
+		  	                    stack: '总量',
+		  	                    data:[parseInt(first[4]), parseInt(second[4]),  parseInt(third[4]), parseInt(fouth[4])]
+		  	                }
+		  	            ]
+		  	        };
+		  	        var myChart1 = echarts.init(document.getElementById('chart1'));
+		  	        myChart1.setOption(option1);
+		    	  
+		      }
+	   });
+	   
+   }
+   
+   function chart2(){
+	   var whereabouts = new Array;
+	   var money = new Array;
+	   $.ajax({
+		      type:"post",
+		      url: "getchart2Info.action",
+		      data: {
+		      },
+		      //traditional: true,
+		      dataType: "json",
+		      success: function(obj){
+		    	  $.each(obj.Expenditurelist,function(index,val){
+		    		  whereabouts[index] = val.whereabouts;
+		    		  money[index] = val.money;
+		    	  });
+		    	  var option2 = {
+		  	            tooltip : {
+		  	                trigger: 'axis'
+		  	            },
+		  	            legend: {
+		  	                data:['支出额'],
+		  	                show:false
+		  	            },
+		  	            toolbox: {
+		  	                show : true,
+		  	                feature : {
+		  	                    mark : {show: true},
+		  	                    dataView : {show: true, readOnly: false},
+		  	                    magicType : {show: true, type: ['line', 'bar']},
+		  	                    restore : {show: true},
+		  	                    saveAsImage : {show: true}
+		  	                }
+		  	            },
+		  	            calculable : true,
+		  	            xAxis : [
+		  	                {
+		  	                    type : 'category',
+		  	                    data : [whereabouts[0],whereabouts[1],whereabouts[2],whereabouts[3],whereabouts[4],whereabouts[5],whereabouts[6]]
+		  	                }
+		  	            ],
+		  	            yAxis : [
+		  	                {
+		  	                    type : 'value'
+		  	                }
+		  	            ],
+		  	            series : [
+		  	                {
+		  	                    name:'支出额',
+		  	                    type:'bar',
+		  	                    data:[parseInt(money[0]), parseInt(money[1]), parseInt(money[2]), parseInt(money[3]), parseInt(money[4]), parseInt(money[5]),parseInt(money[6])],
+		  	                    markPoint : {
+		  	                        data : [
+		  	                            {type : 'max', name: '最大值'},
+		  	                            {type : 'min', name: '最小值'}
+		  	                        ]
+		  	                    },
+		  	                    markLine : {
+		  	                        data : [
+		  	                            {type : 'average', name: '平均值'}
+		  	                        ]
+		  	                    }
+		  	                }
+		  	            ]
+		  	        };
+		  	        var myChart2 = echarts.init(document.getElementById('chart2'));
+		  	        myChart2.setOption(option2);
+		      }
+		 });
+	   
+   }
+   
+   function showClick(){
+	 //我的待办点击事件
+       $(document).on('click','.work-item.green',function(event){
+       	$(".todo-panel").hide();
+           var width = (2 * $(this).width()) + 10;
+           $("#Backlog").width(width -2).css({top:$(this).offset().top,left:$(this).offset().left}).show();
+           event.stopPropagation();
+       });  
+       $(document).on('click','.work-item.red',function(event){
+       	$(".todo-panel").hide();
+           var width = (2 * $(this).width()) + 10;
+           $("#Warning").width(width -2).css({top:$(this).offset().top,left:$(this).offset().left}).show();
+           event.stopPropagation();
+       });
+       $(document).on('click','.work-item.yellow',function(event){
+       	$(".todo-panel").hide();
+           var width = (2 * $(this).width()) + 10;
+           $("#Mail").width(width -2).css({top:$(this).offset().top,left:$(this).offset().left}).show();
+           event.stopPropagation();
+       });
+       $(document).on('click','.work-item.gray',function(event){
+       	$(".todo-panel").hide();
+           var width = (2 * $(this).width()) + 10;
+           $("#Partner").width(width -2).css({top:$(this).offset().top,left:$(this).offset().left}).show();
+           event.stopPropagation();
+       });
+       $(".todo-panel").click(function(){
+            event.stopPropagation();
+       });    
+       $(document).click(function(){
+           $(".todo-panel").hide();
+       });
+   }
+
+        
+    //公开附件tab事件处理
+    $(".attached-tab").on("click","a",function(){
+        $(this).closest(".attached-tab").find("a").removeClass("current");
+        $(this).addClass("current");
+        $(this).closest(".attached").find("ul").addClass("hide");   
+        $(this).closest(".attached").find("ul." + $(this).attr("attached")).removeClass("hide");    
+    })
+     
+    //详细内容关闭显示
+	function cancel_shield(){
+	    var s = document.getElementById("test");
+	    s.style.display = "none";
+	    
+	    var l = document.getElementById("log_window");
+	    l.style.display = "none";
+	}
+    </script>
+</body> 
+</html>

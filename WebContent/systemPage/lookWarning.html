@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div id="butList" class="opt-buttons" style="padding-top:10px;">
+		<a href="warningList.html" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a id="removeHref" href="javascript:removeButton()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">消除预警</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">id</td>
+					<td  id="ID" class="kv-content"></td>
+					<td class="kv-label">预警级别</td>
+					<td id="level" class="kv-content"></td>
+				</tr>
+				<tr>
+					<td class="kv-label">预警类型</td>
+					<td id="type" class="kv-content"></td>
+					<td class="kv-label">创建时间</td>
+					<td id="createTime" class="kv-content"></td>
+				</tr>
+				<tr>
+					<td class="kv-label">内容</td>
+					<td id="content" class="kv-content"  colspan="5"></td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    var id;
+    var str = new Array;
+    $(function(){
+    	$("#removeHref").hide();
+    	id = GetUID("id");
+    	str.push(id);
+    	$("#ID").html(id);
+    	addInfo();
+    }); 
+    
+    function addInfo(){
+    	$.ajax({
+		      type:"post",
+		      url: "getWarningById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  var warning = result.warning;
+		    	  var level = warning.level;
+		    	  if(warning.level != "0"){
+		    		  $("#removeHref").show();
+		    	  }else{
+		    		  level = "已消除预警";
+		    	  }
+		    	  var createTime = new Date(warning.createTime.time);
+	    		  createTime = changeDate(createTime);
+		    	  $("#type").html(warning.type);
+		    	  $("#level").html(level);
+		    	  $("#content").html(warning.content);
+		    	  $("#createTime").html(createTime);
+		      }
+		});
+    }
+    
+    function removeButton(){
+		$.ajax({
+		      type:"post",
+		      url: "updateLevel.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  window.location = "warningList.html";
+		      }
+		});
+    }
+    
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+    
+    function changeDate(a){
+    	var date = a.toLocaleString();
+		date = date.split(' ');
+		var dateTime = date[0];
+		dateTime = dateTime.split('/');
+		var dateTime1 = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2];
+		return dateTime1;
+    }
+    
+    function isEmpty(message){
+		return  message=="" || message==null || message==undefined ;
+	}
+</script>
+</html>
+    

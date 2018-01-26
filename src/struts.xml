@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="demo1" namespace="/" extends="struts-default,json-default">
+    	<!-- class中useraction 会找到bean1中id是的userAction -->
+    	<!-- 登录操作 -->
+    	<action name="check" class="userAction" method="check">
+    		<result name="success">login.jsp</result>
+    	</action>
+    	<action name="userActionLogout" class="userAction" method="logout">
+    		<result name="success">main.jsp</result>
+    	</action>
+    	<action name="getEmailCode" class="userAction" method="getEmailCode">
+    		<result name="success">modify.jsp</result>
+    	</action>
+    	<action name="updatePassword" class="userAction" method="updatePassword">
+    		<result name="success">modify.jsp</result>
+    	</action>
+    	<!-- 系统管理里页面操作 -->
+    	<action name="getAdminList" class="systemAction" method="getAdminList">
+    		<result name="success">adminList.html</result>
+    	</action>
+    	<action name="getAdminByIdOrName" class="systemAction" method="getAdminByIdOrName">
+    		<result name="success">adminList.html</result>
+    	</action>
+    	<action name="getAdminById" class="systemAction" method="getAdminById">
+    		<result name="success">updateAdmin.html</result>
+    	</action>
+    	<action name="updateAdminInfo" class="systemAction" method="updateAdminInfo">
+    		<result name="success">updateAdmin.html</result>
+    	</action>
+    	<action name="delAdminInfo" class="systemAction" method="delAdminInfo">
+    		<result name="success">adminList.html</result>
+    	</action>
+    	<action name="getAuthorityById" class="systemAction" method="getAuthorityById">
+    		<result name="success">updateAuthority.html</result>
+    	</action>
+    	<action name="updateAuthority" class="systemAction" method="updateAuthority">
+    		<result name="success">updateAuthority.html</result>
+    	</action>
+    	<action name="exportAdmin" class="systemAction" method="exportAdmin">
+    		<result name="success">adminList.html</result>
+    	</action>
+    	<action name="addAdmin" class="systemAction" method="addAdmin">
+    		<result name="success">addAdmin.html</result>
+    	</action>
+    	<action name="getPendingList" class="systemAction" method="getPendingList">
+    		<result name="success">pendingList.html</result>
+    	</action>
+    	<action name="getPendingByInput" class="systemAction" method="getPendingByInput">
+    		<result name="success">pendingList.html</result>
+    	</action>
+    	<action name="delPendingInfo" class="systemAction" method="delPendingInfo">
+    		<result name="success">pendingList.html</result>
+    	</action>
+    	<action name="getPendingById" class="systemAction" method="getPendingById">
+    		<result name="success">lookPendingList.html</result>
+    	</action>
+    	<action name="updateOverTime" class="systemAction" method="updateOverTime">
+    		<result name="success">lookPendingList.html</result>
+    	</action>
+    	<action name="updateState" class="systemAction" method="updateState">
+    		<result name="success">lookPendingList.html</result>
+    	</action>
+    	<action name="getWarningList" class="systemAction" method="getWarningList">
+    		<result name="success">warningList.html</result>
+    	</action>
+    	<action name="getWarningByInput" class="systemAction" method="getWarningByInput">
+    		<result name="success">warningList.html</result>
+    	</action>
+    	<action name="delWarningInfo" class="systemAction" method="delWarningInfo">
+    		<result name="success">warningList.html</result>
+    	</action>
+    	<action name="getWarningById" class="systemAction" method="getWarningById">
+    		<result name="success">lookWarningList.html</result>
+    	</action>
+    	<action name="updateLevel" class="systemAction" method="updateLevel">
+    		<result name="success">lookWarningList.html</result>
+    	</action>
+    	<action name="getMailList" class="systemAction" method="getMailList">
+    		<result name="success">mailList.html</result>
+    	</action>
+    	<action name="getMailByInput" class="systemAction" method="getMailByInput">
+    		<result name="success">mailList.html</result>
+    	</action>
+    	<action name="delMailInfo" class="systemAction" method="delMailInfo">
+    		<result name="success">mailList.html</result>
+    	</action>
+    	<action name="getMailById" class="systemAction" method="getMailById">
+    		<result name="success">lookMailList.html</result>
+    	</action>
+    	<action name="getPartnerList" class="systemAction" method="getPartnerList">
+    		<result name="success">partnerList.html</result>
+    	</action>
+    	<action name="delPartnerInfo" class="systemAction" method="delPartnerInfo">
+    		<result name="success">partnerList.html</result>
+    	</action>
+    	<action name="getPartnerById" class="systemAction" method="getPartnerById">
+    		<result name="success">updatePartner.html</result>
+    	</action>
+    	<action name="updatePartnerInfo" class="systemAction" method="updatePartnerInfo">
+    		<result name="success">updatePartner.html</result>
+    	</action>
+    	<action name="addPartnerInfo" class="systemAction" method="addPartnerInfo">
+    		<result name="success">addPartner.html</result>
+    	</action>
+    	<action name="getInformList" class="systemAction" method="getInformList">
+    		<result name="success">informList.html</result>
+    	</action>
+    	<action name="getInformByInput" class="systemAction" method="getInformByInput">
+    		<result name="success">informList.html</result>
+    	</action>
+    	<action name="delInformInfo" class="systemAction" method="delInformInfo">
+    		<result name="success">informList.html</result>
+    	</action>
+    	<action name="getWinnersList" class="systemAction" method="getWinnersList">
+    		<result name="success">winnersList.html</result>
+    	</action>
+    	<action name="innerFile" class="systemAction" method="innerFile">
+    		<result name="success">../systemPage/adminList.html</result>
+    	</action>
+    	<action name="getFileList" class="systemAction" method="getFileList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getFileByshowName" class="systemAction" method="getFileByshowName">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateFile" class="systemAction" method="updateFile">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delFile" class="systemAction" method="delFile">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addFile" class="systemAction" method="addFile">
+    		<result name="success">innerFileList.html</result>
+    		<result name="none">publicFileList.html</result>
+    	</action>
+    	<!-- 权限判断操作 -->
+    	<action name="getJSPbyUsername" class="authorityAction" method="getJSPbyUsername">
+    		<result name="success">login.jsp</result>
+    	</action>
+    	<action name="getJSP" class="authorityAction" method="getJSP">
+    		<result name="success">*</result>
+    	</action>
+    	<!-- 首页显示操作 -->
+    	<action name="getPendingEvent" class="mainAction" method="getPendingEvent">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getWarningInfo" class="mainAction" method="getWarningInfo">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getMailInfo" class="mainAction" method="getMailInfo">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getPartnerInfo" class="financeAction" method="getPartnerInfo">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="downloadFile" class="mainAction" method="downloadFile">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getInformInfo" class="mainAction" method="getInformInfo">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getWinnersInfo" class="mainAction" method="getWinnersInfo">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getchart0Info" class="financeAction" method="getchart0Info">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getchart1Info" class="financeAction" method="getchart1Info">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	<action name="getchart2Info" class="financeAction" method="getchart2Info">
+    		<result name="success">workbench.html</result>
+    	</action>
+    	
+    	<!-- 员工管理操作 -->
+    	<action name="getEmployeeList" class="employeeAction" method="getEmployeeList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getEmployeeByInput" class="employeeAction" method="getEmployeeByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getEmployeeById" class="employeeAction" method="getEmployeeById">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateEmployee" class="employeeAction" method="updateEmployee">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delEmployee" class="employeeAction" method="delEmployee">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addEmployee" class="employeeAction" method="addEmployee">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getDepartmentList" class="employeeAction" method="getDepartmentList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getDepartmentByInput" class="employeeAction" method="getEmployeeByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getDepartmentById" class="employeeAction" method="getDepartmentById">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateDepartment" class="employeeAction" method="updateDepartment">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delDepartment" class="employeeAction" method="delDepartment">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addDepartment" class="employeeAction" method="addDepartment">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getInfo" class="employeeAction" method="getInfo">
+    		<result name="success"></result>
+    	</action>
+    	<action name="regBusinessTrip" class="employeeAction" method="regBusinessTrip">
+    		<result name="success"></result>
+    	</action>
+    	<action name="regLeave" class="employeeAction" method="regLeave">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getBusinessTripList" class="employeeAction" method="getBusinessTripList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getBusinessTripByInput" class="employeeAction" method="getBusinessTripByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="approvalBusinessTrip" class="employeeAction" method="approvalBusinessTrip">
+    		<result name="success"></result>
+    	</action>
+    	<action name="cancelRegBT" class="employeeAction" method="cancelRegBT">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delBT" class="employeeAction" method="delBT">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getLeaveList" class="employeeAction" method="getLeaveList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getLeaveByInput" class="employeeAction" method="getLeaveByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="approvalLeave" class="employeeAction" method="approvalLeave">
+    		<result name="success"></result>
+    	</action>
+    	<action name="cancelRegLeave" class="employeeAction" method="cancelRegLeave">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delLeave" class="employeeAction" method="delLeave">
+    		<result name="success"></result>
+    	</action>
+    	
+    	<action name="getEmployeeList2" class="employeeAction" method="getEmployeeList2">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getEmployeeByInput2" class="employeeAction" method="getEmployeeByInput2">
+    		<result name="success"></result>
+    	</action>
+    	
+    	
+    	<!-- 菜单管理操作 -->
+    	<action name="fileImport" class="menuAction" method="fileImport">
+    		<result name="success"></result>
+    	</action>
+    </package>
+</struts>

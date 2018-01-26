@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.bean.TotalInfo" table="tb_total_info">
+		<id name="id" column="id"></id>
+		<property name="income" column="income"></property>
+		<property name="firstQuarter" column="firstQuarter"></property>
+		<property name="secondQuarter" column="secondQuarter"></property>
+		<property name="thirdQuarter" column="thirdQuarter"></property>
+		<property name="fourthQuarter" column="fourthQuarter"></property>
+		<property name="total" column="total"></property>
+		<property name="average" column="average"></property>
+	</class>
+</hibernate-mapping>

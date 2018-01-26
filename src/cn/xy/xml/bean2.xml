@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	
+	<!-- 创建service对象 -->
+	<bean id="userService" class="cn.xy.service.UserServiceImpl">
+		<!-- 注入dao 
+			 接口 = 实现类对象
+		-->
+		<property name="userDao" ref="userDaoImpl"></property>
+	</bean>
+	
+	<!-- 创建实现类对象 -->
+	<bean id="userDaoImpl" class="cn.xy.dao.UserDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	
+	<!-- 创建service对象 -->
+	<bean id="authorityService" class="cn.xy.service.AuthorityServiceImpl">
+		<!-- 注入dao 
+			 接口 = 实现类对象
+		-->
+		<property name="authorityDao" ref="authorityDaoImpl"></property>
+	</bean>
+	
+	<!-- 创建实现类对象 -->
+	<bean id="authorityDaoImpl" class="cn.xy.dao.AuthorityDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<!-- 菜单 -->
+	<bean id="mainService" class="cn.xy.service.MainServiceImpl">
+		<property name="mainDao" ref="mainDaoImpl"></property>
+	</bean>
+	<bean id="mainDaoImpl" class="cn.xy.dao.MainDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="systemService" class="cn.xy.service.SystemServiceImpl">
+		<property name="systemDao" ref="systemDaoImpl"></property>
+	</bean>
+	<bean id="systemDaoImpl" class="cn.xy.dao.SystemDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="employeeService" class="cn.xy.service.EmployeeServiceImpl">
+		<property name="employeeDao" ref="employeeDaoImpl"></property>
+	</bean>
+	<bean id="employeeDaoImpl" class="cn.xy.dao.EmployeeDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="menuService" class="cn.xy.service.MenuServiceImpl">
+		<property name="menuDao" ref="menuDaoImpl"></property>
+	</bean>
+	<bean id="menuDaoImpl" class="cn.xy.dao.MenuDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="roomService" class="cn.xy.service.RoomServiceImpl">
+		<property name="roomDao" ref="roomDaoImpl"></property>
+	</bean>
+	<bean id="roomDaoImpl" class="cn.xy.dao.RoomDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="memberService" class="cn.xy.service.MemberServiceImpl">
+		<property name="memberDao" ref="memberDaoImpl"></property>
+	</bean>
+	<bean id="memberDaoImpl" class="cn.xy.dao.MemberDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="warehouseService" class="cn.xy.service.WarehouseServiceImpl">
+		<property name="warehouseDao" ref="warehouseDaoImpl"></property>
+	</bean>
+	<bean id="warehouseDaoImpl" class="cn.xy.dao.WarehouseDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="financeService" class="cn.xy.service.FinanceServiceImpl">
+		<property name="financeDao" ref="financeDaoImpl"></property>
+	</bean>
+	<bean id="financeDaoImpl" class="cn.xy.dao.FinanceDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	<bean id="hotelService" class="cn.xy.service.HotelServiceImpl">
+		<property name="hotelDao" ref="hotelDaoImpl"></property>
+	</bean>
+	<bean id="hotelDaoImpl" class="cn.xy.dao.HotelDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	
+	
+	<!-- 创建hibernateTemplate对象 -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	
+	
+</beans>

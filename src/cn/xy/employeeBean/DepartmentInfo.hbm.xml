@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.employeeBean.DepartmentInfo" table="tb_Department_info">
+		<id name="id" column="id"></id>
+		<property name="dName" column="dName"></property>
+		<property name="dHead" column="dHead"></property>
+		<property name="dInfo" column="dInfo"></property>
+		<property name="dNum" column="dNum"></property>
+		<property name="dMapping" column="dMapping"></property>
+	</class>
+</hibernate-mapping>

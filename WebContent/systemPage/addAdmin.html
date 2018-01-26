@@ -1,0 +1,265 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <link href="css/system.css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="adminList.html" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">id</td>
+					<td  id="adminID" class="kv-content"  colspan="5"></td>
+				</tr>
+				<tr>
+					<td class="kv-label">用户名</td>
+					<td class="kv-content" colspan="5">
+						<input id="username" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+						<font id='nameErr' color='#FF0000'></font>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">密码</td>
+					<td class="kv-content" colspan="5">
+						<input id="password" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+						<font id='passwordErr' color='#FF0000'></font>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">邮箱</td>
+					<td class="kv-content" colspan="5">
+						<input id="email" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+						<font id='emailErr' color='#FF0000'></font>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">手机</td>
+					<td class="kv-content" colspan="5">
+						<input id="phone" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+						<font id='phoneErr' color='#FF0000'></font>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+      <div style="padding-top:20px">
+      	<font size="5">权限设置</font>
+      </div>
+      <div style="padding-top:20px">
+      	<label class="demo--label">
+		 	<input  id="mainCheck" checked="true" onclick="return false" class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">首页</font>
+		</label>
+		</br>
+		<label class="demo--label" style="padding-top:15px">
+		 	<input  id="systemCheck" onclick="return false;" class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">系统管理</font>
+		</label>
+		<label class="demo--label">
+		 	<input  id="employeeCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">员工管理</font>
+		</label>
+		<label class="demo--label">
+		 	<input  id="menuCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">菜单管理</font>
+		</label>
+		<label class="demo--label">
+		 	<input  id="roomCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">房间管理</font>
+		</label>
+		</br>
+		<label class="demo--label" style="padding-top:15px">
+		 	<input  id="memberCheck"  class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">会员管理</font>
+		</label>
+		<label class="demo--label">
+		 	<input  id="warehouseCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">仓库管理</font>
+		</label>
+		<label class="demo--label">
+		 	<input  id="financeCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">财务管理</font>
+		</label>
+		<label class="demo--label">
+		 	<input  id="hotelCheck"  class="demo--radio" type="checkbox" name="demo-checkbox2">
+			<span class="demo--checkbox demo--radioInput"></span>
+			<font size="3">酒店管理</font>
+		</label>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/system.js"></script>
+<script type="text/javascript">
+	var power;
+	$(function(){
+		power = GetUID("power");
+		showBoxInfo();
+	}); 
+	
+	function showBoxInfo(){
+		if(power == "super"){
+			$("#systemCheck").attr("checked","true");
+			$("#employeeCheck").attr("checked","true");
+			$("#menuCheck").attr("checked","true");
+			$("#roomCheck").attr("checked","true");
+			$("#memberCheck").attr("checked","true");
+			$("#warehouseCheck").attr("checked","true");
+			$("#financeCheck").attr("checked","true");
+			$("#hotelCheck").attr("checked","true");
+		}
+	}
+	
+    function save(){
+		var str = new Array;//用户信息
+		var username = $("#username").val()
+		str.push(username);
+		var password = $("#password").val()
+		str.push(password);
+		var email = $("#email").val()
+		str.push(email);
+		var phone  = $("#phone").val()
+		str.push(phone);
+		str.push(power);
+		
+		var authorityInfo = new Array();
+		authorityInfo = addInfo(authorityInfo);//权限信息
+		
+		if(isEmpty(username)){
+			$("#nameErr").html("用户名不能为空");
+			return;
+		}else{
+			$("#nameErr").html("");
+			if(username.length < 6 || username.length > 10){
+				$("#nameErr").html("用户名不能小于6个字符或者大于10字字符");
+				return;
+			}else{
+				$("#nameErr").html("");
+			}
+		}
+		if(isEmpty(password)){
+			$("#passwordErr").html("密码不能为空");
+			return;
+		}else{
+			$("#passwordErr").html("");
+			if(password.length < 6 || password.length > 12){
+				$("#passwordErr").html("密码不能小于6个字符或者大于12字字符");
+				return;
+			}else{
+				$("#passwordErr").html("");
+				var regNumber = /\d+/; //验证0-9的任意数字最少出现1次。
+				var regString = /[a-zA-Z]+/; //验证大小写26个字母任意字母最少出现1次。
+				if(regNumber.test(password) && regString.test(password)){
+					$("#passwordErr").html("");
+				}else{
+					$("#passwordErr").html("密码必须包含数字和字母");
+					return;
+				}
+			}
+		}
+		if(isEmpty(email)){
+			$("#emailErr").html("邮箱不能为空");
+			return;
+		}else{
+			$("#emailErr").html("");
+			var regEmail =/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;//判断邮箱格式
+			if(regEmail.test(email)){
+				$("#emailErr").html("");
+			}else{
+				$("#emailErr").html("邮箱格式错误，请重新输入");
+				return;
+			}
+		}
+		if(isEmpty(phone)){
+			$("#phoneErr").html("手机不能为空");
+			return;
+		}else{
+			$("#phoneErr").html("");
+			var regPhone = /^(1\d{10})$/;
+			if(regPhone.test(phone)){
+				$("#phoneErr").html("");
+			}else{
+				$("#phoneErr").html("输入手机格式有误，请重新输入");
+				return;
+			}
+		}
+		var flag;
+		var info = new Array;//查询用户信息
+		info.push(power);
+		info.push("");
+		info.push(username);
+		$.ajax({
+		      type:"post",
+		      url: "getAdminByIdOrName.action",
+		      data: {
+		    	  "str":info
+		      },
+		      dataType: "json",
+		      async: false,
+		      traditional: true,
+		      success: function(result){
+		    	  if(result.admin != "0"){
+		    		  $("#nameErr").html("用户名已存在,请重新输入！");
+		    		  flag = "1";
+		    	  }else{
+		    		  flag = "0";
+		    	  }
+		      }
+		 });
+		if(flag == "1"){
+			return;
+		}
+		$.ajax({
+		      type:"post",
+		      url: "addAdmin.action",
+		      data: {
+		    	  "str":str,
+		    	  "info":authorityInfo
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  if(power == "admin"){
+		    		  window.location = "adminList.html";
+		    	  }
+		    	  if(power == "super"){
+		    		  window.location = "superAdminList.html";
+		    	  }
+		      }
+		});
+    }
+    
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+    
+    function isEmpty(message){
+		return  message=="" || message==null || message==undefined ;
+	}
+    
+</script>
+</html>
+    

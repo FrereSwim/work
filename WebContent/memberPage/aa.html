@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="button" value="Click me" onclick="daochu()" />
+	<a href="../page/download.jsp?fileName=2222.txt">aa</a>
+	<a href="../page/upload.jsp">aa</a>
+	 <form action="../page/upload.jsp" method="post" enctype="multipart/form-data">
+	 	<input type="text" id="name" name="name">
+    	<!-- 请选择文件：<input type="file" name="pic"> --><input type="submit" value="上传">
+    </form>
+    <div id="di"></div>
+</body>
+
+<script type="text/javascript" src="../custom/jquery.min.js"></script>
+<script type="text/javascript">
+	function daochu(){
+		window.location.href="aa.action"; 
+	}
+	
+	$(function(){
+		var result = GetUID("result");
+		$("#di").html(result);
+	});
+	
+	 function GetUID(name){
+	        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	        var r = window.location.search.substr(1).match(reg);
+	        if(r!=null)return  unescape(r[2]); return null;
+	   	}
+	 
+
+</script>
+</html>

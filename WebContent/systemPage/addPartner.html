@@ -1,0 +1,157 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="partnerList.html" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<!-- <tr>
+					<td class="kv-label">id</td>
+					<td  id="ID" class="kv-content"  colspan="5"></td>
+				</tr> -->
+				<tr>
+					<td class="kv-label">合作商</td>
+					<td class="kv-content" colspan="5">
+						<input id="partnerName"  class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">合作金额</td>
+					<td class="kv-content" colspan="5">
+						<input id="money" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">类型</td>
+					<td class="kv-content" colspan="5">
+						<input id="type" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">开始时间</td>
+					<td class="kv-content" colspan="5">
+						<!-- <input id="startTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input> -->
+						<input id="startTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">合作时长</td>
+					<td class="kv-content" colspan="5">
+						<input id="cooperationTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	var date = new Date();
+    	var d = date.getFullYear() + "-"; + (date.getMonth()+1) + "-" + date.getDate();
+    	if((date.getMonth()+1) < 10){
+    		d += "0" +  (date.getMonth()+1) + "-";
+    	}else{
+    		d += (date.getMonth()+1) + "-";
+    	}
+    	if(date.getDate() < 10){
+    		d += "0" + date.getDate();
+    	}else{
+    		d += date.getDate();
+    	}
+    	$("#startTime").textbox('setValue',d);
+    }); 
+    
+    function formatter(date){
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+        return year + "-" + month + "-" + day;
+    }
+
+    function parser(s){
+        var t = Date.parse(s);
+        if (!isNaN(t)){
+            return new Date(t);
+        } else {
+            return new Date(s + ":00:00");
+        }
+    }
+    
+    function save(){
+		var str = new Array;
+		str.push("id");
+		var partnerName = $("#partnerName").val();
+		if(!isEmpty(partnerName)){
+			str.push(partnerName);
+			$("#partnerName").textbox('textbox').css('background','');
+		}else{
+			$("#partnerName").textbox('textbox').css('background','#ffdfdf');
+			return;
+		}
+		var money = $("#money").val();
+		if(!isEmpty(money)){
+			str.push(money);
+			$("#money").textbox('textbox').css('background','');
+		}else{
+			$("#money").textbox('textbox').css('background','#ffdfdf');
+			return;
+		}
+		var type = $("#type").val();
+		if(!isEmpty(type)){
+			str.push(type);
+			$("#type").textbox('textbox').css('background','');
+		}else{
+			$("#type").textbox('textbox').css('background','#ffdfdf');
+			return;
+		}
+		var cooperationTime = $("#cooperationTime").val();
+		if(!isEmpty(cooperationTime)){
+			str.push(cooperationTime);
+			$("#cooperationTime").textbox('textbox').css('background','');
+		}else{
+			$("#cooperationTime").textbox('textbox').css('background','#ffdfdf');
+			return;
+		}
+		var startTime = $("#startTime").datetimebox("getValue");
+		str.push(startTime);
+		
+		$.ajax({
+		      type:"post",
+		      url: "addPartnerInfo.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  window.location = "partnerList.html";
+		      }
+		});
+    }
+    
+    function isEmpty(message){
+		return  message=="" || message==null || message==undefined ;
+	}
+    
+    
+</script>
+</html>
+    

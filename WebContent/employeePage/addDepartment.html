@@ -1,0 +1,96 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="javascript:back()" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<!-- <tr>
+					<td class="kv-label">id</td>
+					<td  id="ID" class="kv-content"  colspan="5"></td>
+				</tr> -->
+				<tr>
+					<td class="kv-label">部门名</td>
+					<td class="kv-content" colspan="5">
+						<input id="dName" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">负责人</td>
+					<td class="kv-content" colspan="5">
+						<input id="dHead" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">部门信息</td>
+					<td class="kv-content" colspan="5">
+						<input id="dInfo" class="easyui-textbox" data-options="multiline:true" type="text" name="code" style="width:960px;height:100px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">简称</td>
+					<td class="kv-content" colspan="3">
+						<input id="dMapping" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+					<td  class="kv-content" colspan="2">
+						<font color="#FF0000">(请输入部门名的拼音首字母，如人事：rs)</font>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    
+<script type="text/javascript">
+    $(function(){
+    }); 
+    
+    function back(){
+    	window.location = "departmentList.html";
+    }
+    
+    function save(){
+		var str = new Array;
+		str.push($("#dName").val());
+		str.push($("#dHead").val());
+		str.push($("#dInfo").val());
+		str.push($("#dMapping").val());
+		$.ajax({
+		      type:"post",
+		      url: "addDepartment.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  window.location = "departmentList.html";
+		      }
+		});
+    }
+    
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+</script>
+</html>
+    

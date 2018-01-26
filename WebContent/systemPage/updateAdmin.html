@@ -1,0 +1,121 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="adminList.html" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">id</td>
+					<td  id="adminID" class="kv-content"  colspan="5"></td>
+				</tr>
+				<tr>
+					<td class="kv-label">用户名</td>
+					<td class="kv-content" colspan="5">
+						<input id="username" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">密码</td>
+					<td class="kv-content" colspan="5">
+						<input id="password" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">邮箱</td>
+					<td class="kv-content" colspan="5">
+						<input id="email" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">手机</td>
+					<td class="kv-content" colspan="5">
+						<input id="phone" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    var id;
+    var power;
+    $(function(){
+    	id = GetUID("id");
+    	power = GetUID("power");
+    	$("#adminID").html(id);
+    	addInfo();
+    }); 
+    
+    function addInfo(){
+    	var str = new Array;
+    	str.push(id);
+    	$.ajax({
+		      type:"post",
+		      url: "getAdminById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  var admin = result.admin;
+		    	  $("#username").textbox('setValue',admin[0].username);
+		    	  $("#password").textbox('setValue',admin[0].password);
+		    	  $("#email").textbox('setValue',admin[0].email);
+		    	  $("#phone").textbox('setValue',admin[0].phone);
+		      }
+		});
+    }
+    
+    function save(){
+		var str = new Array;
+		str.push(id);
+		str.push($("#username").val());
+		str.push($("#password").val());
+		str.push($("#email").val());
+		str.push($("#phone").val());
+		str.push(power);
+		$.ajax({
+		      type:"post",
+		      url: "updateAdminInfo.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  if(power == "admin"){
+		    		  window.location = "adminList.html";
+		    	  }
+		    	  if(power == "super"){
+		    		  window.location = "superAdminList.html";
+		    	  }
+		      }
+		});
+    }
+    
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+</script>
+</html>
+    

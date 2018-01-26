@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.bean.InformInfo" table="tb_inform_info">
+		<id name="id" column="id"></id>
+		<property name="title" column="title"></property>
+		<property name="type" column="type"></property>
+		<property name="content" column="content"></property>
+		<property name="createTime" column="createTime"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,95 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div id="butList" class="opt-buttons" style="padding-top:10px;">
+		<a href="mailList.html" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">id</td>
+					<td  id="ID" class="kv-content"></td>
+					<td class="kv-label">发送者</td>
+					<td id="sendName" class="kv-content"></td>
+				</tr>
+				<tr>
+					<td class="kv-label">标题</td>
+					<td id="title" class="kv-content"></td>
+					<td class="kv-label">创建时间</td>
+					<td id="createTime" class="kv-content"></td>
+				</tr>
+				<tr>
+					<td class="kv-label">内容</td>
+					<td id="content" class="kv-content"  colspan="5"></td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    var id;
+    var str = new Array;
+    $(function(){
+    	id = GetUID("id");
+    	str.push(id);
+    	$("#ID").html(id);
+    	addInfo();
+    }); 
+    
+    function addInfo(){
+    	$.ajax({
+		      type:"post",
+		      url: "getMailById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  var mail = result.mail;
+		    	  var createTime = new Date(mail.createTime.time);
+	    		  createTime = changeDate(createTime);
+		    	  $("#sendName").html(mail.sendName);
+		    	  $("#title").html(mail.title);
+		    	  $("#content").html(mail.content);
+		    	  $("#createTime").html(createTime);
+		      }
+		});
+    }
+    
+    
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+    
+    function changeDate(a){
+    	var date = a.toLocaleString();
+		date = date.split(' ');
+		var dateTime = date[0];
+		dateTime = dateTime.split('/');
+		var dateTime1 = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2];
+		return dateTime1;
+    }
+    
+    function isEmpty(message){
+		return  message=="" || message==null || message==undefined ;
+	}
+</script>
+</html>
+    

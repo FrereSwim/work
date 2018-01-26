@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link href="css/base.css" rel="stylesheet">
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <style  type="text/css">
+    	.box1{background:#6df38a;height:518px}
+    	.title{color:white;font-size:50px;}
+    </style>
+</head> 
+<body>
+    <div class="container">
+    	<div class="box1">
+    		<br>
+    			<p class="title" style="padding-left:45%;padding-top:180px"></p>
+    		<br>
+    	</div>
+    </div>
+</body>
+<script type="text/javascript">
+	
+	$(function(){ 
+		urlinfo=window.location.href;
+		len=urlinfo.length;
+		offset=urlinfo.indexOf("?");
+		newsidinfo=urlinfo.substr(offset,len);
+		newsids=newsidinfo.split("=");
+		name=newsids[1];
+		if(name == "system"){
+			$(".title").html("系统管理");
+		}
+		if(name == "employee"){
+			$(".title").html("员工管理");
+		}
+		if(name == "menu"){
+			$(".title").html("菜单管理");
+		}
+		if(name == "room"){
+			$(".title").html("房间管理");
+		}
+		if(name == "member"){
+			$(".title").html("会员管理");
+		}
+		if(name == "warehouse"){
+			$(".title").html("仓库管理");
+		}
+		if(name == "finance"){
+			$(".title").html("财务管理");
+		}
+		if(name == "hotel"){
+			$(".title").html("酒店管理");
+		}
+	}); 
+</script> 
+</html>

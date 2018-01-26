@@ -1,0 +1,203 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>超级管理员列表</title> 
+
+<link href="../page/css/base.css" rel="stylesheet">
+<link rel="stylesheet" href="../custom/uimaker/easyui.css">
+<link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+<link rel="stylesheet" href="../page/css/providers.css">
+<link href="../page/css/qikoo.css" rel="stylesheet">
+</head> 
+<body>
+    <div class="container">
+       <table id="dg" style="width:100%;height:554px" title="超级管理员列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                pagination:true,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb',
+                pageSize:10">
+            <thead>
+                <tr>
+                    <th field="code" width="180" align="center">管理员编码</th>
+                    <th field="username" width="150" align="center">用户名</th>
+                    <th field="password" width="130" align="center">密码</th>
+                    <th field="email" width="170" align="center">E-mail</th>
+                    <th field="phone" width="150" align="center">联系电话</th>
+                    <th field="power" width="100" align="center">权限</th>
+                    <th field="note" width="180" align="center">备注</th>
+                </tr>
+            </thead>
+        </table>
+      <div id="tb" style="padding:0 30px;">
+        管理员编码: <input id="inputID" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
+        用户名: <input id="inputName" class="easyui-textbox" type="text" name="name" style="width:166px;height:35px;line-height:35px;"></input>
+        <a href="javascript:queryAdmin()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+        <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
+        <a href="javascript:addAdmin()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a>
+      </div>
+    </div>
+    <script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
+    <script src="../page/js/qikoo.js"></script>
+    <script type="text/javascript" src="js/system.js"></script>
+
+    <script type="text/javascript">
+
+    	var rows = [];
+        function getData(){
+        	var str = new Array;
+        	str.push("super");
+            $.ajax({
+  		      type:"post",
+  		      url: "getAdminList.action",
+  		      data: {
+  		    	  "str":str 
+  		      },
+  		      dataType: "json",
+  		      traditional: true,
+  		      async:false,
+  		      success: function(result){
+  		    		delInfo();
+  		    		var str = "<a href='#' onclick='updateButton(this)'>修改信息</a>";
+  		          	str += "<a style='padding-left:5px' href='#' onclick='delButton(this)'>删除用户</a>";
+  		    		$.each(result.adminList,function(index,val){
+  		    			rows.push({
+  		                    code: val.uid,
+  		                    username: val.username,
+  		                    password: val.password,
+  		                    email: val.email,
+  		                    phone: val.phone,
+  		                    power: val.power,
+  		                    note: str
+  		                });
+  		    		});
+  		      	  }
+  		      });
+            return rows;
+        }
+        $(function(){
+            $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+          //添加操作按钮
+            var str = "<a href='#' onclick='updateButton(this)'>修改信息</a>";
+            str += "<a style='padding-left:5px' href='#' onclick='delButton(this)'>删除用户</a>";
+            $("div[class='datagrid-body'] td[field='note'] div").html(str);
+        });
+        
+        function changeRow(){
+        	var ID = $("#inputID").val();
+        	var name = $("#inputName").val();
+        	var str =new Array;
+        	str.push("super")
+        	str.push(ID);
+        	str.push(name);
+        	$.ajax({
+    		      type:"post",
+    		      url: "getAdminByIdOrName.action",
+    		      data: {
+    		    	  "str":str
+    		      },
+    		      dataType: "json",
+    		      async:false,
+    		      traditional: true,
+    		      success: function(result){
+    		    	  var admin = result.admin;
+    		    	  if(admin == "0"){
+    		    		  delInfo();
+    		    		  return;
+    		    	  }else{
+    		    		  var str = "<a href='#' onclick='updateButton(this)'>修改信息</a>";
+        		          str += "<a style='padding-left:5px' href='#' onclick='delButton(this)'>删除用户</a>";
+        		    	  delInfo();
+        		    	  $.each(admin,function(index,val){
+	        		    	  rows.push({
+	        	                  code: val.uid,
+	        	                  username: val.username,
+	        	                  password: val.password,
+	        	                  email: val.email,
+	        	                  phone: val.phone,
+	        	                  power: val.power,
+	        	                  note: str
+	        	              });
+        		    	  });
+    		    	  }
+    		      	}
+    		      });
+        	return rows;
+        }
+        
+        function queryAdmin(){
+        	var a = $("#inputID").val();
+        	var b = $("#inputName").val();
+        	if(isEmpty(a) && isEmpty(b)){
+        		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        	}else{
+        		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
+        		if(isEmpty(rows)){
+        			$(".datagrid-view2 .datagrid-body").html("无此管理员信息");
+        		}
+        	}
+        }
+        
+        function reset(){
+        	$("#inputID").textbox('setValue',"");
+        	$("#inputName").textbox('setValue',"");
+        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        	addBut();
+        }
+        
+        function delInfo(){
+        	rows.splice(0,rows.length);
+        }
+        
+        function updateButton(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var str = "../systemPage/updateAdmin.html?id=" + id + "&power=super";
+        	document.location.href = str;
+        }
+        
+        var delId;
+        function delButton(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	delId = id;
+        	var username = $(obj).parent().parent().parent().children('td').eq(1).children('div').eq(0).html();
+        	qikoo.dialog.confirm('请确认是否删除管理员：' + username,function(){
+        		var str = new Array;
+            	str.push(delId);
+            	$.ajax({
+      		      type:"post",
+      		      url: "delAdminInfo.action",
+      		      data: {
+      		    	  "str":str
+      		      },
+      		      dataType: "json",
+      		      traditional: true,
+      		      success: function(result){
+      		    	window.location = "superAdminList.html";
+      		      }
+      			});
+            },function(){
+    	    });
+        }
+        
+        function addAdmin(){
+        	window.location = "addAdmin.html?power=super";
+        }
+        
+        function isEmpty(message){
+    		return  message=="" || message==null || message==undefined ;
+    	}
+        
+                
+    </script>
+</body> 
+</html>

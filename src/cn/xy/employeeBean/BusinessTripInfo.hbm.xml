@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.employeeBean.BusinessTripInfo" table="tb_BusinessTrip_info">
+		<id name="id" column="id"></id>
+		<property name="eid" column="eid"></property>
+		<property name="eName" column="eName"></property>
+		<property name="aReason" column="aReason"></property>
+		<property name="startTime" column="startTime"></property>
+		<property name="endTime" column="endTime"></property>
+		<property name="state" column="state"></property>
+	</class>
+</hibernate-mapping>

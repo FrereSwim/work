@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 配置c3p0连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql:///restaurantmain"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	
+	<!-- sessionFactory的创建交给spring配置实现 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 因为hibernate核心配置文件中，没有数据库配置，数据库配置在spring中配置，所以需要注入 dataSource-->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 指定hibernate核心配置文件 -->
+		<!-- <property name="configLocations" value="classpath:hibernate.cfg.xml"></property> -->
+		
+		<!-- 在没有hibernate配置文件的情况下 -->
+			<property name="hibernateProperties">
+				<props>
+					<prop key="hibernate.show_sql">false</prop>
+					<prop key="hibernate.format_sql">true</prop>
+					<prop key="hibernate.hbm2ddl.auto">update</prop>
+					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				</props>
+			</property>
+		<!-- 配置映射文件引入 -->
+		<property name="mappingResources">
+			<list>
+				<value>cn/xy/bean/User.hbm.xml</value>
+				<value>cn/xy/bean/Authority.hbm.xml</value>
+				<value>cn/xy/bean/PendingEvent.hbm.xml</value>
+				<value>cn/xy/bean/WarningInfo.hbm.xml</value>
+				<value>cn/xy/bean/MailInfo.hbm.xml</value>
+				<value>cn/xy/bean/Partner.hbm.xml</value>
+				<value>cn/xy/bean/DownloadFile.hbm.xml</value>
+				<value>cn/xy/bean/InformInfo.hbm.xml</value>
+				<value>cn/xy/bean/WinnersInfo.hbm.xml</value>
+				<value>cn/xy/bean/TotalInfo.hbm.xml</value>
+				<value>cn/xy/bean/ExpenditureInfo.hbm.xml</value>
+				<value>cn/xy/menuBean/CarteInfo.hbm.xml</value>
+				<value>cn/xy/employeeBean/EmployeeInfo.hbm.xml</value>
+				<value>cn/xy/employeeBean/DepartmentInfo.hbm.xml</value>
+				<value>cn/xy/employeeBean/BusinessTripInfo.hbm.xml</value>
+				<value>cn/xy/employeeBean/LeaveInfo.hbm.xml</value>
+				<value>cn/xy/employeeBean/AttendanceInfo.hbm.xml</value>
+				<!-- 多个路径可以写多个value -->
+			</list>
+		</property>
+		
+	</bean>
+	
+	<!-- 第一步配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<aop:config>  
+        <aop:pointcut id="methodPointcut" expression="execution(* cn.xy.dao.*.*(..))" />  
+        <aop:advisor pointcut-ref="methodPointcut" advice-ref="txAdvice" />  
+    </aop:config> 
+	<!-- 第二步开启事务注解 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+	<tx:advice id="txAdvice"  transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="false"/>
+			<tx:method name="find*" read-only="false"/>
+			<tx:method name="save*" read-only="false"/> 
+			<tx:method name="add*" read-only="false"/>
+			<tx:method name="update*" read-only="false"/>
+			<tx:method name="del*" read-only="false"/>
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	
+	
+	
+	<!-- 配置action对象 -->
+	<bean id="userAction" class="cn.xy.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="authorityAction" class="cn.xy.action.AuthorityAction" scope="prototype">
+		<property name="authorityService" ref="authorityService"></property>
+	</bean>
+	<bean id="mainAction" class="cn.xy.action.MainAction" scope="prototype">
+		<property name="mainService" ref="mainService"></property>
+	</bean>
+	<bean id="systemAction" class="cn.xy.action.SystemAction" scope="prototype">
+		<property name="systemService" ref="systemService"></property>
+	</bean>
+	<bean id="employeeAction" class="cn.xy.action.EmployeeAction" scope="prototype">
+		<property name="employeeService" ref="employeeService"></property>
+	</bean>
+	<bean id="menuAction" class="cn.xy.action.MenuAction" scope="prototype">
+		<property name="menuService" ref="menuService"></property>
+	</bean>
+	<bean id="roomAction" class="cn.xy.action.RoomAction" scope="prototype">
+		<property name="roomService" ref="roomService"></property>
+	</bean>
+	<bean id="memberAction" class="cn.xy.action.MemberAction" scope="prototype">
+		<property name="memberService" ref="memberService"></property>
+	</bean>
+	<bean id="warehouseAction" class="cn.xy.action.WarehouseAction" scope="prototype">
+		<property name="warehouseService" ref="warehouseService"></property>
+	</bean>
+	<bean id="financeAction" class="cn.xy.action.FinanceAction" scope="prototype">
+		<property name="financeService" ref="financeService"></property>
+	</bean>
+	<bean id="hotelAction" class="cn.xy.action.HotelAction" scope="prototype">
+		<property name="hotelService" ref="hotelService"></property>
+	</bean>
+
+	<!-- 引入其他spring配置文件 -->
+	<import resource="classpath:cn/xy/xml/bean2.xml"/>
+	
+	
+</beans>

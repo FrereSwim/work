@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.employeeBean.EmployeeInfo" table="tb_Employee_info">
+		<id name="id" column="id"></id>
+		<property name="eid" column="eid"></property>
+		<property name="eName" column="eName"></property>
+		<property name="eSex" column="eSex"></property>
+		<property name="eAge" column="eAge"></property>
+		<property name="eDepar" column="eDepar"></property>
+		<property name="ePost" column="ePost"></property>
+		<property name="eType" column="eType"></property>
+		<property name="eEntryTime" column="eEntryTime"></property>
+		<property name="eStage" column="eStage"></property>
+		<property name="eExpiryTime" column="eExpiryTime"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,150 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="javascript:back()" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">员工编号</td>
+					<td class="kv-content" colspan="5">
+						<input id="eid" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">员工名</td>
+					<td class="kv-content" colspan="5">
+						<input id="eName" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">出差日期</td>
+					<td class="kv-content" colspan="2.5">
+						<input id="sTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+						开始时间 
+					</td>
+					<td class="kv-content" colspan="2.5">
+						<input id="xTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+						结束时间
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">出差原因</td>
+					<td class="kv-content" colspan="5">
+						<input id="aReason" class="easyui-textbox" data-options="multiline:true" type="text" name="code" style="width:960px;height:100px;line-height:35px;"></input>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	var date = new Date();
+    	var d = date.getFullYear() + "-"; + (date.getMonth()+1) + "-" + date.getDate();
+    	if((date.getMonth()+1) < 10){
+    		d += "0" +  (date.getMonth()+1) + "-";
+    	}else{
+    		d += (date.getMonth()+1) + "-";
+    	}
+    	if(date.getDate() < 10){
+    		d += "0" + date.getDate();
+    	}else{
+    		d += date.getDate();
+    	}
+    	$("#sTime").textbox('setValue',d);
+    	$("#xTime").textbox('setValue',d);
+    	 
+    }); 
+    
+    function back(){
+    	window.location = "businessTripList.html";
+    }
+    
+    function formatter(date){
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+        return year + "-" + month + "-" + day;
+    }
+
+    function parser(s){
+        var t = Date.parse(s);
+        if (!isNaN(t)){
+            return new Date(t);
+        } else {
+            return new Date(s + ":00:00");
+        }
+    }
+    
+    function save(){
+    	/* var dateArr = new Array;
+    	var start = $("#sTime").datetimebox("getValue");
+    	var end = $("#xTime").datetimebox("getValue");
+  		var startTime = getDate(start);
+  		var endTime = getDate(end);
+  		while((endTime.getTime()-startTime.getTime())>=0){
+  			  var year = startTime.getFullYear();
+  			  var month = startTime.getMonth().toString().length==1?"0"+startTime.getMonth().toString():startTime.getMonth();
+  			  var day = startTime.getDate().toString().length==1?"0"+startTime.getDate():startTime.getDate();
+  			  //console.log(year+"-"+month+"-"+day);
+  			  dateArr.push(year+"-"+month+"-"+day);
+  			  startTime.setDate(startTime.getDate()+1);
+	  	} */
+		var str = new Array;
+		str.push($("#eid").val());
+		str.push($("#eName").val());
+		str.push($("#aReason").val());
+		var startTime = $("#sTime").datetimebox("getValue");
+		str.push(startTime);
+		var endTime = $("#xTime").datetimebox("getValue");
+		str.push(endTime);
+		str.push("0");
+		$.ajax({
+		      type:"post",
+		      url: "regBusinessTrip.action",
+		      data: {
+		    	  //"dateArr":dateArr,
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  window.location = "businessTripList.html";
+		      }
+		});
+    }
+
+    function getDate(datestr){
+  	  var temp = datestr.split("-");
+  	  var date = new Date(temp[0],temp[1],temp[2]);
+  	  return date;
+  	}
+    
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+</script>
+</html>
+    

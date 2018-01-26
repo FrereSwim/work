@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.employeeBean.AttendanceInfo" table="tb_Attendance_info">
+		<id name="id" column="id"></id>
+		<property name="date" column="date"></property>
+		<property name="am" column="am"></property>
+		<property name="pm" column="pm"></property>
+		<property name="amState" column="amState"></property>
+		<property name="pmState" column="pmState"></property>
+		<property name="eid" column="eid"></property>
+		<property name="eName" column="eName"></property>
+		<property name="state" column="state"></property>
+	</class>
+</hibernate-mapping>

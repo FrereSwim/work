@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.menuBean.CarteInfo" table="tb_carte_info">
+		<id name="id" column="id"></id>
+		<property name="type" column="type"></property>
+		<property name="dishName" column="dishName"></property>
+		<property name="englishName" column="englishName"></property>
+		<property name="price" column="price"></property>
+		<property name="level" column="level"></property>
+		<property name="origin" column="origin"></property>
+	</class>
+</hibernate-mapping>

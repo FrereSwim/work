@@ -1,0 +1,247 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <link href="css/system.css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="adminList.html" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">用户ID</td>
+					<td  id="adminID" class="kv-content"></td>
+					<td class="kv-label">用户名</td>
+					<td  id="adminName" class="kv-content"></td>
+					<td class="kv-label"></td>
+					<td  id="adminName" class="kv-content"></td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="main" class="kv-content">首页</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">首页工作台，显示交互数据</td>
+					<td class="kv-label">权限选择</td>
+					<td  class="kv-content"  align="center">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input  id="mainCheck" checked="true" onclick="return false" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="system" class="kv-content">系统管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">对管理员的管理，权限设置以及其它</td>
+					<td class="kv-label">权限选择</td>
+					<td  class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input  id="systemCheck" onclick="return false" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="employee" class="kv-content">职员管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">员工信息管理功能</td>
+					<td class="kv-label">权限选择</td>
+					<td class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input id="employeeCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="menu" class="kv-content">菜单管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">餐饮方面菜单管理功能</td>
+					<td class="kv-label">权限选择</td>
+					<td  class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input  id="menuCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="room" class="kv-content">房间管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">房间住宿的信息管理</td>
+					<td class="kv-label">权限选择</td>
+					<td  class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input  id="roomCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="member" class="kv-content">会员管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">对于会员详细信息的设置及管理</td>
+					<td class="kv-label">权限选择</td>
+					<td class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input id="memberCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="warehouse" class="kv-content">仓库管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">对于仓库信息的设置及管理</td>
+					<td class="kv-label">权限选择</td>
+					<td class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input  id="warehouseCheck"  class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="finance" class="kv-content">财务管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">对于财务方面信息的显示及设置</td>
+					<td class="kv-label">权限选择</td>
+					<td  class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input  id="financeCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">系统页面</td>
+					<td  id="hotel" class="kv-content">酒店管理</td>
+					<td class="kv-label">页面详情</td>
+					<td class="kv-content">对于酒店相关方面信息的设置</td>
+					<td class="kv-label">权限选择</td>
+					<td class="kv-content">
+						<label class="demo--label" style="padding-left:115px;">
+       					 	<input id="hotelCheck" class="demo--radio" type="checkbox" name="demo-checkbox2">
+        					<span class="demo--checkbox demo--radioInput"></span>
+    					</label>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/system.js"></script>
+<script type="text/javascript">
+    var id;
+    var name;
+    $(function(){
+    	id = GetUID("id");
+    	name = GetUID("name");
+    	$("#adminID").html(id);
+    	$("#adminName").html(name);
+    	getInfo();
+    }); 
+    
+    function getInfo(){
+    	var str = new Array;
+    	str.push(id);
+    	$.ajax({
+		      type:"post",
+		      url: "getAuthorityById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  var obj = result.result;
+		    	  showInfo(obj);
+		      }
+		});
+    }
+    
+    function save(){
+		var str = new Array;
+		var info = new Array;
+		str.push(id);
+		str.push(name);
+		info = addInfo(info);
+		$.ajax({
+		      type:"post",
+		      url: "updateAuthority.action",
+		      data: {
+		    	  "str":str,
+		    	  "info":info
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  if(result.result == "1"){
+		    		  window.location = "adminList.html";
+		    	  }
+		      }
+		});
+    }
+    
+    
+    
+    function showInfo(obj){
+    	if(obj.main == "1"){
+    		$("#mainCheck").attr("checked","true");
+    	}
+    	if(obj.system == "1"){
+    		$("#systemCheck").attr("checked","true");
+    	}
+    	if(obj.employee == "1"){
+    		$("#employeeCheck").attr("checked","true");
+    	}
+    	if(obj.menu == "1"){
+    		$("#menuCheck").attr("checked","true");
+    	}
+    	if(obj.room == "1"){
+    		$("#roomCheck").attr("checked","true");
+    	}
+    	if(obj.member == "1"){
+    		$("#memberCheck").attr("checked","true");
+    	}
+    	if(obj.warehouse == "1"){
+    		$("#warehouseCheck").attr("checked","true");
+    	}
+    	if(obj.finance == "1"){
+    		$("#financeCheck").attr("checked","true");
+    	}
+    	if(obj.hotel == "1"){
+    		$("#hotelCheck").attr("checked","true");
+    	}
+    }
+    
+    function GetUID(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   }
+</script>
+</html>
+    
