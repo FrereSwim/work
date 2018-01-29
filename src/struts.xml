@@ -287,6 +287,13 @@
     	<action name="delDish" class="menuAction" method="delDish">
     		<result name="success"></result>
     	</action>
+    	<action name="getTableNumByTableType" class="menuAction" method="getTableNumByTableType">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateTableState" class="menuAction" method="updateTableState">
+    		<result name="success"></result>
+    	</action>
+    	
     	
     	
     	

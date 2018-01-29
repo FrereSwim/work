@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.menuBean.TableInfo" table="tb_table_info">
+		<id name="id" column="id"></id>
+		<property name="tableType" column="tableType"></property>
+		<property name="tableNum" column="tableNum"></property>
+		<property name="mapping" column="mapping"></property>
+		<property name="state" column="state"></property>
+	</class>
+</hibernate-mapping>

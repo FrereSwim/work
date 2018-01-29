@@ -118,7 +118,7 @@
 			//alert(tableType);
 			var str = new Array;
 			str.push(tableType);
-			str.push("0");
+			str.push("1");
 			$.ajax({
 	  		      type:"post",
 	  		      url: "getTableNumByTableType.action",
@@ -258,44 +258,12 @@
 	    	$("#tableType").combobox('disable');
 	    	$("#tableNum").combobox('disable');
 	    	$('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
-	    	var str = new Array;
-	    	var tableNum = $("#tableNum").combobox('getValue');
-	    	str.push(tableNum);
-	    	str.push("1");
-	    	$.ajax({
-	  		      type:"post",
-	  		      url: "updateTableState.action",
-	  		      data: {
-	  		    	 "str":str 
-	  		      },
-	  		      dataType: "json",
-	  		      async:false,
-	  		      traditional: true,
-	  		      success: function(result){
-	  		      }
-	    	});
 	    }
 	    
 	    function reflush2(){
 	    	$("#tableType").combobox('enable');
 	    	$("#tableNum").combobox('enable');
 	    	$('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
-	    	var str = new Array;
-	    	var tableNum = $("#tableNum").combobox('getValue');
-	    	str.push(tableNum);
-	    	str.push("0");
-	    	$.ajax({
-	  		      type:"post",
-	  		      url: "updateTableState.action",
-	  		      data: {
-	  		    	 "str":str 
-	  		      },
-	  		      dataType: "json",
-	  		      async:false,
-	  		      traditional: true,
-	  		      success: function(result){
-	  		      }
-	    	});
 	    }
 	        
     	var rows = [];

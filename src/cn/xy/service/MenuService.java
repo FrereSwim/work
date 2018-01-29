@@ -8,5 +8,6 @@ public interface MenuService {
 	void addDish(String[] str) throws Exception;
 	List getTemporarydish(String tableNum) throws Exception;
 	void delDish(String[] str) throws Exception;
-
+	List getTableNumByTableType(String tableType, String state) throws Exception;
+	void updateTableState(String tableNum, String state) throws Exception;
 }
