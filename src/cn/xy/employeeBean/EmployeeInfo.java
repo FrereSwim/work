@@ -13,6 +13,7 @@ public class EmployeeInfo {
 	private String eEntryTime;
 	private String eStage;
 	private String eExpiryTime;
+	private String eBirthDate;
 	
 	public String getId() {
 		return id;
@@ -79,6 +80,12 @@ public class EmployeeInfo {
 	}
 	public void seteExpiryTime(String eExpiryTime) {
 		this.eExpiryTime = eExpiryTime;
+	}
+	public String geteBirthDate() {
+		return eBirthDate;
+	}
+	public void seteBirthDate(String eBirthDate) {
+		this.eBirthDate = eBirthDate;
 	}
 	
 	

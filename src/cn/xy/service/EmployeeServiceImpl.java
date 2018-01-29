@@ -150,4 +150,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.getRemindList(eStage);
 	}
 
+	@Override
+	public List getRemindBirthDateList() throws Exception {
+		return employeeDao.getRemindBirthDateList();
+	}
+
 }

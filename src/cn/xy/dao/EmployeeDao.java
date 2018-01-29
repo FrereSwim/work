@@ -35,4 +35,5 @@ public interface EmployeeDao {
 	List getEmployeeByInput2(String[] str) throws Exception;
 	
 	List getRemindList(String eStage) throws Exception;  
+	List getRemindBirthDateList() throws Exception;
 }

@@ -206,6 +206,12 @@ public class EmployeeAction extends ActionSupport {
 		List employeeList = employeeService.getRemindList(eStage);
 		jSONResult.jsonResult("employeeList", employeeList);
 	}
+	public void getRemindBirthDateList() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List employeeList = employeeService.getRemindBirthDateList();
+		jSONResult.jsonResult("employeeList", employeeList);
+	}
+	
 	  
 	
 }

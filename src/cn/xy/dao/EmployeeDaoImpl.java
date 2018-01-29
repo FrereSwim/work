@@ -1,5 +1,6 @@
 package cn.xy.dao;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -498,6 +499,30 @@ public class EmployeeDaoImpl implements EmployeeDao {
 					   + "and str_to_date(eExpiryTime,'%Y-%m-%d %H:%i:%s') > NOW() ORDER BY eExpiryTime ASC";
 			List<EmployeeInfo> list = (List<EmployeeInfo>) hibernateTemplate.find(sql, eStage, time);
 			return list;
+		}
+
+		@Override
+		public List getRemindBirthDateList() throws Exception {
+			List elist  = new ArrayList();
+			List<EmployeeInfo> list = (List<EmployeeInfo>) hibernateTemplate.find("from EmployeeInfo where eStage = '正式'");
+			int len = list.size();
+			for(int i = 0; i < len; i++){
+				String birthDate = list.get(i).geteBirthDate();
+				String[] arr = birthDate.split("-");
+				SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = new Date();
+				String nowDate = dateFormater.format(date);
+				String[] arr2 = nowDate.split("-");
+				String linshiTime = arr[0] + "-" + arr2[1] + "-" + arr2[2];
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				if(dateFormat.parse(birthDate).getTime() > dateFormat.parse(linshiTime).getTime()) {
+					int days = (int) ((dateFormat.parse(birthDate).getTime() - dateFormat.parse(linshiTime).getTime()) / (1000*3600*24));
+					if(days < 30) {
+						elist.add(list.get(i));
+					}
+				}
+			}
+			return elist;
 		} 
 		
 		

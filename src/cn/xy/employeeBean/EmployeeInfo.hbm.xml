@@ -15,5 +15,6 @@
 		<property name="eEntryTime" column="eEntryTime"></property>
 		<property name="eStage" column="eStage"></property>
 		<property name="eExpiryTime" column="eExpiryTime"></property>
+		<property name="eBirthDate" column="eBirthDate"></property>
 	</class>
 </hibernate-mapping>

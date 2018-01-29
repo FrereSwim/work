@@ -266,7 +266,9 @@
     	<action name="getRemindList" class="employeeAction" method="getRemindList">
     		<result name="success"></result>
     	</action>
-    	
+    	<action name="getRemindBirthDateList" class="employeeAction" method="getRemindBirthDateList">
+    		<result name="success"></result>
+    	</action>
     	
     	
     	<!-- 菜单管理操作 -->

@@ -121,7 +121,7 @@
                         	<li><a href="javascript:addTag('../employeePage/remindList.html?eStage=3');">临时期到期提醒</a></li>
                         	<li><a href="javascript:addTag('../employeePage/remindList.html?eStage=2');">试用期到期提醒</a></li>
                             <li><a href="javascript:addTag('../employeePage/remindList.html?eStage=1');">正式期到期提醒</a></li>
-                            <li><a href="javascript:addTag('../employeePage/');">当月生日提醒</a></li>
+                            <li><a href="javascript:addTag('../employeePage/remindBirthDateList.html');">当月生日提醒</a></li>
                         </ul>  
                      </li>
                  </ul> 
