@@ -198,6 +198,7 @@ public class EmployeeAction extends ActionSupport {
 		List employeeList = employeeService.getEmployeeByInput2(str);
 		jSONResult.jsonResult("employeeList", employeeList);
 	}
+	
 	//提醒列表
 	public void getRemindList() throws Exception{
 		JSONResult jSONResult = new JSONResult();

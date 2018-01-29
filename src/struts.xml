@@ -263,6 +263,10 @@
     	<action name="getEmployeeByInput3" class="employeeAction" method="getEmployeeByInput3">
     		<result name="success"></result>
     	</action>
+    	<action name="getRemindList" class="employeeAction" method="getRemindList">
+    		<result name="success"></result>
+    	</action>
+    	
     	
     	
     	<!-- 菜单管理操作 -->
