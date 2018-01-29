@@ -135,5 +135,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void delLeave(String id) throws Exception {
 		employeeDao.delLeave(id);
 	}
+	
+	@Override
+	public List getEmployeeList2(String eStage) throws Exception {
+		return employeeDao.getEmployeeList2(eStage);
+	}
+	@Override
+	public List getEmployeeByInput2(String[] str) throws Exception {
+		return employeeDao.getEmployeeByInput2(str);
+	}
+	
+	@Override
+	public List getRemindList(String eStage) throws Exception {
+		return employeeDao.getRemindList(eStage);
+	}
 
 }

@@ -189,16 +189,22 @@ public class EmployeeAction extends ActionSupport {
 	public void getEmployeeList2() throws Exception{
 		JSONResult jSONResult = new JSONResult();
 		String eStage = str[0];
-		List employeeList = employeeService.getEmployeeList(eStage);
+		List employeeList = employeeService.getEmployeeList2(eStage);
 		jSONResult.jsonResult("employeeList", employeeList);
 	} 
 	
 	public void getEmployeeByInput2() throws Exception{
 		JSONResult jSONResult = new JSONResult();
-		List employeeList = employeeService.getEmployeeByInput(str);
+		List employeeList = employeeService.getEmployeeByInput2(str);
 		jSONResult.jsonResult("employeeList", employeeList);
 	}
-	
-	
+	//提醒列表
+	public void getRemindList() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String eStage = str[0];
+		List employeeList = employeeService.getRemindList(eStage);
+		jSONResult.jsonResult("employeeList", employeeList);
+	}
+	  
 	
 }

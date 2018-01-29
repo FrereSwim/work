@@ -106,9 +106,9 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                        	<li><a href="javascript:addTag('../employeePage/termList.html?eStage=encodeURI('正式')');">临时人员登记</a></li>
-                            <li><a href="javascript:addTag('../employeePage/');">试用期登记</a></li>
-                            <li><a href="javascript:addTag('../employeePage/');">正式期登记</a></li>
+                        	<li><a href="javascript:addTag('../employeePage/termList.html?eStage=1');">正式期登记</a></li>
+                            <li><a href="javascript:addTag('../employeePage/termList.html?eStage=2');">试用期登记</a></li>
+                            <li><a href="javascript:addTag('../employeePage/termList.html?eStage=3');">临时期登记</a></li>
                         </ul>
                      </li>
                      <li>
@@ -118,10 +118,11 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                        	<li><a href="javascript:addTag('../employeePage/');">试用期到期提醒</a></li>
-                            <li><a href="javascript:addTag('../employeePage/');">正式期到期提醒</a></li>
+                        	<li><a href="javascript:addTag('../employeePage/remindList.html?eStage=3');">临时期到期提醒</a></li>
+                        	<li><a href="javascript:addTag('../employeePage/remindList.html?eStage=2');">试用期到期提醒</a></li>
+                            <li><a href="javascript:addTag('../employeePage/remindList.html?eStage=1');">正式期到期提醒</a></li>
                             <li><a href="javascript:addTag('../employeePage/');">当月生日提醒</a></li>
-                        </ul>
+                        </ul>  
                      </li>
                  </ul> 
             </div>

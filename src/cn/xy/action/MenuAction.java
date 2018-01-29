@@ -15,6 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import cn.xy.menuBean.CarteInfo;
 import cn.xy.service.MenuService;
+import cn.xy.utils.JSONResult;
 import cn.xy.utils.ReadExcelUntil;
 
 public class MenuAction extends ActionSupport {
@@ -23,9 +24,18 @@ public class MenuAction extends ActionSupport {
 	public void setMenuService(MenuService menuService) {
 		this.menuService = menuService;
 	}
+	private String[] str;
     private File file;
     private String fileFileName;
-    public File getFile()
+    public String[] getStr() {
+		return str;
+	}
+
+	public void setStr(String[] str) {
+		this.str = str;
+	}
+
+	public File getFile()
     {
         return file;
     }
@@ -68,6 +78,23 @@ public class MenuAction extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 	    String username = request.getParameter("username");
         return SUCCESS;
+    }
+    
+    public void getMenuByEid() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+		String id = str[0];
+		List menuList = menuService.getMenuByEid(id);
+		if(menuList.isEmpty()){
+			jSONResult.jsonResult("menuList", "0");
+		}else{
+			jSONResult.jsonResult("menuList", menuList);
+		}
+    }
+    
+    public void addDish() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	menuService.addDish(str);
+    	jSONResult.jsonResult("result", true);
     }
 }
 	

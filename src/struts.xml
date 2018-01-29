@@ -260,11 +260,22 @@
     	<action name="getEmployeeByInput2" class="employeeAction" method="getEmployeeByInput2">
     		<result name="success"></result>
     	</action>
+    	<action name="getEmployeeByInput3" class="employeeAction" method="getEmployeeByInput3">
+    		<result name="success"></result>
+    	</action>
     	
     	
     	<!-- 菜单管理操作 -->
     	<action name="fileImport" class="menuAction" method="fileImport">
     		<result name="success"></result>
     	</action>
+    	<action name="getMenuByEid" class="menuAction" method="getMenuByEid">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addDish" class="menuAction" method="addDish">
+    		<result name="success"></result>
+    	</action>
+    	
+    	
     </package>
 </struts>

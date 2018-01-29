@@ -6,7 +6,7 @@ function showSuperMenu(){
 		str += "<li id='employee' class='pf-nav-item home' data-menu='org-manage'><a href='employee.jsp'><span class='iconfont'>&#xe60d;</span><span class='pf-nav-title'>员工管理</span></a></li>";
 		str += "<li id='menu' class='pf-nav-item home' data-menu='main-data'><a href='menu.jsp'><span class='iconfont'>&#xe61e;</span><span class='pf-nav-title'>菜单管理</span></a></li>";
 		str += "<li id='room' class='pf-nav-item home' data-menu='supplier-mange'><a href='room.jsp'><span class='iconfont'>&#xe64b;</span><span class='pf-nav-title'>客房管理</span></a></li>";
-		str += "<li id='member' class='pf-nav-item home' data-menu='supplier-dev'><a href='member.jsp'><span class='iconfont'>&#xe646;</span><span class='pf-nav-title'>会员管理</span></a></li>";
+		str += "<li id='member' class='pf-nav-item home' data-menu='supplier-dev'><a href='member.jsp'><span class='iconfont'>&#xe60d;</span><span class='pf-nav-title'>会员管理</span></a></li>";//&#xe646;
 		str += "<li id='warehouse' class='pf-nav-item home' data-menu='pur-source'><a href='warehouse.jsp'><span class='iconfont'>&#xe623;</span><span class='pf-nav-title'>仓库管理</span></a></l>";
 		str += "<li id='finance' class='pf-nav-item home' data-menu='contract-mange'><a href='finance.jsp'><span class='iconfont'>&#xe625;</span><span class='pf-nav-title'>财务管理</span></a></li>";
 		str += "<li id='hotel' class='pf-nav-item home' data-menu='sys-manage'><a href='hotel.jsp'><span class='iconfont'>&#xe64c;</span><span class='pf-nav-title'>酒店管理</span></a></li>";
@@ -58,7 +58,7 @@ function showAdminMenu(username){
 	    		   str += "<li id='room' class='pf-nav-item home' data-menu='supplier-mange'><a href='room.jsp'><span class='iconfont'>&#xe64b;</span><span class='pf-nav-title'>客房管理</span></a></li>";
 	    	   }
 	    	   if(member == "1"){
-	    		   str += "<li id='member' class='pf-nav-item home' data-menu='supplier-dev'><a href='member.jsp'><span class='iconfont'>&#xe646;</span><span class='pf-nav-title'>会员管理</span></a></li>";
+	    		   str += "<li id='member' class='pf-nav-item home' data-menu='supplier-dev'><a href='member.jsp'><span class='iconfont'>&#xe60d;</span><span class='pf-nav-title'>会员管理</span></a></li>";
 	    	   }
 	    	   if(warehouse == "1"){
 	    		   str += "<li id='warehouse' class='pf-nav-item home' data-menu='pur-source'><a href='warehouse.jsp'><span class='iconfont'>&#xe623;</span><span class='pf-nav-title'>仓库管理</span></a></l>";

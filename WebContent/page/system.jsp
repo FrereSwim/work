@@ -110,7 +110,6 @@
                         <ul class="sider-nav-s">
                            <li><a href="javascript:addTag('../systemPage/innerFileList.html');">内部附件</a></li>
                            <li><a href="javascript:addTag('../systemPage/publicFileList.html');">外部附件</a></li>
-                           <li><a href="javascript:addTag('../memberPage/bb.html');">外部附件</a></li>
                         </ul>
                      </li>
                  </ul> 

@@ -30,4 +30,9 @@ public interface EmployeeDao {
 	void updateLeave(String id) throws Exception;
 	void updateCancelRegLeave(String id) throws Exception;
 	void delLeave(String id) throws Exception;
+	
+	List getEmployeeList2(String eStage) throws Exception;
+	List getEmployeeByInput2(String[] str) throws Exception;
+	
+	List getRemindList(String eStage) throws Exception;  
 }

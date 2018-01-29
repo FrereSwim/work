@@ -13,19 +13,45 @@
 
 </head> 
 <body>
+
+	<div class="easyui-tabs1" style="height:135px;">
+    	<div class="panel-title">选择就坐桌</div>
+      	<table class="kv-table">
+      		<tbody>
+      			<tr>
+					<td class="kv-label">桌号</td>
+					<td class="kv-content" colspan="5">
+						<select id="tableType" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+				   			<option value="2">二人桌</option>
+				   			<option value="4">四人桌</option>
+				   			<option value="6">六人桌</option>
+				   			<option value="8">八人桌</option>
+				   			<option value="10">多人桌</option>
+		   				</select>
+		   				<select id=tableNum class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+				   			<option value="2">二人桌</option>
+				   			<option value="4">四人桌</option>
+				   			<option value="6">六人桌</option>
+				   			<option value="8">八人桌</option>
+				   			<option value="10">多人桌</option>
+		   				</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
     <div class="container">
-       <table id="dg" style="width:100%;height:554px" title="员工信息列表" data-options="
+       <table id="dg" style="width:100%;" title="查询菜品列表" data-options="
                 rownumbers:true,
                 singleSelect:false,
                 autoRowHeight:false,
-                pagination:true,
                 fitColumns:true,
                 striped:true,
                 checkOnSelect:false,
                 selectOnCheck:false,
                 collapsible:true,
-                toolbar:'#tb',
-                pageSize:10">
+                toolbar:'#tb'">
             <thead>
                 <tr>
                     <th field="code" width="180" align="center">ID</th>
@@ -40,20 +66,68 @@
                 </tr>
             </thead>
         </table>
+        <table id="dg2" style="width:100%;" title="已选菜品列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb2'">
+            <thead>
+                <tr>
+                    <th field="code" width="180" align="center">ID</th>
+                    <th field="eid" width="100" align="center">员工编号</th>
+                    <th field="eName" width="100" align="center">员工名</th>
+                    <th field="eSex" width="100" align="center">性别</th>
+                    <th field="eAge" width="100" align="center">年龄</th>
+                    <th field="eDepar" width="100" align="center">部门</th>
+                    <th field="ePost" width="100" align="center">职位</th>
+                    <th field="eEntryTime" width="100" align="center">入职时间</th>
+                    <th field="note" width="180" align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+        <table id="dg3" style="width:100%;" title="已上菜品列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb3'">
+            <thead>
+                <tr>
+                    <th field="code" width="180" align="center">ID</th>
+                    <th field="eid" width="100" align="center">员工编号</th>
+                    <th field="eName" width="100" align="center">员工名</th>
+                    <th field="eSex" width="100" align="center">性别</th>
+                    <th field="eAge" width="100" align="center">年龄</th>
+                    <th field="eDepar" width="100" align="center">部门</th>
+                    <th field="ePost" width="100" align="center">职位</th>
+                    <th field="eEntryTime" width="100" align="center">入职时间</th>
+                    <th field="note" width="180" align="center">操作</th>
+                </tr>
+            </thead>
+       </table>
       <div id="tb" style="padding:0 30px;">
-      	<div class="conditions">
-	        员工编码: <input id="inputeid" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
-	        员工名: <input id="inputeName" class="easyui-textbox" type="text" name="name" style="width:166px;height:35px;line-height:35px;"></input>
-	        部门：<select id="inputeDepar" class="easyui-combobox" name="language" style="height:35px;width:166px;">
-		   	</select>
-	        职位: <input id="inputePost" class="easyui-textbox" type="text" name="name" style="width:166px;height:35px;line-height:35px;"></input> 
-	        <a href="javascript:query()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
-	        <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
+	      	<div class="conditions">
+		             菜品编码: <input id="inputid" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
+	        	    <a href="javascript:query()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+	        </div>
       </div>
-      <div class="opt-buttons">
-            <a href="javascript:add()" class="easyui-linkbutton">+ 新增</a>
+    <div>
+      <div id="tb2" style="padding:0 30px;">
+      	    <div class="conditions">
+      	    </div>
       </div>
     </div>
+    
+    
     <script type="text/javascript" src="../custom/jquery.min.js"></script>
     <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
@@ -61,49 +135,11 @@
     <script type="text/javascript" src="../page/js/showListData.js"></script>
 
     <script type="text/javascript">
-    var dType;
-    var res;
-    $(function(){
-    	dType = GetUID("dType");
-    	getDepar();
-    }); 
-    
-    function change(eDepar){
-    	var num = res.length;
-    	for(var i = 0; i < num; i++){
-    		var dMappping = res[i].dMapping;
-    		if(eDepar == dMappping){
-    			return res[i].dName;
-    		}
-    	}
-    }
-    
-    function getDepar(){
-    	$.ajax({
-		      type:"post",
-		      url: "getDepartmentList.action",
-		      data: {
-		      },
-		      dataType: "json",
-		      async: false,
-		      traditional: true,
-		      success: function(result){
-		    	  res = result.departmentList;
-		    	  var html = "";
-		    	  var data = [];
-		    	  $.each(result.departmentList,function(index,val){
-		    		  var obj = new Object();
-		    		  obj.text = val.dName;
-		    		  obj.value = val.dMapping;
-		    		  data.push(obj);
-		    	  });
-		    	  $("#inputeDepar").combobox("loadData", data);
-		      }
-		});
-    }
+	    $(function(){
+	    }); 
 
     	var rows = [];
-        function getData(a){
+        /* function getData(a){
         	var str = new Array;
         	str.push(dType);
             $.ajax({
@@ -136,30 +172,21 @@
   		      	  }
   		      });
             return rows;
-        }
+        } */
         
         $(function(){
             $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
-          //添加操作按钮
-            var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
-            str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
-            $("div[class='datagrid-body'] td[field='note'] div").html(str);
+            $('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
+            $('#dg3').datagrid({data:getData()}).datagrid('clientPaging');
         });
         
         function changeRow(){
-        	var eid = $("#inputeid").val();
-        	var eName = $("#inputeName").val();
-        	var eDepar = $("#inputeDepar").combobox('getValue');
-        	var ePost = $("#inputePost").val();
+        	var id = $("#inputid").val();
         	var str =new Array;
-        	str.push(eid);
-        	str.push(eName);
-        	str.push(eDepar);
-        	str.push(ePost);
-        	str.push(dType);
+        	str.push(id);
         	$.ajax({
     		      type:"post",
-    		      url: "getEmployeeByInput.action",
+    		      url: "getMenuByEid.action",
     		      data: {
     		    	  "str":str
     		      },
@@ -167,25 +194,22 @@
     		      async:false,
     		      traditional: true,
     		      success: function(result){
-    		    	  var employeeList = result.employeeList;
-    		    	  if(employeeList == "0"){
+    		    	  var menuList = result.menuList;
+    		    	  if(menuList == "0"){
     		    		  delInfo();
     		    		  return;
     		    	  }else{
-    		    		  var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
-        	              str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+    		    		  var str = "<a href='#' onclick='choice(this)'>选择</a>";
         		    	  delInfo();
-        		    	  $.each(employeeList,function(index,val){
-        		    		  var d = change(val.eDepar);
+        		    	  $.each(menuList,function(index,val){
 	        		    	  rows.push({
-        		    		  	code: val.id,
-    		                  	eid: val.eid,
-    		                  	eName: val.eName,
-    		                  	eSex: val.eSex,
-    		                 	eAge: val.eAge,
-    		                 	eDepar: d,
-    		                 	ePost: val.ePost,
-    		                 	eEntryTime: val.eEntryTime,
+        		    		  	id: val.id,
+        		    		  	type: val.type,
+        		    		  	dishName: val.dishName,
+        		    		  	englishName: val.englishName,
+        		    		  	price: val.price,
+        		    		  	level: val.level,
+        		    		  	origin: val.origin,
     		                    note: str
 	        	              });
         		    	  });
@@ -196,30 +220,40 @@
         }
         
         function query(){
-        	var a = $("#inputeid").val();
-        	var b = $("#inputeName").val();
-        	var c = $("#inputeDepar").combobox('getValue');
-        	var d = $("#inputePost").val();
-        	if(isEmpty(a) && isEmpty(b) && isEmpty(c) && isEmpty(d)){
+        	var a = $("#inputid").val();
+        	if(isEmpty(a)){
         		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
         	}else{
         		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
         		if(isEmpty(rows)){
-        			$(".datagrid-view2 .datagrid-body").html("无此员工信息");
+        			$(".datagrid-view2 .datagrid-body").html("无此信息");
         		}
         	}
         }
         
-        function reset(){
-        	$("#inputeid").textbox('setValue',"");
-        	$("#inputeName").textbox('setValue',"");
-        	$("#inputeDepar").combobox("setValue","");
-        	$("#inputePost").textbox('setValue',"");
-        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
-        }
-        
         function delInfo(){
         	rows.splice(0,rows.length);
+        }
+        
+        function choice(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var tableNum = $("#tableNum").combobox('getValue');
+        	var str =new Array;
+        	str.push(id);
+        	$.ajax({
+	  		      type:"post",
+	  		      url: "addDish.action",
+	  		      data: {
+	  		    	  "str":str
+	  		      },
+	  		      dataType: "json",
+	  		      async:false,
+	  		      traditional: true,
+	  		      success: function(result){
+	  		    	  
+	  		      }
+        	});
+        	
         }
         
         function updateButton(obj){

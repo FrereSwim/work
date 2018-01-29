@@ -69,7 +69,7 @@
             <div id="pf-sider">
                 <h2 class="pf-model-name">
                     <span class="iconfont">&#xe64a;</span>
-                    <span class="pf-name">员工管理</span>
+                    <span class="pf-name">菜单管理</span>
                     <span class="toggle-icon"></span>
                 </h2>
 
@@ -77,12 +77,23 @@
                       <li>
                         <a href="javascript:;">
                             <span class="iconfont sider-nav-icon"></span>
-                            <span class="sider-nav-title">xx管理</span>
+                            <span class="sider-nav-title">菜单信息管理</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li><a href="javascript:addTag('../');">xx</a></li>
-                           <li><a href="javascript:addTag('../')">xx</a></li>
+                           <li><a href="javascript:addTag('../menuPage/');">xx</a></li>
+                           <li><a href="javascript:addTag('../menuPage/')">xx</a></li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="javascript:;">
+                            <span class="iconfont sider-nav-icon"></span>
+                            <span class="sider-nav-title">餐厅管理</span>
+                            <i class="iconfont">&#xe642;</i>
+                        </a>
+                        <ul class="sider-nav-s">
+                           <li><a href="javascript:addTag('../menuPage/menuList.html');">点餐</a></li>
+                           <li><a href="javascript:addTag('../menuPage/')">结单</a></li>
                         </ul>
                      </li>
                  </ul> 

@@ -50,7 +50,7 @@
 					<td class="kv-label">部门</td>
 					<td class="kv-content" colspan="5">
 						<!-- <input id="cooperationTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input> -->
-						<select id="eDepar" class="easyui-combobox" name="language" style="height:35px;width:300px;">
+						<select id="eDepar" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
 				   			<option value="-1">&nbsp;</option>
 		   				</select>
 					</td>
@@ -64,7 +64,7 @@
 				<tr>
 					<td class="kv-label">员工性质</td>
 					<td class="kv-content" colspan="5">
-						<select id="eType" class="easyui-combobox" name="language" style="height:35px;width:300px;">
+						<select id="eType" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
 				   			<!-- <option value="-1">&nbsp;</option> -->
 				   			<option value="1">行政层</option>
 				   			<option value="2">管理层</option>
@@ -81,7 +81,7 @@
 				<tr>
 					<td class="kv-label">合同性质</td>
 					<td class="kv-content" colspan="5">
-						<select id="eStage" class="easyui-combobox" name="language" style="height:35px;width:300px;">
+						<select id="eStage" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
 				   			<!-- <option value="-1">&nbsp;</option> -->
 				   			<option value="临时">临时</option>
 				   			<option value="试用">试用</option>
@@ -207,7 +207,8 @@
 		str.push(eType);
 		var eEntryTime = $("#eEntryTime").datetimebox("getValue");
 		str.push(eEntryTime);
-		str.push($("#eStage").val());
+		var eStage =  $("#eStage").combobox('getText');
+		str.push(eStage);
 		var eExpiryTime = $("#eExpiryTime").datetimebox("getValue");
 		str.push(eExpiryTime);
 		$.ajax({

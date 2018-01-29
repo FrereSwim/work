@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -206,15 +207,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			String startTime = str[3];
 			String endTime = str[4];
 			String state = str[5];
-			BusinessTripInfo businessTripInfo = new BusinessTripInfo();
-			businessTripInfo.setId(id);
-			businessTripInfo.setEid(eid);
-			businessTripInfo.seteName(eName);
-			businessTripInfo.setaReason(aReason);
-			businessTripInfo.setStartTime(startTime);
-			businessTripInfo.setEndTime(endTime);
-			businessTripInfo.setState(state);
-			hibernateTemplate.save(businessTripInfo);
+			LeaveInfo leaveInfo = new LeaveInfo();
+			leaveInfo.setId(id);
+			leaveInfo.setEid(eid);
+			leaveInfo.seteName(eName);
+			leaveInfo.setaReason(aReason);
+			leaveInfo.setStartTime(startTime);
+			leaveInfo.setEndTime(endTime);
+			leaveInfo.setState(state);
+			hibernateTemplate.save(leaveInfo);
 			
 		}
 
@@ -484,6 +485,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			return list;
 		}
 		
+		public List getRemindList(String eStage) throws Exception {
+			SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date();
+			Calendar calendar = new GregorianCalendar();
+		    calendar.setTime(date);
+		    calendar.add(calendar.MONTH, 1);
+		    date = calendar.getTime();
+			String time = dateFormater.format(date);
+			String sql = "from EmployeeInfo where eStage=? " 
+					   + "and str_to_date(eExpiryTime,'%Y-%m-%d %H:%i:%s') < str_to_date(?,'%Y-%m-%d %H:%i:%s') "
+					   + "and str_to_date(eExpiryTime,'%Y-%m-%d %H:%i:%s') > NOW() ORDER BY eExpiryTime ASC";
+			List<EmployeeInfo> list = (List<EmployeeInfo>) hibernateTemplate.find(sql, eStage, time);
+			return list;
+		} 
 		
 		
 		

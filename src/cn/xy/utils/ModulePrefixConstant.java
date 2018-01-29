@@ -34,5 +34,9 @@ public class ModulePrefixConstant {
 	 * 考勤模块
 	 */
 	public static final  String  ATTENDANCE_ID_PREFIX = "AI";
+	/**
+	 * 选择菜品模块
+	 */
+	public static final  String  CHOICEDISH_ID_PREFIX = "CDI";
 	
 }
