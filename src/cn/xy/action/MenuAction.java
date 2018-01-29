@@ -96,5 +96,19 @@ public class MenuAction extends ActionSupport {
     	menuService.addDish(str);
     	jSONResult.jsonResult("result", true);
     }
+    
+    public void getTemporarydish() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	String tableNum = str[0];
+    	List dishList = menuService.getTemporarydish(tableNum);
+    	jSONResult.jsonResult("dishList", dishList);
+    }
+    
+    public void delDish() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	menuService.delDish(str);
+    	jSONResult.jsonResult("result", true);
+    }
+    
 }
 	

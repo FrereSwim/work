@@ -22,7 +22,14 @@ public class MenuServiceImpl implements MenuService {
 		String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.CHOICEDISH_ID_PREFIX,8);
 		menuDao.addDish(id, str);
 	}
-	
+	@Override
+	public List getTemporarydish(String tableNum) throws Exception {
+		return menuDao.getTemporarydish(tableNum);
+	}
+	@Override
+	public void delDish(String[] str) throws Exception {
+		menuDao.delDish(str);
+	}
 	
 
 }

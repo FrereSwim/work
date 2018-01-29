@@ -28,7 +28,7 @@
 				   			<option value="8">八人桌</option>
 				   			<option value="10">多人桌</option>
 		   				</select>
-		   				<select id=tableNum class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+		   				<select id="tableNum" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
 				   			<option value="2">二人桌</option>
 				   			<option value="4">四人桌</option>
 				   			<option value="6">六人桌</option>
@@ -54,15 +54,14 @@
                 toolbar:'#tb'">
             <thead>
                 <tr>
-                    <th field="code" width="180" align="center">ID</th>
-                    <th field="eid" width="100" align="center">员工编号</th>
-                    <th field="eName" width="100" align="center">员工名</th>
-                    <th field="eSex" width="100" align="center">性别</th>
-                    <th field="eAge" width="100" align="center">年龄</th>
-                    <th field="eDepar" width="100" align="center">部门</th>
-                    <th field="ePost" width="100" align="center">职位</th>
-                    <th field="eEntryTime" width="100" align="center">入职时间</th>
-                    <th field="note" width="180" align="center">操作</th>
+                    <th field="id" width="140" align="center">菜品编号</th>
+                    <th field="type" width="130" align="center">菜品类型</th>
+                    <th field="dishName" width="130" align="center">菜品名</th>
+                    <th field="englishName" width="130" align="center">菜品名(EN)</th>
+                    <th field="price" width="130" align="center">价格</th>
+                    <th field="level" width="130" align="center">级别</th>
+                    <th field="origin" width="130" align="center">源产地</th>
+                    <th field="note" width="130" align="center">操作</th>
                 </tr>
             </thead>
         </table>
@@ -78,19 +77,18 @@
                 toolbar:'#tb2'">
             <thead>
                 <tr>
-                    <th field="code" width="180" align="center">ID</th>
-                    <th field="eid" width="100" align="center">员工编号</th>
-                    <th field="eName" width="100" align="center">员工名</th>
-                    <th field="eSex" width="100" align="center">性别</th>
-                    <th field="eAge" width="100" align="center">年龄</th>
-                    <th field="eDepar" width="100" align="center">部门</th>
-                    <th field="ePost" width="100" align="center">职位</th>
-                    <th field="eEntryTime" width="100" align="center">入职时间</th>
-                    <th field="note" width="180" align="center">操作</th>
+                    <th field="id" width="140" align="center">菜品编号</th>
+                    <th field="type" width="130" align="center">菜品类型</th>
+                    <th field="dishName" width="130" align="center">菜品名</th>
+                    <th field="englishName" width="130" align="center">菜品名(EN)</th>
+                    <th field="price" width="130" align="center">价格</th>
+                    <th field="level" width="130" align="center">级别</th>
+                    <th field="origin" width="130" align="center">源产地</th>
+                    <th field="note" width="130" align="center">操作</th>
                 </tr>
             </thead>
         </table>
-        <table id="dg3" style="width:100%;" title="已上菜品列表" data-options="
+        <!-- <table id="dg3" style="width:100%;" title="已上菜品列表" data-options="
                 rownumbers:true,
                 singleSelect:false,
                 autoRowHeight:false,
@@ -113,7 +111,7 @@
                     <th field="note" width="180" align="center">操作</th>
                 </tr>
             </thead>
-       </table>
+       </table> -->
       <div id="tb" style="padding:0 30px;">
 	      	<div class="conditions">
 		             菜品编码: <input id="inputid" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
@@ -135,16 +133,34 @@
     <script type="text/javascript" src="../page/js/showListData.js"></script>
 
     <script type="text/javascript">
-	    $(function(){
-	    }); 
 
+	    $(function(){
+	            $('#dg').datagrid({data:getDate2()}).datagrid('clientPaging');
+	            $('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
+	            //$('#dg3').datagrid({data:getData()}).datagrid('clientPaging');
+	    });
+	    
+	    function getDate2(){
+	    	/* rows.push({
+  				id: "null",
+    		  	type: "null",
+    		  	dishName: "null",
+    		  	englishName: "null",
+    		  	price: "null",
+    		  	level: "null",
+    		  	origin: "null",
+                note: "null"
+              }); */
+	    }
+	        
     	var rows = [];
-        /* function getData(a){
+        function getData(a){
         	var str = new Array;
-        	str.push(dType);
+        	var tableNum = $("#tableNum").combobox('getValue');
+        	str.push(tableNum);
             $.ajax({
   		      type:"post",
-  		      url: "getEmployeeList.action",
+  		      url: "getTemporarydish.action",
   		      data: {
   		    	 "str":str 
   		      },
@@ -152,33 +168,38 @@
   		      async:false,
   		      traditional: true,
   		      success: function(result){
-  		    		var str = "<a href='#' onclick='updateButton(this)'>编辑</a>";
-                	str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+  		    		var str = "<a href='#' onclick='cancel(this)'>取消</a>";
   		    		delInfo();
-  		    		$.each(result.employeeList,function(index,val){
-  		    			var d = change(val.eDepar);
+  		    		$.each(result.dishList,function(index,val){
   		    			rows.push({
-  		                    code: val.id,
-  		                  	eid: val.eid,
-  		                  	eName: val.eName,
-  		                  	eSex: val.eSex,
-  		                 	eAge: val.eAge,
-  		                 	eDepar: d,
-  		                 	ePost: val.ePost,
-  		                 	eEntryTime: val.eEntryTime,
-  		                    note: str
+  		    				id: val.id,
+    		    		  	type: val.type,
+    		    		  	dishName: val.dishName,
+    		    		  	englishName: val.englishName,
+    		    		  	price: val.price,
+    		    		  	level: val.level,
+    		    		  	origin: val.origin,
+		                    note: str
   		                });
   		    		});
   		      	  }
   		      });
             return rows;
-        } */
+        } 
         
-        $(function(){
-            $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
-            $('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
-            $('#dg3').datagrid({data:getData()}).datagrid('clientPaging');
-        });
+        
+        function query(){
+        	var a = $("#inputid").val();
+        	if(isEmpty(a)){
+        		//$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        		alert("请输入菜品编号");
+        	}else{
+        		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
+        		if(isEmpty(rows)){
+        			$(".datagrid-view2 .datagrid-body").html("无此信息");
+        		}
+        	}
+        }
         
         function changeRow(){
         	var id = $("#inputid").val();
@@ -219,27 +240,18 @@
         	return rows;
         }
         
-        function query(){
-        	var a = $("#inputid").val();
-        	if(isEmpty(a)){
-        		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
-        	}else{
-        		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
-        		if(isEmpty(rows)){
-        			$(".datagrid-view2 .datagrid-body").html("无此信息");
-        		}
-        	}
-        }
-        
         function delInfo(){
         	rows.splice(0,rows.length);
         }
         
         function choice(obj){
-        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var dishID = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var price = $(obj).parent().parent().parent().children('td').eq(4).children('div').eq(0).html();
         	var tableNum = $("#tableNum").combobox('getValue');
         	var str =new Array;
-        	str.push(id);
+        	str.push(tableNum);
+        	str.push(dishID);
+        	str.push(price);
         	$.ajax({
 	  		      type:"post",
 	  		      url: "addDish.action",
@@ -256,38 +268,26 @@
         	
         }
         
-        function updateButton(obj){
-        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
-        	var str = "../employeePage/updateEmployee.html?id=" + id + "&type=" + dType;
-        	document.location.href = str;
-        }
-        
-        var delId;
-        function delButton(obj){
-        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
-        	delId = id;
-        	var username = $(obj).parent().parent().parent().children('td').eq(2).children('div').eq(0).html();
-        	qikoo.dialog.confirm('请确认是否删除此员工',function(){
-        		var str = new Array;
-            	str.push(delId);
-            	$.ajax({
-      		      type:"post",
-      		      url: "delEmployee.action",
-      		      data: {
-      		    	  "str":str
-      		      },
-      		      dataType: "json",
-      		      traditional: true,
-      		      success: function(result){
-      		    	window.location = "employeeList.html?dType=" + dType;
-      		      }
-      			});
-            },function(){
-    	    });
-        }
-        
-        function add(){
-        	window.location = "addEmployee.html?type=" + dType;
+        function cancel(obj){
+        	var dishID = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var tableNum = $("#tableNum").combobox('getValue');
+        	var str =new Array;
+        	str.push(tableNum);
+        	str.push(dishID);
+        	$.ajax({
+	  		      type:"post",
+	  		      url: "delDish.action",
+	  		      data: {
+	  		    	  "str":str
+	  		      },
+	  		      dataType: "json",
+	  		      async:false,
+	  		      traditional: true,
+	  		      success: function(result){
+	  		    	  
+	  		      }
+        	});
+        	
         }
         
         function isEmpty(message){

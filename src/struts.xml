@@ -281,6 +281,13 @@
     	<action name="addDish" class="menuAction" method="addDish">
     		<result name="success"></result>
     	</action>
+    	<action name="getTemporarydish" class="menuAction" method="getTemporarydish">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delDish" class="menuAction" method="delDish">
+    		<result name="success"></result>
+    	</action>
+    	
     	
     	
     </package>
