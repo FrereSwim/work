@@ -30,6 +30,14 @@ public class MenuServiceImpl implements MenuService {
 	public void delDish(String[] str) throws Exception {
 		menuDao.delDish(str);
 	}
+	@Override
+	public List getTableNumByTableType(String tableType, String state) throws Exception {
+		return menuDao.getTableNumByTableType(tableType, state);
+	}
+	@Override
+	public void updateTableState(String tableNum, String state) throws Exception {
+		menuDao.updateTableState(tableNum, state);
+	}
 	
 
 }

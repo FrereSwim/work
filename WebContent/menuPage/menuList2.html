@@ -1,0 +1,414 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>员工信息列表</title> 
+
+	<link href="../page/css/base.css" rel="stylesheet">
+	<link rel="stylesheet" href="../custom/uimaker/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+	<link rel="stylesheet" href="../page/css/providers.css">
+	<link href="../page/css/qikoo.css" rel="stylesheet">
+
+</head> 
+<body>
+
+	<div class="easyui-tabs1" style="height:80px;">
+    	<div class="panel-title">选择就坐桌</div>
+      	<table class="kv-table">
+      		<tbody>
+      			<tr>
+					<td class="kv-label">桌号</td>
+					<td class="kv-content" colspan="5">
+						<select id="tableType" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+				   			<option value="0"></option>
+				   			<option value="2">双人桌</option>
+				   			<option value="4">四人桌</option>
+				   			<option value="6">六人桌</option>
+				   			<option value="8">八人桌</option>
+				   			<option value="10">多人桌</option>
+		   				</select>
+		   				<select id="tableNum" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+				   			<!-- <option value="0"></option>
+				   			<option value="2">二人桌</option>
+				   			<option value="4">四人桌</option>
+				   			<option value="6">六人桌</option>
+				   			<option value="8">八人桌</option>
+				   			<option value="10">多人桌</option> -->
+		   				</select>
+		   				<a href="javascript:reflush()" class="easyui-linkbutton" data-options="selected:true">选择</a>
+		   				<a href="javascript:reflush2()" class="easyui-linkbutton" data-options="selected:true">重选</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+    <div class="container">
+       <table id="dg" style="width:100%;" title="查询菜品列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb'">
+            <thead>
+                <tr>
+                    <th field="id" width="140" align="center">菜品编号</th>
+                    <th field="type" width="130" align="center">菜品类型</th>
+                    <th field="dishName" width="130" align="center">菜品名</th>
+                    <th field="englishName" width="130" align="center">菜品名(EN)</th>
+                    <th field="price" width="130" align="center">价格</th>
+                    <th field="level" width="130" align="center">级别</th>
+                    <th field="origin" width="130" align="center">源产地</th>
+                    <th field="note" width="130" align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+        <table id="dg2" style="width:100%;" title="已选菜品列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb2'">
+            <thead>
+                <tr>
+                	<th field="id" width="220" align="center">ID</th>
+                    <th field="dishID" width="210" align="center">菜品编号</th>
+                    <th field="tableNum" width="210" align="center">桌号</th>
+                    <th field="price" width="210" align="center">价格</th>
+                    <th field="note" width="210" align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+      <div id="tb" style="padding:0 30px;">
+	      	<div class="conditions">
+		             菜品编码: <input id="inputid" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
+	        	    <a href="javascript:query()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+	        </div>
+      </div>
+    <div>
+      <div id="tb2" style="padding:0 30px;">
+      	    <div class="conditions">
+      	    </div>
+      </div>
+    </div>
+    
+    
+    <script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
+    <script src="../page/js/qikoo.js"></script>
+    <!-- <script type="text/javascript" src="../page/js/showListData.js"></script> -->
+
+    <script type="text/javascript">
+    
+    $("#tableType").combobox({  
+   	   onSelect: function () {
+   			$("#tableNum").combobox('setValue', "");
+   			var tableType = $("#tableType").combobox('getValue');
+			//alert(tableType);
+			var str = new Array;
+			str.push(tableType);
+			str.push("1");
+			$.ajax({
+	  		      type:"post",
+	  		      url: "getTableNumByTableType.action",
+	  		      data: {
+	  		    	 "str":str 
+	  		      },
+	  		      dataType: "json",
+	  		      async:false,
+	  		      traditional: true,
+	  		      success: function(result){
+	  		    	var data = [];
+	  		    	$.each(result.list,function(index,val){
+			    		  var obj = new Object();
+			    		  obj.text = val.tableNum;
+			    		  obj.value = val.tableNum;
+			    		  data.push(obj);
+			    	  });
+			    	  $("#tableNum").combobox("loadData", data);
+	  		      }
+			});
+   	　　  }  
+
+    });
+    
+    (function($){
+        function pagerFilter(data){
+            if ($.isArray(data)){   // is array
+                data = {
+                    total: data.length,
+                    rows: data
+                }
+            }
+            var target = this;
+            var dg = $(target);
+            var state = dg.data('datagrid');
+            var opts = dg.datagrid('options');
+            if (!state.allRows){
+                state.allRows = (data.rows);
+            }
+            if (!opts.remoteSort && opts.sortName){
+                var names = opts.sortName.split(',');
+                var orders = opts.sortOrder.split(',');
+                state.allRows.sort(function(r1,r2){
+                    var r = 0;
+                    for(var i=0; i<names.length; i++){
+                        var sn = names[i];
+                        var so = orders[i];
+                        var col = $(target).datagrid('getColumnOption', sn);
+                        var sortFunc = col.sorter || function(a,b){
+                            return a==b ? 0 : (a>b?1:-1);
+                        };
+                        r = sortFunc(r1[sn], r2[sn]) * (so=='asc'?1:-1);
+                        if (r != 0){
+                            return r;
+                        }
+                    }
+                    return r;
+                });
+            }
+            var start = (opts.pageNumber-1)*parseInt(opts.pageSize);
+            var end = start + parseInt(opts.pageSize);
+            data.rows = state.allRows;
+            return data;
+        }
+
+        var loadDataMethod = $.fn.datagrid.methods.loadData;
+        var deleteRowMethod = $.fn.datagrid.methods.deleteRow;
+        $.extend($.fn.datagrid.methods, {
+            clientPaging: function(jq){
+                return jq.each(function(){
+                    var dg = $(this);
+                    var state = dg.data('datagrid');
+                    var opts = state.options;
+                    opts.loadFilter = pagerFilter;
+                    var onBeforeLoad = opts.onBeforeLoad;
+                    opts.onBeforeLoad = function(param){
+                        state.allRows = null;
+                        return onBeforeLoad.call(this, param);
+                    }
+                    var pager = dg.datagrid('getPager');
+                    pager.pagination({
+                        onSelectPage:function(pageNum, pageSize){
+                            opts.pageNumber = pageNum;
+                            opts.pageSize = pageSize;
+                            pager.pagination('refresh',{
+                                pageNumber:pageNum,
+                                pageSize:pageSize
+                            });
+                            dg.datagrid('loadData',state.allRows);
+                        }
+                    });
+                    $(this).datagrid('loadData', state.data);
+                    if (opts.url){
+                        $(this).datagrid('reload');
+                    }
+                });
+            },
+            loadData: function(jq, data){
+                jq.each(function(){
+                    $(this).data('datagrid').allRows = null;
+                });
+                return loadDataMethod.call($.fn.datagrid.methods, jq, data);
+            },
+            deleteRow: function(jq, index){
+                return jq.each(function(){
+                    var row = $(this).datagrid('getRows')[index];
+                    deleteRowMethod.call($.fn.datagrid.methods, $(this), index);
+                    var state = $(this).data('datagrid');
+                    if (state.options.loadFilter == pagerFilter){
+                        for(var i=0; i<state.allRows.length; i++){
+                            if (state.allRows[i] == row){
+                                state.allRows.splice(i,1);
+                                break;
+                            }
+                        }
+                        $(this).datagrid('loadData', state.allRows);
+                    }
+                });
+            },
+            getAllRows: function(jq){
+                return jq.data('datagrid').allRows;
+            }
+        })
+    })(jQuery);
+
+	    $(function(){
+	            $('#dg').datagrid({data:getDate2()}).datagrid('clientPaging');
+	            $('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
+	            //$('#dg3').datagrid({data:getData()}).datagrid('clientPaging');
+	    });
+	    
+	    function getDate2(){
+	    	
+	    }
+	    
+	    function reflush(){
+	    	$("#tableType").combobox('disable');
+	    	$("#tableNum").combobox('disable');
+	    	$('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
+	    }
+	    
+	    function reflush2(){
+	    	$("#tableType").combobox('enable');
+	    	$("#tableNum").combobox('enable');
+	    	$('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
+	    }
+	        
+    	var rows = [];
+        function getData(){
+        	var str = new Array;
+        	var tableNum = $("#tableNum").combobox('getValue');
+        	str.push(tableNum);
+            $.ajax({
+  		      type:"post",
+  		      url: "getTemporarydish.action",
+  		      data: {
+  		    	 "str":str 
+  		      },
+  		      dataType: "json",
+  		      async:false,
+  		      traditional: true,
+  		      success: function(result){
+  		    		var str = "<a href='#' onclick='cancel(this)'>取消</a>";
+  		    		delInfo();
+  		    		$.each(result.dishList,function(index,val){
+  		    			rows.push({
+  		    				id: val.id,
+  		    				dishID: val.dishID,
+  		    				tableNum: val.tableNum,
+  		    				price: val.price,
+		                    note: str
+  		                });
+  		    		});
+  		      	  }
+  		      });
+            return rows;
+        } 
+        
+        
+        function query(){
+        	var a = $("#inputid").val();
+        	if(isEmpty(a)){
+        		//$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        		alert("请输入菜品编号");
+        	}else{
+        		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
+        	}
+        }
+        
+        function changeRow(){
+        	var id = $("#inputid").val();
+        	var str =new Array;
+        	str.push(id);
+        	$.ajax({
+    		      type:"post",
+    		      url: "getMenuByEid.action",
+    		      data: {
+    		    	  "str":str
+    		      },
+    		      dataType: "json",
+    		      async:false,
+    		      traditional: true,
+    		      success: function(result){
+    		    	  var menuList = result.menuList;
+    		    	  if(menuList == "0"){
+    		    		  delInfo();
+    		    		  return;
+    		    	  }else{
+    		    		  var str = "<a href='#' onclick='choice(this)'>选择</a>";
+        		    	  delInfo();
+        		    	  $.each(menuList,function(index,val){
+	        		    	  rows.push({
+        		    		  	id: val.id,
+        		    		  	type: val.type,
+        		    		  	dishName: val.dishName,
+        		    		  	englishName: val.englishName,
+        		    		  	price: val.price,
+        		    		  	level: val.level,
+        		    		  	origin: val.origin,
+    		                    note: str
+	        	              });
+        		    	  });
+    		    	  }
+    		      	}
+    		      });
+        	return rows;
+        }
+        
+        function delInfo(){
+        	rows.splice(0,rows.length);
+        }
+        
+        function choice(obj){
+        	var dishID = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var price = $(obj).parent().parent().parent().children('td').eq(4).children('div').eq(0).html();
+        	var tableNum = $("#tableNum").combobox('getValue');
+        	var str =new Array;
+        	str.push(tableNum);
+        	str.push(dishID);
+        	str.push(price);
+        	$.ajax({
+	  		      type:"post",
+	  		      url: "addDish.action",
+	  		      data: {
+	  		    	  "str":str
+	  		      },
+	  		      dataType: "json",
+	  		      async:false,
+	  		      traditional: true,
+	  		      success: function(result){
+	  		    	$('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
+	  		      }
+        	});
+        	
+        }
+        
+        function cancel(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var dishID = $(obj).parent().parent().parent().children('td').eq(1).children('div').eq(0).html();
+        	var tableNum = $("#tableNum").combobox('getValue');
+        	var str =new Array;
+        	str.push(id);
+        	str.push(tableNum);
+        	str.push(dishID);
+        	$.ajax({
+	  		      type:"post",
+	  		      url: "delDish.action",
+	  		      data: {
+	  		    	  "str":str
+	  		      },
+	  		      dataType: "json",
+	  		      async:false,
+	  		      traditional: true,
+	  		      success: function(result){
+	  		    	$('#dg2').datagrid({data:getData()}).datagrid('clientPaging');
+	  		      }
+        	});
+        	
+        }
+        
+        function isEmpty(message){
+    		return  message=="" || message==null || message==undefined ;
+    	}
+        
+        function GetUID(name){
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+       	}
+                
+    </script>
+</body> 
+</html>

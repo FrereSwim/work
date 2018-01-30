@@ -93,6 +93,7 @@
                         </a>
                         <ul class="sider-nav-s">
                            <li><a href="javascript:addTag('../menuPage/menuList.html');">点餐</a></li>
+                           <li><a href="javascript:addTag('../menuPage/menuList2.html');">明细</a></li>
                            <li><a href="javascript:addTag('../menuPage/')">结单</a></li>
                         </ul>
                      </li>

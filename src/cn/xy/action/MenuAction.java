@@ -110,5 +110,21 @@ public class MenuAction extends ActionSupport {
     	jSONResult.jsonResult("result", true);
     }
     
+    public void getTableNumByTableType() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	String tableType = str[0];
+    	String state = str[1];
+    	List list = menuService.getTableNumByTableType(tableType, state);
+    	jSONResult.jsonResult("list", list);
+    }
+    
+    public void updateTableState() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	String tableNum = str[0];
+    	String state = str[1];
+    	menuService.updateTableState(tableNum, state);
+    	jSONResult.jsonResult("result", true);
+    }
+    
 }
 	
