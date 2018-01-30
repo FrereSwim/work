@@ -10,4 +10,6 @@ public interface MenuService {
 	void delDish(String[] str) throws Exception;
 	List getTableNumByTableType(String tableType, String state) throws Exception;
 	void updateTableState(String tableNum, String state) throws Exception;
+	void checkoutBill(String tableNum) throws Exception;
+	void revokeBill(String tableNum) throws Exception;
 }

@@ -38,5 +38,9 @@ public class ModulePrefixConstant {
 	 * 选择菜品模块
 	 */
 	public static final  String  CHOICEDISH_ID_PREFIX = "CDI";
+	/**
+	 * 菜品账单模块
+	 */
+	public static final  String  DISHBILL_ID_PREFIX = "DBI";
 	
 }

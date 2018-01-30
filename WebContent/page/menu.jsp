@@ -81,7 +81,7 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li><a href="javascript:addTag('../menuPage/');">xx</a></li>
+                           <li><a href="javascript:addTag('../menuPage/dishMenuList.html');">信息管理</a></li>
                            <li><a href="javascript:addTag('../menuPage/')">xx</a></li>
                         </ul>
                      </li>
@@ -94,7 +94,7 @@
                         <ul class="sider-nav-s">
                            <li><a href="javascript:addTag('../menuPage/menuList.html');">点餐</a></li>
                            <li><a href="javascript:addTag('../menuPage/menuList2.html');">明细</a></li>
-                           <li><a href="javascript:addTag('../menuPage/')">结单</a></li>
+                           <li><a href="javascript:addTag('../menuPage/menuList3.html')">结单</a></li>
                         </ul>
                      </li>
                  </ul> 

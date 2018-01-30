@@ -1,0 +1,222 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>菜单信息列表</title> 
+
+	<link href="../page/css/base.css" rel="stylesheet">
+	<link rel="stylesheet" href="../custom/uimaker/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+	<link rel="stylesheet" href="../page/css/providers.css">
+	<link href="../page/css/qikoo.css" rel="stylesheet">
+
+</head> 
+<body>
+    <div class="container">
+       <table id="dg" style="width:100%;height:554px" title="菜单信息列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                pagination:true,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb',
+                pageSize:10">
+            <thead>
+                <tr>
+                    <th field="id" width="140" align="center">菜品编号</th>
+                    <th field="dishName" width="130" align="center">菜品名</th>
+                    <th field="englishName" width="130" align="center">菜品名(EN)</th>
+                    <th field="type" width="130" align="center">菜品类型</th>
+                    <th field="price" width="130" align="center">价格</th>
+                    <th field="level" width="130" align="center">级别</th>
+                    <th field="origin" width="130" align="center">源产地</th>
+                    <th field="note" width="130" align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+      <div id="tb" style="padding:0 30px;">
+   	菜名：    <input id="inputDishName" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
+            类型：    <input id="inputType" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
+            级别：   <select id="inputeLevel" class="easyui-combobox" name="language" style="height:35px;width:166px;" panelHeight="auto">
+		 	<option value="0"></option>
+   			<option value="s">特级</option>
+   			<option value="1">一级</option>
+   			<option value="2">一级</option>
+   			<option value="3">一级</option>
+		 </select>
+        <a href="javascript:queryInfo()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a> 
+        <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
+        <a href="exportAdmin.action" style="position:absolute;right:0px;margin-top:11px;margin-right:100px;" class="easyui-linkbutton">>>导出</a>
+        <a href="javascript:addAdmin()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a>
+      </div>
+    </div>
+    <script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
+    <script src="../page/js/qikoo.js"></script>
+    <script type="text/javascript" src="js/system.js"></script>
+    <script type="text/javascript" src="../page/js/showListData.js"></script>
+
+    <script type="text/javascript">
+    
+    	var rows = [];
+        function getData(a){
+            $.ajax({
+  		      type:"post",
+  		      url: "getPartnerList.action",
+  		      data: {},
+  		      dataType: "json",
+  		      async:false,
+  		      traditional: true,
+  		      success: function(result){
+  		    		var str = "<a href='#' onclick='lookInfo(this)'>修改</a>";
+                	str += "<a style='padding-left:8px' href='#' onclick='delBut(this)'>删除</a>";
+  		    		delInfo();
+  		    		$.each(result.partnerList,function(index,val){
+  		    			rows.push({
+  		    				id: val.id,
+    		    		  	type: val.type,
+    		    		  	dishName: val.dishName,
+    		    		  	englishName: val.englishName,
+    		    		  	price: val.price,
+    		    		  	level: val.level,
+    		    		  	origin: val.origin,
+		                    note: str
+  		                });
+  		    		});
+  		      	  }
+  		      });
+            return rows;
+        }
+        
+        $(function(){
+            $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+          //添加操作按钮
+            var str = "<a href='#' onclick='lookInfo(this)'>修改</a>";
+            str += "<a style='padding-left:8px' href='#' onclick='delBut(this)'>删除</a>";
+            $("div[class='datagrid-body'] td[field='note'] div").html(str);
+        });
+        
+       function changeRow(){
+        	var partnerName = $("#inputPartnerName").val();
+        	var type = $("#inputType").val();
+        	var str =new Array;
+        	str.push(partnerName);
+        	str.push(type);
+        	$.ajax({
+    		      type:"post",
+    		      url: "getPartnerByInput.action",
+    		      data: {
+    		    	  "str":str
+    		      },
+    		      dataType: "json",
+    		      async:false,
+    		      traditional: true,
+    		      success: function(result){
+    		    	  var partnerList = result.partnerList;
+    		    	  if(partnerList == "0"){
+    		    		  delInfo();
+    		    		  return;
+    		    	  }else{
+    		    		  var str = "<a href='#' onclick='lookInfo(this)'>修改</a>";
+        	              str += "<a style='padding-left:8px' href='#' onclick='delBut(this)'>删除</a>";
+        		    	  delInfo();
+        		    	  $.each(partnerList,function(index,val){
+        		    		  var startTime = new Date(val.startTime.time);
+      		    		      startTime = changeDate(startTime);
+       		    			  rows.push({
+       		    				id: val.id,
+        		    		  	type: val.type,
+        		    		  	dishName: val.dishName,
+        		    		  	englishName: val.englishName,
+        		    		  	price: val.price,
+        		    		  	level: val.level,
+        		    		  	origin: val.origin,
+    		                    note: str
+       		                  });
+        		    	  });
+    		    	  }
+    		      	}
+    		      });
+        	return rows;
+        }
+        
+        function queryInfo(){
+        	var a = $("#inputPartnerName").val();
+        	var b = $("#inputType").val();
+        	if(isEmpty(a) && isEmpty(b)){
+        		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        	}else{
+        		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
+        		if(isEmpty(rows)){
+        			$(".datagrid-view2 .datagrid-body").html("无详细信息");
+        		}
+        	}
+        }
+        
+        function reset(){
+        	$("#inputPartnerName").textbox('setValue',"");
+        	$("#inputType").textbox('setValue',"");
+        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        }
+        
+        function delInfo(){
+        	rows.splice(0,rows.length);
+        }
+        
+        function lookInfo(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var str = "../systemPage/updatePartner.html?id=" + id;
+        	document.location.href = str;
+        }
+        
+        function addInfo(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var str = "../systemPage/addPartner.html?id=" + id;
+        	document.location.href = str;
+        }
+
+        var delId;
+        function delBut(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	delId = id;
+        	qikoo.dialog.confirm('请确认是否删除此信息' ,function(){
+        		var str = new Array;
+            	str.push(delId);
+            	$.ajax({
+      		      type:"post",
+      		      url: "delPartnerInfo.action",
+      		      data: {
+      		    	  "str":str
+      		      },
+      		      dataType: "json",
+      		      traditional: true,
+      		      success: function(result){
+      		    	window.location = "partnerList.html";
+      		      }
+      			});
+            },function(){
+    	    });
+        }
+        
+        function changeDate(a){
+        	var date = a.toLocaleString();
+    		date = date.split(' ');
+    		var dateTime = date[0];
+    		dateTime = dateTime.split('/');
+    		var dateTime1 = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2];
+    		return dateTime1;
+        }
+        
+        function isEmpty(message){
+    		return  message=="" || message==null || message==undefined ;
+    	}
+                
+    </script>
+</body> 
+</html>

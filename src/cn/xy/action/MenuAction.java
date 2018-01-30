@@ -126,5 +126,19 @@ public class MenuAction extends ActionSupport {
     	jSONResult.jsonResult("result", true);
     }
     
+    public void checkoutBill() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	String tableNum = str[0];
+    	menuService.checkoutBill(tableNum);
+    	jSONResult.jsonResult("result", true);
+    }
+    
+    public void revokeBill() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	String tableNum = str[0];
+    	menuService.revokeBill(tableNum);
+    	jSONResult.jsonResult("result", true);
+    }
+    
 }
 	

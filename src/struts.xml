@@ -119,9 +119,6 @@
     	<action name="getWinnersList" class="systemAction" method="getWinnersList">
     		<result name="success">winnersList.html</result>
     	</action>
-    	<action name="innerFile" class="systemAction" method="innerFile">
-    		<result name="success">../systemPage/adminList.html</result>
-    	</action>
     	<action name="getFileList" class="systemAction" method="getFileList">
     		<result name="success"></result>
     	</action>
@@ -293,8 +290,15 @@
     	<action name="updateTableState" class="menuAction" method="updateTableState">
     		<result name="success"></result>
     	</action>
-    	
-    	
+    	<action name="checkoutBill" class="menuAction" method="checkoutBill">
+    		<result name="success"></result>
+    	</action>
+    	<action name="revokeBill" class="menuAction" method="revokeBill">
+    		<result name="success"></result>
+    	</action>
+    	<action name="fileImport" class="menuAction" method="fileImport">
+    		<result name="success"></result>
+    	</action>
     	
     	
     </package>

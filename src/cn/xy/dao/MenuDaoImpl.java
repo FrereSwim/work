@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
 import cn.xy.menuBean.CarteInfo;
+import cn.xy.menuBean.DishBillInfo;
 import cn.xy.menuBean.TableInfo;
 import cn.xy.menuBean.TemporaryDishInfo;
 
@@ -67,8 +68,36 @@ public class MenuDaoImpl implements MenuDao {
 		tableInfo.setState(state);
 		hibernateTemplate.update(tableInfo);
 	}
+
+
+	@Override
+	public List getdishBill(String tableNum) throws Exception {
+		List<TemporaryDishInfo> list = (List<TemporaryDishInfo>) hibernateTemplate.find("from TemporaryDishInfo where tableNum=?", tableNum);
+		return list;
+	}
 	
-	
+	@Override
+	public void addBill(String id, String tableNum, String price, String createTime) throws Exception {
+		DishBillInfo dDishBillInfo = new DishBillInfo();
+		dDishBillInfo.setId(id);
+		dDishBillInfo.setTableNum(tableNum);
+		dDishBillInfo.setPrice(price);
+		dDishBillInfo.setCreateTime(createTime);
+		hibernateTemplate.save(dDishBillInfo);
+	}
+
+	@Override
+	public void deldishBill(String tableNum) throws Exception {
+		List<TemporaryDishInfo> list = (List<TemporaryDishInfo>) hibernateTemplate.find("from TemporaryDishInfo where tableNum=?", tableNum);
+		int len = list.size();
+		TemporaryDishInfo temporaryDishInfo;
+		for(int i = 0; i < len; i++) {
+			temporaryDishInfo = list.get(i);
+			hibernateTemplate.delete(temporaryDishInfo);
+		}
+	}
+
+
 			
 
 }
