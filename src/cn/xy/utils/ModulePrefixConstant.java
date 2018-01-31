@@ -42,5 +42,9 @@ public class ModulePrefixConstant {
 	 * 菜品账单模块
 	 */
 	public static final  String  DISHBILL_ID_PREFIX = "DBI";
+	/**
+	 * 菜品模块
+	 */
+	public static final  String  DISHINFO_ID_PREFIX = "DII";
 	
 }

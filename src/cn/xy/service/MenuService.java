@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface MenuService {
 	
+	void addDishList(List list) throws Exception;
+	
 	List getMenuByEid(String id) throws Exception;
 	void addDish(String[] str) throws Exception;
 	List getTemporarydish(String tableNum) throws Exception;
@@ -12,4 +14,11 @@ public interface MenuService {
 	void updateTableState(String tableNum, String state) throws Exception;
 	void checkoutBill(String tableNum) throws Exception;
 	void revokeBill(String tableNum) throws Exception;
+	
+	List getDishList() throws Exception;
+	List getDishListByInput(String[] str) throws Exception;
+	List getDishById(String id) throws Exception;
+	void updateDishInfo(String[] str) throws Exception;
+	void delDishInfo(String id) throws Exception;
+	void addDishInfo(String[] str) throws Exception;
 }

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.xy.employeeBean.EmployeeInfo;
 import cn.xy.menuBean.CarteInfo;
 import cn.xy.service.MenuService;
 import cn.xy.utils.JSONResult;
@@ -58,6 +60,9 @@ public class MenuAction extends ActionSupport {
     public String fileImport() throws Exception{
     	String root = "F:\\java\\work\\webapps\\RestaurantMain\\数据导入";
         InputStream is = new FileInputStream(file);
+        long date = new Date().getTime();
+        String[] strs  = fileFileName.split("\\.");
+        fileFileName = strs[0] + date + "." + strs[1];
         OutputStream os = new FileOutputStream(new File(root, fileFileName));
         System.out.println("fileFileName: " + fileFileName);
         System.out.println("file: " + file.getName());
@@ -74,9 +79,12 @@ public class MenuAction extends ActionSupport {
 		String filePath = root + "/" + fileFileName;
 		
 		List list = readExcelUntil.readExcel(filePath);
-		CarteInfo carteInfo = (CarteInfo) list.get(0);
-		HttpServletRequest request = ServletActionContext.getRequest(); 
-	    String username = request.getParameter("username");
+		menuService.addDishList(list);
+		//CarteInfo carteInfo = (CarteInfo) list.get(0);
+		//String name = carteInfo.getDishName();
+		//System.out.println(name);
+		//HttpServletRequest request = ServletActionContext.getRequest(); 
+	    //String username = request.getParameter("username");
         return SUCCESS;
     }
     
@@ -139,6 +147,44 @@ public class MenuAction extends ActionSupport {
     	menuService.revokeBill(tableNum);
     	jSONResult.jsonResult("result", true);
     }
+    public void getDishList() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List dishList = menuService.getDishList();
+		jSONResult.jsonResult("dishList", dishList);
+	} 
+	
+	public void getDishListByInput() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List dishList = menuService.getDishListByInput(str);
+		jSONResult.jsonResult("dishList", dishList);
+	} 
+	
+	public void getDishById() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String id = str[0];
+		List list = menuService.getDishById(id);
+		CarteInfo carteInfo = (CarteInfo) list.get(0);
+		jSONResult.jsonResult("dish", carteInfo);
+	} 
+	
+	public void updateDishInfo() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		menuService.updateDishInfo(str);
+		jSONResult.jsonResult("result", true);
+	} 
+	
+	public void delDishInfo() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String id = str[0];
+		menuService.delDishInfo(id);
+		jSONResult.jsonResult("result", true);
+	}
+	
+	public void addDishInfo() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		menuService.addDishInfo(str);
+		jSONResult.jsonResult("result", true);
+	}
     
 }
 	

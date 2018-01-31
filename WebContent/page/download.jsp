@@ -14,7 +14,8 @@
                 SmartUpload smart=new SmartUpload();   
                 smart.initialize(pageContext);   
                 //smart.upload();   
-                String fileName = new String(request.getParameter("uploadName").getBytes("iso-8859-1"), "utf-8");;
+                //String fileName = new String(request.getParameter("uploadName").getBytes("iso-8859-1"), "utf-8");
+                String fileName = new String(request.getParameter("uploadName"));
                 //System.out.println(fileName);
                 smart.downloadFile("wenjian/" + fileName);   
             }   

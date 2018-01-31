@@ -29,9 +29,9 @@ public class ReadExcelUntil {
 				
 			}
 			carte.setId("1");
-			carte.setType(str[0]);
-			carte.setDishName(str[1]);
-			carte.setEnglishName(str[2]);
+			carte.setDishName(str[0]);
+			carte.setEnglishName(str[1]);
+			carte.setType(str[2]);
 			carte.setPrice(str[3]);
 			carte.setLevel(str[4]);
 			carte.setOrigin(str[5]);

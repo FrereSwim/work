@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import cn.xy.dao.MenuDao;
+import cn.xy.menuBean.CarteInfo;
 import cn.xy.menuBean.TemporaryDishInfo;
 import cn.xy.utils.IDMD5BuilderUtil;
 import cn.xy.utils.ModulePrefixConstant;
@@ -15,6 +16,24 @@ public class MenuServiceImpl implements MenuService {
 	public void setMenuDao(MenuDao menuDao) {
 		this.menuDao = menuDao;
 	}
+	
+	@Override
+	public void addDishList(List list) throws Exception {
+		int len = list.size();
+		for(int i = 0; i < len; i++){
+			String[] str = new String[len];
+			CarteInfo carteInfo = (CarteInfo) list.get(i);
+		    str[0] = carteInfo.getDishName();
+		    str[1] = carteInfo.getEnglishName();
+		    str[2] = carteInfo.getType();
+		    str[3] = carteInfo.getPrice();
+		    str[4] = carteInfo.getLevel();
+		    str[5] = carteInfo.getOrigin();
+			String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
+			menuDao.addDish(id, str);
+		}
+	}
+	
 	@Override
 	public List getMenuByEid(String id) throws Exception {
 		return menuDao.getMenuByEid(id);
@@ -65,6 +84,31 @@ public class MenuServiceImpl implements MenuService {
 	public void revokeBill(String tableNum) throws Exception {
 		menuDao.deldishBill(tableNum);
 		menuDao.updateTableState(tableNum, "0");
+	}
+	@Override
+	public List getDishList() throws Exception {
+		return menuDao.getDishList();
+	}
+	@Override
+	public List getDishListByInput(String[] str) throws Exception {
+		return menuDao.getDishListByInput(str);
+	}
+	@Override
+	public List getDishById(String id) throws Exception {
+		return menuDao.getDishById(id);
+	}
+	@Override
+	public void updateDishInfo(String[] str) throws Exception {
+		menuDao.updateDishInfo(str);
+	}
+	@Override
+	public void delDishInfo(String id) throws Exception {
+		menuDao.delDishInfo(id);
+	}
+	@Override
+	public void addDishInfo(String[] str) throws Exception {
+		String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
+		menuDao.addDishInfo(id, str);
 	}
 	
 	

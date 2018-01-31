@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
 	<link rel="stylesheet" href="../page/css/providers.css">
 	<link href="../page/css/qikoo.css" rel="stylesheet">
+	<link href="css/btu.css" rel="stylesheet">
 
 </head> 
 <body>
@@ -40,35 +41,46 @@
             </thead>
         </table>
       <div id="tb" style="padding:0 30px;">
-   	菜名：    <input id="inputDishName" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
-            类型：    <input id="inputType" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
-            级别：   <select id="inputeLevel" class="easyui-combobox" name="language" style="height:35px;width:166px;" panelHeight="auto">
-		 	<option value="0"></option>
-   			<option value="s">特级</option>
-   			<option value="1">一级</option>
-   			<option value="2">一级</option>
-   			<option value="3">一级</option>
-		 </select>
-        <a href="javascript:queryInfo()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a> 
-        <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
-        <a href="exportAdmin.action" style="position:absolute;right:0px;margin-top:11px;margin-right:100px;" class="easyui-linkbutton">>>导出</a>
-        <a href="javascript:addAdmin()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a>
-      </div>
+      	 <div class="conditions">
+		   	菜名：   <input id="inputDishName" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
+		            类型：   <input id="inputType" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
+		            级别：   <select id="inputeLevel" class="easyui-combobox" name="language" style="height:35px;width:166px;" panelHeight="auto">
+				 	<option value="0"></option>
+		   			<option value="s">特级</option>
+		   			<option value="1">一级</option>
+		   			<option value="2">二级</option>
+		   			<option value="3">三级</option>
+				 </select>
+		         <a href="javascript:queryInfo()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a> 
+		         <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
+		         <a href="javascript:addInfo()" style="position:absolute;right:0px;margin-top:11px;margin-right:120px;" class="easyui-linkbutton" data-options="selected:false">新增</a>
+	    		 <a href="../page/download.jsp?uploadName=菜单模板.xls" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton" data-options="selected:false">模板下载</a>
+		 </div>
+	     <div class="opt-buttons">
+	    	<form id="fileForm" action="fileImport.action" method="post" enctype="multipart/form-data" style="margin-left:20px;">
+				<input class="easyui-filebox" data-options="buttonText:'选         择 '" style="height:35px;width:200px;" name="file" >
+		    	<a href="javascript:document.getElementById('fileForm').submit();" class="easyui-linkbutton" data-options="selected:false">上传文件</a>
+	        </form>
+	        <!-- <a href="javascript:addInfo()" style="position:absolute;right:0px;margin-top:11px;margin-right:100px;" class="easyui-linkbutton">>>导出</a>
+	        <a href="javascript:addInfo()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a> -->
+	     </div>
+   	  </div>
     </div>
     <script type="text/javascript" src="../custom/jquery.min.js"></script>
     <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
     <script src="../page/js/qikoo.js"></script>
-    <script type="text/javascript" src="js/system.js"></script>
     <script type="text/javascript" src="../page/js/showListData.js"></script>
 
     <script type="text/javascript">
-    
+		$(function(){
+		});
+		
     	var rows = [];
         function getData(a){
             $.ajax({
   		      type:"post",
-  		      url: "getPartnerList.action",
+  		      url: "getDishList.action",
   		      data: {},
   		      dataType: "json",
   		      async:false,
@@ -77,7 +89,7 @@
   		    		var str = "<a href='#' onclick='lookInfo(this)'>修改</a>";
                 	str += "<a style='padding-left:8px' href='#' onclick='delBut(this)'>删除</a>";
   		    		delInfo();
-  		    		$.each(result.partnerList,function(index,val){
+  		    		$.each(result.dishList,function(index,val){
   		    			rows.push({
   		    				id: val.id,
     		    		  	type: val.type,
@@ -103,14 +115,20 @@
         });
         
        function changeRow(){
-        	var partnerName = $("#inputPartnerName").val();
+        	var dishName = $("#inputDishName").val();
         	var type = $("#inputType").val();
+        	var level = $("#inputeLevel").combobox('getValue');
+        	if(level == "0"){
+        		level = "";
+        	}
         	var str =new Array;
-        	str.push(partnerName);
+        	str.push(dishName);
         	str.push(type);
+        	str.push(level);
+        	console.log(str);
         	$.ajax({
     		      type:"post",
-    		      url: "getPartnerByInput.action",
+    		      url: "getDishListByInput.action",
     		      data: {
     		    	  "str":str
     		      },
@@ -118,17 +136,15 @@
     		      async:false,
     		      traditional: true,
     		      success: function(result){
-    		    	  var partnerList = result.partnerList;
-    		    	  if(partnerList == "0"){
+    		    	  var dishList = result.dishList;
+    		    	  if(dishList == "0"){
     		    		  delInfo();
     		    		  return;
     		    	  }else{
     		    		  var str = "<a href='#' onclick='lookInfo(this)'>修改</a>";
         	              str += "<a style='padding-left:8px' href='#' onclick='delBut(this)'>删除</a>";
         		    	  delInfo();
-        		    	  $.each(partnerList,function(index,val){
-        		    		  var startTime = new Date(val.startTime.time);
-      		    		      startTime = changeDate(startTime);
+        		    	  $.each(dishList,function(index,val){
        		    			  rows.push({
        		    				id: val.id,
         		    		  	type: val.type,
@@ -147,9 +163,10 @@
         }
         
         function queryInfo(){
-        	var a = $("#inputPartnerName").val();
+        	var a = $("#inputDishName").val();
         	var b = $("#inputType").val();
-        	if(isEmpty(a) && isEmpty(b)){
+        	var c = $("#inputeLevel").combobox('getValue');
+        	if(isEmpty(a) && isEmpty(b) && isEmpty(c)){
         		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
         	}else{
         		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
@@ -160,8 +177,9 @@
         }
         
         function reset(){
-        	$("#inputPartnerName").textbox('setValue',"");
+        	$("#inputDishName").textbox('setValue',"");
         	$("#inputType").textbox('setValue',"");
+        	$("#inputeLevel").combobox('setValue',"");
         	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
         }
         
@@ -171,13 +189,13 @@
         
         function lookInfo(obj){
         	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
-        	var str = "../systemPage/updatePartner.html?id=" + id;
+        	var str = "../menuPage/updateDish.html?id=" + id;
         	document.location.href = str;
         }
         
-        function addInfo(obj){
-        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
-        	var str = "../systemPage/addPartner.html?id=" + id;
+        function addInfo(){
+        	//var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var str = "../menuPage/addDish.html?";
         	document.location.href = str;
         }
 
@@ -190,14 +208,14 @@
             	str.push(delId);
             	$.ajax({
       		      type:"post",
-      		      url: "delPartnerInfo.action",
+      		      url: "delDishInfo.action",
       		      data: {
       		    	  "str":str
       		      },
       		      dataType: "json",
       		      traditional: true,
       		      success: function(result){
-      		    	window.location = "partnerList.html";
+      		    	window.location = "dishMenuList.html";
       		      }
       			});
             },function(){

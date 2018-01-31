@@ -297,9 +297,26 @@
     		<result name="success"></result>
     	</action>
     	<action name="fileImport" class="menuAction" method="fileImport">
+    		<result name="success">../menuPage/dishMenuList.html</result>
+    	</action>
+    	<action name="getDishList" class="menuAction" method="getDishList">
     		<result name="success"></result>
     	</action>
-    	
+    	<action name="getDishListByInput" class="menuAction" method="getDishListByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getDishById" class="menuAction" method="getDishById">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateDishInfo" class="menuAction" method="updateDishInfo">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delDishInfo" class="menuAction" method="delDishInfo">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addDishInfo" class="menuAction" method="addDishInfo">
+    		<result name="success"></result>
+    	</action>
     	
     </package>
 </struts>

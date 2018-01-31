@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- <style type="text/css">
+<style type="text/css">
 .a-upload {
     padding: 4px 10px;
     height: 20px;
@@ -63,7 +63,7 @@
 	    color: #004974;
 	    text-decoration: none;
 	}
- </style> -->
+ </style>
 
 </head>
 <body>
@@ -77,12 +77,11 @@
     <a href="javascript:;" class="a-upload">
    		 <input type="file" name="" id="">点击这里上传文件
 	</a> -->
-	<form action="../fileImport.action" method="post" enctype="multipart/form-data">
-		username: <input type="text" id="name" name="showName"><br>
-	    <!-- <a href="javascript:;" class="file">选择文件
-	   		 
-		</a> -->
-		选择文件<input type="file" name="" id="">
+	<form action="fileImport.action" method="post" enctype="multipart/form-data">
+		<!-- username: <input type="text" id="name" name="showName"><br> -->
+	    <a href="javascript:;" class="file">选择文件
+	   		 <input type="file" name="file" id="">
+		</a>
 		<input type="submit" value="submit">
 	</form>
 </body>

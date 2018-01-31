@@ -13,4 +13,11 @@ public interface MenuDao {
 	void addBill(String id, String tableNum, String price, String createTime) throws Exception;
 	void updateTableState(String tableNum, String state) throws Exception;
 	void deldishBill(String tableNum) throws Exception;
+	
+	List getDishList() throws Exception;
+	List getDishListByInput(String[] str) throws Exception;
+	List getDishById(String id) throws Exception;
+	void updateDishInfo(String[] str) throws Exception;
+	void delDishInfo(String id) throws Exception;
+	void addDishInfo(String id, String[] str) throws Exception;
 }

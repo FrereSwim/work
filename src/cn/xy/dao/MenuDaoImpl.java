@@ -1,9 +1,12 @@
 package cn.xy.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
+import cn.xy.employeeBean.DepartmentInfo;
+import cn.xy.employeeBean.EmployeeInfo;
 import cn.xy.menuBean.CarteInfo;
 import cn.xy.menuBean.DishBillInfo;
 import cn.xy.menuBean.TableInfo;
@@ -95,6 +98,81 @@ public class MenuDaoImpl implements MenuDao {
 			temporaryDishInfo = list.get(i);
 			hibernateTemplate.delete(temporaryDishInfo);
 		}
+	}
+
+
+	@Override
+	public List getDishList() throws Exception {
+		List<CarteInfo> list = (List<CarteInfo>) hibernateTemplate.find("from CarteInfo");
+		return list;
+	}
+
+
+	@Override
+	public List getDishListByInput(String[] str) throws Exception {
+		String sql = "from CarteInfo where id != ' ' ";
+		List arr = new ArrayList();
+		if(!str[0].equals("")){
+			sql += "and dishName like ?";
+			arr.add("%" + str[0] + "%");
+		}
+		if(!str[1].equals("")){
+			sql += "and type = ?";
+			arr.add(str[1]);
+		}
+		if(!str[2].equals("")){
+			sql += "and level = ?";
+			arr.add(str[2]);
+		}
+		String[] strings = new String[arr.size()];
+		for(int i = 0; i < arr.size(); i++){
+			strings[i] = (String) arr.get(i);
+		}
+		List<CarteInfo> list = (List<CarteInfo>) hibernateTemplate.find(sql,strings);
+		return list;
+	}
+
+
+	@Override
+	public List getDishById(String id) throws Exception {
+		List<CarteInfo> list = (List<CarteInfo>) hibernateTemplate.find("from CarteInfo where id=?", id);
+		return list;
+	}
+
+
+	@Override
+	public void updateDishInfo(String[] str) throws Exception {
+		CarteInfo carteInfo = hibernateTemplate.load(CarteInfo.class, str[0]);
+		if(carteInfo != null) {
+			carteInfo.setDishName(str[1]);
+			carteInfo.setEnglishName(str[2]);
+			carteInfo.setType(str[3]);
+			carteInfo.setPrice(str[4]);
+			carteInfo.setLevel(str[5]);
+			carteInfo.setOrigin(str[6]);
+			hibernateTemplate.update(carteInfo);
+		}
+	}
+
+
+	@Override
+	public void delDishInfo(String id) throws Exception {
+		CarteInfo carteInfo = hibernateTemplate.load(CarteInfo.class, id);
+		hibernateTemplate.delete(carteInfo);
+	}
+
+
+	@Override
+	public void addDishInfo(String id, String[] str) throws Exception {
+		CarteInfo carteInfo = new CarteInfo();
+		carteInfo.setId(id);
+		carteInfo.setDishName(str[0]);
+		carteInfo.setEnglishName(str[1]);
+		carteInfo.setType(str[2]);
+		carteInfo.setPrice(str[3]);
+		carteInfo.setLevel(str[4]);
+		carteInfo.setOrigin(str[5]);
+		hibernateTemplate.save(carteInfo);
 	}
 
 
