@@ -21,4 +21,10 @@ public interface MenuService {
 	void updateDishInfo(String[] str) throws Exception;
 	void delDishInfo(String id) throws Exception;
 	void addDishInfo(String[] str) throws Exception;
+	
+	List getDishBillList() throws Exception;
+	List getDishBillListByInput(String[] str) throws Exception;
+	
+	String[] getBillInfoByInput(String[] str) throws Exception;
+	String[] getBillInfoByInput2(String[] str) throws Exception;
 }

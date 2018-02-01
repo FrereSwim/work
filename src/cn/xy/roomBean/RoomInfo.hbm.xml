@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.roomBean.RoomInfo" table="tb_room_info">
+		<id name="id" column="id"></id>
+		<property name="level" column="level"></property>
+		<property name="area" column="area"></property>
+		<property name="roomNum" column="roomNum"></property>
+		<property name="price" column="price"></property>
+		<property name="state" column="state"></property>
+	</class>
+</hibernate-mapping>

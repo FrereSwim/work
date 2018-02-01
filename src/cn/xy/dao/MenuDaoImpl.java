@@ -175,6 +175,26 @@ public class MenuDaoImpl implements MenuDao {
 		hibernateTemplate.save(carteInfo);
 	}
 
+	@Override
+	public List getDishBillList() throws Exception {
+		List<DishBillInfo> list = (List<DishBillInfo>) hibernateTemplate.find("from DishBillInfo ORDER BY createTime DESC");
+		return list;
+	}
+
+	@Override
+	public List getDishBillListByInput(String[] str) throws Exception {
+		String startTime = str[0];
+		String endTime = str[1];
+		List<DishBillInfo> list = (List<DishBillInfo>) hibernateTemplate.find("from DishBillInfo where createTime > ? and createTime < ? ORDER BY createTime DESC", startTime, endTime);
+		return list;
+	}
+
+	@Override
+	public List getBillInfoByInput2(String[] str) throws Exception {
+		String time = str[0];
+		List<DishBillInfo> list = (List<DishBillInfo>) hibernateTemplate.find("from DishBillInfo where createTime like ?", time + "%");
+		return list;
+	}
 
 			
 

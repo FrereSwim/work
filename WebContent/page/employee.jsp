@@ -238,7 +238,7 @@
 	$(".pf-name").click(function a(){
 		 $(".sider-nav li").attr("class","");
 		 $(".sider-nav-s li").attr("class","");
-		 addTag("pageShow.html?name=system");
+		 addTag("pageShow.html?name=employee");
 	 });
     // setTimeout(function(){
     //    $('.tabs-panels').height($("#pf-page").height()-46);

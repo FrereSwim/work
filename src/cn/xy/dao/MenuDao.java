@@ -20,4 +20,10 @@ public interface MenuDao {
 	void updateDishInfo(String[] str) throws Exception;
 	void delDishInfo(String id) throws Exception;
 	void addDishInfo(String id, String[] str) throws Exception;
+	
+	List getDishBillList() throws Exception;
+	List getDishBillListByInput(String[] str) throws Exception;
+	
+	//List getBillInfoByInput(String[] str) throws Exception;
+	List getBillInfoByInput2(String[] str) throws Exception;
 }

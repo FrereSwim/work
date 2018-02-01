@@ -53,10 +53,11 @@
 				 </select>
 		         <a href="javascript:queryInfo()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a> 
 		         <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
-		         <a href="javascript:addInfo()" style="position:absolute;right:0px;margin-top:11px;margin-right:120px;" class="easyui-linkbutton" data-options="selected:false">新增</a>
-	    		 <a href="../page/download.jsp?uploadName=菜单模板.xls" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton" data-options="selected:false">模板下载</a>
+		         <a href="javascript:addInfo()"  class="easyui-linkbutton" data-options="selected:false">新增</a>
+	    		 <a href="../page/download.jsp?uploadName=菜单模板.xls" class="easyui-linkbutton" data-options="selected:false">模板</a>
+		 		 <a id="showBut" class="easyui-linkbutton" data-options="selected:false">导入</a>
 		 </div>
-	     <div class="opt-buttons">
+	     <div id="fileDiv" class="opt-buttons">
 	    	<form id="fileForm" action="fileImport.action" method="post" enctype="multipart/form-data" style="margin-left:20px;">
 				<input class="easyui-filebox" data-options="buttonText:'选         择 '" style="height:35px;width:200px;" name="file" >
 		    	<a href="javascript:document.getElementById('fileForm').submit();" class="easyui-linkbutton" data-options="selected:false">上传文件</a>
@@ -74,7 +75,18 @@
 
     <script type="text/javascript">
 		$(function(){
+			hideDiv();
 		});
+		
+		function showDiv(){
+			$("#showBut").attr("href","javascript:hideDiv()");
+			$("#fileDiv").show();
+		}
+		
+		function hideDiv(){
+			$("#showBut").attr("href","javascript:showDiv()");
+			$("#fileDiv").hide();
+		}
 		
     	var rows = [];
         function getData(a){

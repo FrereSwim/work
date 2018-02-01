@@ -16,7 +16,6 @@ public class ReadExcelUntil {
 
 	public List readExcel(String filePath) throws IOException, BiffException{
 		List list = new ArrayList();
-		CarteInfo carte = new CarteInfo();
 		InputStream stream = new FileInputStream(filePath); 
 		Workbook rwb = Workbook.getWorkbook(stream);
 		Sheet sheet = rwb.getSheet(0);
@@ -28,6 +27,7 @@ public class ReadExcelUntil {
 				str[j] = cell.getContents();
 				
 			}
+			CarteInfo carte = new CarteInfo();
 			carte.setId("1");
 			carte.setDishName(str[0]);
 			carte.setEnglishName(str[1]);

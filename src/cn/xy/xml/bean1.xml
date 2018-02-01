@@ -60,6 +60,8 @@
 				<value>cn/xy/menuBean/TemporaryDishInfo.hbm.xml</value>
 				<value>cn/xy/menuBean/TableInfo.hbm.xml</value>
 				<value>cn/xy/menuBean/DishBillInfo.hbm.xml</value>
+				<value>cn/xy/roonBean/RoomInfo.hbm.xml</value>
+				<value>cn/xy/roonBean/RoomBillInfo.hbm.xml</value>
 				<!-- 多个路径可以写多个value -->
 			</list>
 		</property>

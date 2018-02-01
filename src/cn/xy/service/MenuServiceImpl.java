@@ -1,11 +1,13 @@
 package cn.xy.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import cn.xy.dao.MenuDao;
 import cn.xy.menuBean.CarteInfo;
+import cn.xy.menuBean.DishBillInfo;
 import cn.xy.menuBean.TemporaryDishInfo;
 import cn.xy.utils.IDMD5BuilderUtil;
 import cn.xy.utils.ModulePrefixConstant;
@@ -20,9 +22,9 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void addDishList(List list) throws Exception {
 		int len = list.size();
-		for(int i = 0; i < len; i++){
-			String[] str = new String[len];
+		for(int i = 1; i < len; i++){
 			CarteInfo carteInfo = (CarteInfo) list.get(i);
+			String[] str = new String[6];
 		    str[0] = carteInfo.getDishName();
 		    str[1] = carteInfo.getEnglishName();
 		    str[2] = carteInfo.getType();
@@ -30,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
 		    str[4] = carteInfo.getLevel();
 		    str[5] = carteInfo.getOrigin();
 			String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
-			menuDao.addDish(id, str);
+			menuDao.addDishInfo(id, str);
 		}
 	}
 	
@@ -109,6 +111,48 @@ public class MenuServiceImpl implements MenuService {
 	public void addDishInfo(String[] str) throws Exception {
 		String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
 		menuDao.addDishInfo(id, str);
+	}
+
+	@Override
+	public List getDishBillList() throws Exception {
+		return menuDao.getDishBillList();
+	}
+
+	@Override
+	public List getDishBillListByInput(String[] str) throws Exception {
+		return menuDao.getDishBillListByInput(str);
+	}
+
+	@Override
+	public String[] getBillInfoByInput(String[] str) throws Exception {
+		List list = menuDao.getDishBillListByInput(str);
+		String[] arr = new String[2];
+		int len = list.size();
+		double count = 0.0;
+		for(int i = 0; i < len; i++){
+			DishBillInfo dishBillInfo = (DishBillInfo) list.get(i);
+			String price = dishBillInfo.getPrice();
+			count += Double.parseDouble(price);
+		}
+		arr[0] = len + "";
+		arr[1] = count + "";
+		return arr;
+	}
+
+	@Override
+	public String[] getBillInfoByInput2(String[] str) throws Exception {
+		List list = menuDao.getBillInfoByInput2(str);
+		String[] arr = new String[2];
+		int len = list.size();
+		double count = 0.0;
+		for(int i = 0; i < len; i++){
+			DishBillInfo dishBillInfo = (DishBillInfo) list.get(i);
+			String price = dishBillInfo.getPrice();
+			count += Double.parseDouble(price);
+		}
+		arr[0] = len + "";
+		arr[1] = count + "";
+		return arr;
 	}
 	
 	

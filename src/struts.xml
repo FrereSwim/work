@@ -318,5 +318,19 @@
     		<result name="success"></result>
     	</action>
     	
+    	<action name="getDishBillList" class="menuAction" method="getDishBillList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getDishBillListByInput" class="menuAction" method="getDishBillListByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getBillInfoByInput" class="menuAction" method="getBillInfoByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getBillInfoByInput2" class="menuAction" method="getBillInfoByInput2">
+    		<result name="success"></result>
+    	</action>
+    	
+    	
     </package>
 </struts>

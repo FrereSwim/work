@@ -90,7 +90,7 @@
 
             <div id="pf-page">
                 <div id="easyui-tabs1" class="easyui-tabs1" style="width:100%;height:100%;">
-	                <iframe id="iframe"  style="padding:10px 5px 5px 10px;" class="page-iframe" src="pageShow.html?name=employee" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+	                <iframe id="iframe"  style="padding:10px 5px 5px 10px;" class="page-iframe" src="pageShow.html?name=hotel" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                 </div>
             </div>
         </div>
@@ -199,7 +199,7 @@
 	$(".pf-name").click(function a(){
 		 $(".sider-nav li").attr("class","");
 		 $(".sider-nav-s li").attr("class","");
-		 addTag("pageShow.html?name=system");
+		 addTag("pageShow.html?name=hotel");
 	 });
     // setTimeout(function(){
     //    $('.tabs-panels').height($("#pf-page").height()-46);

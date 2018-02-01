@@ -81,8 +81,7 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li><a href="javascript:addTag('../menuPage/dishMenuList.html');">信息管理</a></li>
-                           <li><a href="javascript:addTag('../menuPage/')">xx</a></li>
+                           <li><a href="javascript:addTag('../menuPage/dishMenuList.html');">菜品信息管理</a></li>
                         </ul>
                      </li>
                      <li>
@@ -97,12 +96,23 @@
                            <li><a href="javascript:addTag('../menuPage/menuList3.html')">结单</a></li>
                         </ul>
                      </li>
+                     <li>
+                        <a href="javascript:;">
+                            <span class="iconfont sider-nav-icon"></span>
+                            <span class="sider-nav-title">账单管理</span>
+                            <i class="iconfont">&#xe642;</i>
+                        </a>
+                        <ul class="sider-nav-s">
+                           <li><a href="javascript:addTag('../menuPage/dishBillList.html');">账单明细</a></li>
+                           <li><a href="javascript:addTag('../menuPage/dishBillCount.html');">账单统计</a></li>
+                        </ul>
+                     </li>
                  </ul> 
             </div>
 
             <div id="pf-page">
                 <div id="easyui-tabs1" class="easyui-tabs1" style="width:100%;height:100%;">
-	                <iframe id="iframe"  style="padding:10px 5px 5px 10px;" class="page-iframe" src="pageShow.html?name=employee" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+	                <iframe id="iframe"  style="padding:10px 5px 5px 10px;" class="page-iframe" src="pageShow.html?name=menu" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                 </div>
             </div>
         </div>
@@ -211,7 +221,7 @@
 	$(".pf-name").click(function a(){
 		 $(".sider-nav li").attr("class","");
 		 $(".sider-nav-s li").attr("class","");
-		 addTag("pageShow.html?name=system");
+		 addTag("pageShow.html?name=menu");
 	 });
     // setTimeout(function(){
     //    $('.tabs-panels').height($("#pf-page").height()-46);

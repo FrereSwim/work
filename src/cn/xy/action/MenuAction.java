@@ -186,5 +186,29 @@ public class MenuAction extends ActionSupport {
 		jSONResult.jsonResult("result", true);
 	}
     
+	public void getDishBillList() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List list = menuService.getDishBillList();
+		jSONResult.jsonResult("dishBillList", list);
+	}
+	
+	public void getDishBillListByInput() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List list = menuService.getDishBillListByInput(str);
+		jSONResult.jsonResult("dishBillList", list);
+	}
+	
+	public void getBillInfoByInput() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String[] arr = menuService.getBillInfoByInput(str);
+		jSONResult.jsonResult("billInfoArr", arr);
+	}
+	
+	public void getBillInfoByInput2() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String[] arr = menuService.getBillInfoByInput2(str);
+		jSONResult.jsonResult("billInfoArr", arr);
+	}
+	
 }
 	
