@@ -185,7 +185,7 @@ public class MenuDaoImpl implements MenuDao {
 	public List getDishBillListByInput(String[] str) throws Exception {
 		String startTime = str[0];
 		String endTime = str[1];
-		List<DishBillInfo> list = (List<DishBillInfo>) hibernateTemplate.find("from DishBillInfo where createTime > ? and createTime < ? ORDER BY createTime DESC", startTime, endTime);
+		List<DishBillInfo> list = (List<DishBillInfo>) hibernateTemplate.find("from DishBillInfo where createTime >= ? and createTime <= ? ORDER BY createTime DESC", startTime, endTime);
 		return list;
 	}
 

@@ -3,7 +3,7 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="cn.xy.roomBean.RoomInfo" table="tb_room_info">
+	<class name="cn.xy.roomBean.RoomBillInfo" table="tb_roombill_info">
 		<id name="id" column="id"></id>
 		<property name="roomNum" column="roomNum"></property>
 		<property name="price" column="price"></property>

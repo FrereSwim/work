@@ -331,6 +331,37 @@
     		<result name="success"></result>
     	</action>
     	
+    	<!-- 房间信息管理 -->
+    	<action name="getRoomList" class="roomAction" method="getRoomList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getRoomListByInput" class="roomAction" method="getRoomListByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addRoomBill" class="roomAction" method="addRoomBill">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateRoomBillState" class="roomAction" method="updateRoomBillState">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delRoomBill" class="roomAction" method="delRoomBill">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateRoomInfo" class="roomAction" method="updateRoomInfo">
+    		<result name="success"></result>
+    	</action>
+    	
+    	<action name="getRoomBillList" class="roomAction" method="getRoomBillList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getRoomBillByInput" class="roomAction" method="getRoomBillByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getRoomBillInfoById" class="roomAction" method="getRoomBillInfoById">
+    		<result name="success"></result>
+    	</action>
+    	
+    	
     	
     </package>
 </struts>

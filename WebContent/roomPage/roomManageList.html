@@ -39,8 +39,8 @@
             </thead>
         </table>
       <div id="tb" style="padding:0 30px;">
-      	类型：   <select id="inputeLevel" class="easyui-combobox" name="language" style="height:35px;width:80px;" panelHeight="auto">
-				 	<option value="0"></option>
+      	类型：   <select id="inputeLevel" class="easyui-combobox" name="language" style="height:35px;width:120px;" panelHeight="auto">
+				 	<option value="0">&nbsp;</option>
 		   			<option value="1">普通单人房</option>
 		   			<option value="2">普通双人房</option>
 		   			<option value="3">普通多人房</option>
@@ -50,32 +50,61 @@
 		   			<option value="7">小总统套房</option>
 		   			<option value="8">大总统套房</option>
 			 </select>
-	             区位：   <select id="inputeArea" class="easyui-combobox" name="language" style="height:35px;width:80px;" panelHeight="auto">
-				 	<option value="0"></option>
+	             区位：   <select id="inputeArea" class="easyui-combobox" name="language" style="height:35px;width:120px;" panelHeight="auto">
+				 	<option value="0">&nbsp;</option>
 		   			<option value="1">东区</option>
 		   			<option value="2">西区</option>
 		   			<option value="3">南区</option>
 		   			<option value="4">北区</option>
 			 </select>
-	              房间号：   <select id="inputeRoomNum" class="easyui-combobox" name="language" style="height:35px;width:80px;">
-		 	   </select>
-		 房间状态：   <select id="inputeState" class="easyui-combobox" name="language" style="height:35px;width:80px;" panelHeight="auto">
-				 	<option value="0"></option>
+	              房间号：   <select id="inputeRoomNumF" class="easyui-combobox" name="language" style="height:35px;width:120px;">
+	           </select>楼
+	           <select id="inputeRoomNumN" class="easyui-combobox" name="language" style="height:35px;width:120px;">
+	           </select>号
+		 房间状态：   <select id="inputeState" class="easyui-combobox" name="language" style="height:35px;width:120px;" panelHeight="auto">
+				 	<option value="0">&nbsp;</option>
 		   			<option value="1">未入住</option>
 		   			<option value="2">已预约</option>
 		   			<option value="3">已入住</option>
 			 </select>
         <a href="javascript:queryInfo()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+      	<a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
       </div>
     </div>
     <script type="text/javascript" src="../custom/jquery.min.js"></script>
     <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
     <script src="../page/js/qikoo.js"></script>
-    <script type="text/javascript" src="js/system.js"></script>
     <script type="text/javascript" src="../page/js/showListData.js"></script>
 
     <script type="text/javascript">
+    
+	    $(function(){
+		    var data = [];
+			for(var i = 1; i < 31; i++){
+				var obj = new Object();
+			    obj.text = i;
+			    obj.value = i;
+			    data.push(obj);
+			}
+		    $("#inputeRoomNumF").combobox("loadData", data);
+		    var data2 = [];
+			for(var i = 1; i < 51; i++){
+				var obj = new Object();
+				if(i < 10){
+			    	obj.text = "0" + i;
+			    }else{
+			    	obj.text = i;
+			    }
+			    if(i < 10){
+			    	obj.value = "0" + i;
+			    }else{
+			    	obj.value = i;
+			    }
+			    data2.push(obj);
+			}
+		    $("#inputeRoomNumN").combobox("loadData", data2);
+	    });
     
     	var rows = [];
         function getData(a){
@@ -91,10 +120,10 @@
   		    		$.each(result.roomList,function(index,val){
   		    			if(val.state == "未入住"){
   		    				var str = "<a href='#' onclick='yuyue(this)'>预约</a>";
-  		    				str += "<a style='padding-left:8px' href='#' onclick='ruzhu(this)'>入住</a>";
+  		    				str += "<a style='padding-left:8px' href='#' onclick='ruzhu1(this)'>入住</a>";
   		    			}
 						if(val.state == "已预约"){
-							var str = "<a href='#' onclick='ruzhu(this)'>入住</a>";
+							var str = "<a href='#' onclick='ruzhu2(this)'>入住</a>";
 							str += "<a style='padding-left:8px' href='#' onclick='tuiding(this)'>退订</a>";
 						}
 						if(val.state == "已入住"){
@@ -121,10 +150,32 @@
         
        function changeRow(){
         	var str =new Array;
-        	var level = $("#inputeLevel").combobox('getText');
-        	var area = $("#inputeArea").combobox('getText');
-        	var roomNum = $("#inputeRoomNum").combobox('getText');
-        	var state = $("#inputeState").combobox('getText');
+        	if($("#inputeLevel").combobox('getValue') == "0"){
+        		var level = "";
+        	}else{
+        		var level = $("#inputeLevel").combobox('getText');
+        	}
+        	if($("#inputeArea").combobox('getValue') == "0"){
+        		var area = "";
+        	}else{
+        		var area = $("#inputeArea").combobox('getText');
+        	}
+        	if($("#inputeRoomNumF").combobox('getValue') == ""){
+        		var roomNum1 = "";
+        	}else{
+        		var roomNum1 = $("#inputeRoomNumF").combobox('getText');
+        	}
+        	if($("#inputeRoomNumN").combobox('getValue') == ""){
+        		var roomNum2 = "";
+        	}else{
+        		var roomNum2 = $("#inputeRoomNumN").combobox('getText');
+        	}
+        	if($("#inputeState").combobox('getValue') == "0"){
+        		var state = "";
+        	}else{
+        		var state = $("#inputeState").combobox('getText');
+        	}
+        	var roomNum = roomNum1 + roomNum2;
         	str.push(level);
         	str.push(area);
         	str.push(roomNum);
@@ -148,23 +199,23 @@
         		    	  $.each(roomList,function(index,val){
        		    		    if(val.state == "未入住"){
        		    				var str = "<a href='#' onclick='yuyue(this)'>预约</a>";
-       		    				str += "<a style='padding-left:8px' href='#' onclick='ruzhu(this)'>入住</a>";
+       		    				str += "<a style='padding-left:8px' href='#' onclick='ruzhu11(this)'>入住</a>";
        		    			}
       						if(val.state == "已预约"){
-      							var str = "<a href='#' onclick='ruzhu(this)'>入住</a>";
+      							var str = "<a href='#' onclick='ruzhu2(this)'>入住</a>";
       							str += "<a style='padding-left:8px' href='#' onclick='tuiding(this)'>退订</a>";
       						}
       						if(val.state == "已入住"){
       							var str = "<a href='#' onclick='tuifang(this)'>退房</a>";	
       						}
-        		    			rows.push({
-        		    				id: val.id,
-        		    				level: val.level,
-        		    				area: val.area,
-        		    				roomNum: val.roomNum,
-        		    				price: val.price,
-        		    				state: val.state,
-        		    				note: str
+       		    			rows.push({
+       		    				id: val.id,
+       		    				level: val.level,
+       		    				area: val.area,
+       		    				roomNum: val.roomNum,
+       		    				price: val.price,
+       		    				state: val.state,
+       		    				note: str
         		            });
         		    	 });
     		    	  }
@@ -176,9 +227,10 @@
         function queryInfo(){
         	var a = $("#inputeLevel").combobox('getText');
         	var b = $("#inputeArea").combobox('getText');
-        	var c = $("#inputeRoomNum").combobox('getText');
-        	var d = $("#inputeState").combobox('getText');
-        	if(isEmpty(a) && isEmpty(b) && isEmpty(c) && isEmpty(d)){
+        	var c = $("#inputeRoomNumF").combobox('getText');
+        	var d = $("#inputeRoomNumN").combobox('getText');
+        	var e = $("#inputeState").combobox('getText');
+        	if(isEmpty(a) && isEmpty(b) && isEmpty(c) && isEmpty(d) && isEmpty(e)){
         		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
         	}else{
         		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
@@ -191,7 +243,8 @@
         function reset(){
         	$("#inputeLevel").combobox('setValue', "");
         	$("#inputeArea").combobox('setValue', "");
-        	$("#inputeRoomNum").combobox('setValue', "");
+        	$("#inputeRoomNumF").combobox('setValue', "");
+        	$("#inputeRoomNumN").combobox('setValue', "");
         	$("#inputeState").combobox('setValue', "");
         	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
         }
@@ -201,31 +254,59 @@
         }
         
         function yuyue(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
         	var roomNum = $(obj).parent().parent().parent().children('td').eq(3).children('div').eq(0).html();
         	var price = $(obj).parent().parent().parent().children('td').eq(4).children('div').eq(0).html();
         	var str = new Array;
            	str.push(roomNum);
            	str.push(price);
-        	var str = "../roomPage/addRoomBill.html?id=" + id + "&type=yuyue";
+        	var str = "../roomPage/regRoomInfo.html?id=" + id + "&roomNum=" + roomNum + "&price=" + price +"&type=yuyue";
         	document.location.href = str;
         }
         
-        function ruzhu(obj){
+        function ruzhu1(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
         	var roomNum = $(obj).parent().parent().parent().children('td').eq(3).children('div').eq(0).html();
         	var price = $(obj).parent().parent().parent().children('td').eq(4).children('div').eq(0).html();
         	var str = new Array;
            	str.push(roomNum);
            	str.push(price);
-        	var str = "../roomPage/addRoomBill.html?id=" + id + "&type=ruzhu";
+        	var str = "../roomPage/regRoomInfo.html?id=" + id + "&roomNum=" + roomNum + "&price=" + price +"&type=ruzhu";
         	document.location.href = str;
+        }
+        
+        function ruzhu2(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var roomNum = $(obj).parent().parent().parent().children('td').eq(3).children('div').eq(0).html();
+        	var str = new Array;
+           	str.push(roomNum);
+           	str.push("yuyue");
+           	str.push("ruzhu");
+           	str.push(id);
+           	str.push("已入住");
+           	$.ajax({
+     		      type:"post",
+     		      url: "updateRoomBillState.action",
+     		      data: {
+     		    	  "str":str
+     		      },
+     		      dataType: "json",
+     		      traditional: true,
+     		      success: function(result){
+     		    	window.location = "roomManageList.html";
+     		      }
+     		});
         }
         
         function tuiding(obj){
         	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
         	var roomNum = $(obj).parent().parent().parent().children('td').eq(3).children('div').eq(0).html();
         	var str = new Array;
-           	str.push(id);
            	str.push(roomNum);
+           	str.push("yuyue");
+           	str.push("tuiding");
+           	str.push(id);
+           	str.push("未入住");
            	$.ajax({
      		      type:"post",
      		      url: "delRoomBill.action",
@@ -245,7 +326,7 @@
         	var roomNum = $(obj).parent().parent().parent().children('td').eq(3).children('div').eq(0).html();
        		var str = new Array;
            	str.push(id);
-           	str.push(roomNum);
+           	str.push("未入住");
            	$.ajax({
      		      type:"post",
      		      url: "updateRoomInfo.action",

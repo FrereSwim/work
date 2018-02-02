@@ -1,0 +1,287 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>客房订单列表</title> 
+
+	<link href="../page/css/base.css" rel="stylesheet">
+	<link rel="stylesheet" href="../custom/uimaker/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+	<link rel="stylesheet" href="../page/css/providers.css">
+	<link href="../page/css/qikoo.css" rel="stylesheet">
+
+</head> 
+<body>
+    <div class="container">
+       <table id="dg" style="width:100%;height:554px" title="客房订单列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                pagination:true,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb',
+                pageSize:10">
+            <thead>
+                <tr>
+                    <th field="id" width="180" align="center">ID</th>
+                    <th field="roomNum" width="100" align="center">房间号码</th>
+                    <th field="price" width="100" align="center">消费</th>
+                    <th field="phone" width="180" align="center">顾客手机</th>
+                    <th field="state" width="100" align="center">订单状态</th>
+                    <th field="createTime" width="220" align="center">订单创建时间</th>
+                    <th field="note" width="180" align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+      <div id="tb" style="padding:0 30px;">
+      	<div>
+	      	 顾客手机: <input id="inputPhone" class="easyui-textbox" type="text" name="code" style="width:120px;height:35px;line-height:35px;"></input>
+			 房间状态：   <select id="inputState" class="easyui-combobox" name="language" style="height:35px;width:120px;" panelHeight="auto">
+						<option value="0">&nbsp;</option>
+				   			<option value="ruzhu">已入住</option>
+				   			<option value="yuyue">已预约</option>
+				   			<option value="tuiding">已退订</option>
+					    </select>         
+		             房间号：   <select id="inputRoomNumF" class="easyui-combobox" name="language" style="height:35px;width:120px;">
+		           </select>楼
+		           <select id="inputRoomNumN" class="easyui-combobox" name="language" style="height:35px;width:120px;">
+		           </select>号
+				    <a href="javascript:queryInfo()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+	      			<a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
+		</div>
+		<div>
+		            开始时间: <input id="startTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:120px;height:35px;line-height:35px;"/>
+		            结束时间: <input id="endTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:120px;height:35px;line-height:35px;"/>
+      	</div>
+      </div>
+    </div>
+    <script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
+    <script src="../page/js/qikoo.js"></script>
+    <script type="text/javascript" src="../page/js/showListData.js"></script>
+
+    <script type="text/javascript">
+    	
+	    var dTime;
+	    $(function(){
+	    	var date = new Date();
+	    	var d = date.getFullYear() + "-"; + (date.getMonth()+1) + "-" + date.getDate();
+	    	if((date.getMonth()+1) < 10){
+	    		d += "0" +  (date.getMonth()+1) + "-";
+	    	}else{
+	    		d += (date.getMonth()+1) + "-";
+	    	}
+	    	if(date.getDate() < 10){
+	    		d += "0" + date.getDate();
+	    	}else{
+	    		d += date.getDate();
+	    	}
+	    	dTime = d;
+	    	$("#startTime").textbox('setValue','2000-01-01');
+	    	$("#endTime").textbox('setValue',d);
+	    }); 
+	    
+	    function formatter(date){
+	        var year = date.getFullYear();
+	        var month = date.getMonth() + 1;
+	        var day = date.getDate();
+	        month = month < 10 ? '0' + month : month;
+	        day = day < 10 ? '0' + day : day;
+	        return year + "-" + month + "-" + day;
+	    }
+	
+	    function parser(s){
+	        var t = Date.parse(s);
+	        if (!isNaN(t)){
+	            return new Date(t);
+	        } else {
+	            return new Date(s + ":00:00");
+	        }
+	    }
+    
+	    $(function(){
+		    var data = [];
+			for(var i = 1; i < 31; i++){
+				var obj = new Object();
+			    obj.text = i;
+			    obj.value = i;
+			    data.push(obj);
+			}
+		    $("#inputRoomNumF").combobox("loadData", data);
+		    var data2 = [];
+			for(var i = 1; i < 51; i++){
+				var obj = new Object();
+				if(i < 10){
+			    	obj.text = "0" + i;
+			    }else{
+			    	obj.text = i;
+			    }
+			    if(i < 10){
+			    	obj.value = "0" + i;
+			    }else{
+			    	obj.value = i;
+			    }
+			    data2.push(obj);
+			}
+		    $("#inputRoomNumN").combobox("loadData", data2);
+	    });
+    
+    	var rows = [];
+        function getData(a){
+            $.ajax({
+  		      type:"post",
+  		      url: "getRoomBillList.action",
+  		      data: {},
+  		      dataType: "json",
+  		      async:false,
+  		      traditional: true,
+  		      success: function(result){
+  		    		var str = "<a href='#' onclick='lookInfo(this)'>查看明细</a>";
+  		    		delInfo();
+  		    		$.each(result.roomBillList,function(index,val){
+  		    			if(val.state == "ruzhu"){
+  		    				var state = "已入住";
+  		    			}
+  		    			if(val.state == "yuyue"){
+  		    				var state = "已预约";
+  		    			}
+  		    			if(val.state == "tuiding"){
+  		    				var state = "已退订";
+  		    			}
+  		    			rows.push({
+  		    				id: val.id,
+  		    				roomNum: val.roomNum,
+  		    				price: val.price,
+  		    				phone: val.phone,
+  		    				state: state,
+  		    				createTime: val.createTime,
+  		    				note: str
+  		                });
+  		    		});
+  		      	  }
+  		      });
+            return rows;
+        }
+        
+        $(function(){
+            $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        });
+        
+       function changeRow(){
+        	var str =new Array;
+        	var phone = $("#inputPhone").val();
+        	var roomNum1 = $("#inputRoomNumF").combobox('getText');
+        	var roomNum2 = $("#inputRoomNumN").combobox('getText');
+        	roomNum = roomNum1 + roomNum2;
+        	var state = $("#inputState").combobox('getValue');
+        	var startTime = $("#startTime").datetimebox("getValue");
+        	var endTime = $("#endTime").datetimebox("getValue");
+        	str.push(phone);
+        	str.push(roomNum);
+        	if(state == "0"){
+        		state = "";
+        	}
+        	str.push(state);
+        	str.push(startTime);
+        	str.push(endTime);
+        	$.ajax({
+    		      type:"post",
+    		      url: "getRoomBillByInput.action",
+    		      data: {
+    		    	  "str":str
+    		      },
+    		      dataType: "json",
+    		      async:false,
+    		      traditional: true,
+    		      success: function(result){
+    		    	  var roomBillList = result.roomBillList;
+    		    	  if(roomBillList == "0"){
+    		    		  delInfo();
+    		    		  return;
+    		    	  }else{
+    		    		  var str = "<a href='#' onclick='lookInfo(this)'>查看明细</a>";
+        		    	  delInfo();
+        		    	  $.each(roomBillList,function(index,val){
+        		    		  	if(val.state == "ruzhu"){
+        		    				var state = "已入住";
+        		    			}
+        		    			if(val.state == "yuyue"){
+        		    				var state = "已预约";
+        		    			}
+        		    			if(val.state == "tuiding"){
+        		    				var state = "已退订";
+        		    			}
+        		    			rows.push({
+        		    				id: val.id,
+        		    				roomNum: val.roomNum,
+        		    				price: val.price,
+        		    				phone: val.phone,
+        		    				state: state,
+        		    				createTime: val.createTime,
+        		    				note: str
+        		                });
+        		    	 });
+    		    	  }
+    		      	}
+    		      });
+        	return rows;
+        }
+        
+        function queryInfo(){
+        	var a = $("#inputPhone").val();
+        	var b = $("#inputRoomNumF").combobox('getText');
+        	var c = $("#inputRoomNumN").combobox('getText');
+        	var d = $("#inputState").combobox('getText');
+        	var e = $("#startTime").datetimebox("getValue");
+        	var f = $("#endTime").datetimebox("getValue");
+        	if(isEmpty(a) && isEmpty(b) && isEmpty(c) && isEmpty(d) && isEmpty(e) && isEmpty(f)){
+        		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        	}else{
+        		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
+        		if(isEmpty(rows)){
+        			$(".datagrid-view2 .datagrid-body").html("无详细信息");
+        		}
+        	}
+        }
+        
+        function reset(){
+        	$("#inputeRoomNumF").combobox('setValue', "");
+        	$("#inputeRoomNumN").combobox('setValue', "");
+        	$("#inputeState").combobox('setValue', "");
+        	$("#startTime").textbox('setValue','2000-01-01');
+        	$("#endTime").textbox('setValue',dTime);
+        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        }
+        
+        function delInfo(){
+        	rows.splice(0,rows.length);
+        }
+        
+        function lookInfo(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var str = "../roomPage/lookRoomBillInfo.html?id=" + id;
+        	document.location.href = str;
+        }
+        
+        function changeDate(a){
+        	var date = a.toLocaleString();
+    		date = date.split(' ');
+    		var dateTime = date[0];
+    		dateTime = dateTime.split('/');
+    		var dateTime1 = dateTime[0] + "-" + dateTime[1] + "-" + dateTime[2];
+    		return dateTime1;
+        }
+        
+        function isEmpty(message){
+    		return  message=="" || message==null || message==undefined ;
+    	}
+                
+    </script>
+</body> 
+</html>
