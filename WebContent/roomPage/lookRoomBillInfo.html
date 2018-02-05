@@ -72,9 +72,21 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="kv-label">订单创建时间</td>
+					<td class="kv-label">参与活动ID</td>
 					<td class="kv-content" colspan="5">
-						<input id="createTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+						<input id="actId" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">参与活动名称</td>
+					<td class="kv-content" colspan="5">
+						<input id="actName" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">参与活动会员号码</td>
+					<td class="kv-content" colspan="5">
+						<input id="mid" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
 					</td>
 				</tr>
 				
@@ -130,6 +142,9 @@
 		    	  $("#days").textbox('setValue',roomBillInfo.days);
 		    	  $("#state").textbox('setValue',state);
 		    	  $("#createTime").textbox('setValue',roomBillInfo.createTime);
+		    	  $("#actId").textbox('setValue',roomBillInfo.actId);
+		    	  $("#actName").textbox('setValue',roomBillInfo.actName);
+		    	  $("#mid").textbox('setValue',roomBillInfo.mid);
 		      }
 		});
     }

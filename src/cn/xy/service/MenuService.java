@@ -12,7 +12,7 @@ public interface MenuService {
 	void delDish(String[] str) throws Exception;
 	List getTableNumByTableType(String tableType, String state) throws Exception;
 	void updateTableState(String tableNum, String state) throws Exception;
-	void checkoutBill(String tableNum) throws Exception;
+	void checkoutBill(String[] str) throws Exception;
 	void revokeBill(String tableNum) throws Exception;
 	
 	List getDishList() throws Exception;
@@ -23,6 +23,7 @@ public interface MenuService {
 	void addDishInfo(String[] str) throws Exception;
 	
 	List getDishBillList() throws Exception;
+	List getDishBillListByTableNum(String tableNum) throws Exception;
 	List getDishBillListByInput(String[] str) throws Exception;
 	
 	String[] getBillInfoByInput(String[] str) throws Exception;

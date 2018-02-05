@@ -14,7 +14,7 @@
 </head> 
 <body>
 
-	<div class="easyui-tabs1" style="height:80px;">
+	<div class="easyui-tabs1" style="height:180px;">
     	<div class="panel-title">选择就坐桌</div>
       	<table class="kv-table">
       		<tbody>
@@ -39,6 +39,19 @@
 		   				</select>
 		   				<a href="javascript:reflush()" class="easyui-linkbutton" data-options="selected:true">选择</a>
 		   				<a href="javascript:reflush2()" class="easyui-linkbutton" data-options="selected:true">重选</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">参与活动</td>
+					<td class="kv-content" colspan="5">
+						<select id="act" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+						</select>
+					</td>
+				</tr>
+				<tr id="midTr">
+					<td class="kv-label">会员号码</td>
+					<td class="kv-content" colspan="5">
+						<input id="mid" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
 					</td>
 				</tr>
 			</tbody>
@@ -115,6 +128,50 @@
 
     <script type="text/javascript">
     
+    $("#act").combobox({  
+   	    onSelect: function () {
+   	    	var act = $("#act").combobox('getValue');
+   	    	if(act == "0"){
+   	    		$("#midTr").hide();
+   	    	}else{
+   	    		$("#midTr").show();
+   	    	}
+   	    }
+    });
+    
+    $(function(){
+    	$("#midTr").hide();
+    	getAct();
+    });
+    
+    function getAct(){
+    	$.ajax({
+		      type:"post",
+		      url: "getMemActList.action",
+		      data: {
+		      },
+		      dataType: "json",
+		      async: false,
+		      traditional: true,
+		      success: function(result){
+		    	  var obj = new Object();
+		    	  var data = [];
+		    	  obj.text = "不选择参与活动";
+	    		  obj.value = "0";
+	    		  data.push(obj);
+		    	  $.each(result.memActList,function(index,val){
+		    		  if(val.aBelong == "room"){
+		    			  var obj = new Object();
+			    		  obj.text = val.aName;
+			    		  obj.value = val.id;
+			    		  data.push(obj);
+		    		  }
+		    	  });
+		    	  $("#act").combobox("loadData", data);
+		      }
+		});
+    }
+    
     $("#tableType").combobox({  
    	   onSelect: function () {
    			$("#tableNum").combobox('setValue', "");
@@ -146,6 +203,51 @@
    	　　  }  
 
     });
+    
+    function getActByID(){
+    	var res;
+    	var str = new Array;
+    	var actID = $("#act").combobox('getValue');
+    	str.push(actID);
+    	$.ajax({
+		      type:"post",
+		      url: "getMemActById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      async:false,
+		      traditional: true,
+		      success: function(result){
+		    	  res = result.memAct; 
+		      }
+		});
+    	return res;
+    }
+    
+    function checkmid(mid){
+    	var res;
+    	var str = new Array;
+    	str.push(mid);
+    	$.ajax({
+		      type:"post",
+		      url: "getMemberById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      async:false,
+		      traditional: true,
+		      success: function(result){
+		    	  if(result.member == 0){
+		    		  res = "0";
+		    	  }else{
+		    		  res = result.member;
+		    	  }
+		      }
+		});
+    	return res;
+    }
     
     (function($){
         function pagerFilter(data){
@@ -409,9 +511,121 @@
         }
         
         function jiezhang(){
+        	var act = $("#act").combobox('getValue');
+        	if(act != ""){
+        		//
+            	var act = getActByID();
+            	var aType = act.aType;
+            	var aPersonnel = act.aPersonnel;
+            	var aCondition = act.aCondition;
+            	var aContent = act.aContent;
+            	//
+            	var mid = $("#mid").val();
+            	if(aPersonnel == "只限会员"){
+            		//
+                	var result = checkmid(mid);
+                	if(result == "0"){
+                		alert("请输入正确的会员号码");
+                		return;
+                	}
+                	//
+            	}
+            	if(aPersonnel == "普通会员" || aPersonnel == "超级会员"){
+                	var result = checkmid(mid);
+                	if(result == "0"){
+                		alert("请输入正确的会员号码");
+                		return;
+                	}else{
+                		var mType = result.mType;
+                		if(aPersonnel != mType){
+                			alert("该会员不满足活动条件！");
+                			return;
+                		}
+                	}
+            	}
+            	
+        	}
+        	var money = 0;
         	var str = new Array;
         	var tableNum = $("#tableNum").combobox('getValue');
         	str.push(tableNum);
+        	var actid = $("#act").combobox('getValue');
+       		str.push(actid);
+       		var actName = $("#act").combobox('getText');
+       		str.push(actName);
+       		var mid = $("#mid").val();
+       		str.push(mid);
+        	$.ajax({
+    		      type:"post",
+    		      url: "getDishBillListByTableNum.action",
+    		      data: {
+    		    	  "str":str
+    		      },
+    		      dataType: "json",
+    		      traditional: true,
+    		      async:false,
+    		      success: function(result){
+    		    	  $.each(result.dishBillList,function(index,val){
+    		    		  var p = val.price;
+    		    		  money = money + parseInt(p);
+    		    	  });
+    		      }
+			});
+        	var yuanjia = money;
+        	var info;
+    		if(money >= aCondition){
+    			if(aType == "折扣"){
+    				money = money * aContent;
+    				info = "折扣价";
+    			}
+    			if(aType == "满减"){
+    				money = money - aContent;
+    				info = "满减价";
+    			}
+    			if(aType == "礼包"){
+    				info = "赠送精美礼物【" + aContent + "】一份！";
+    			}
+    		}else{
+    			info = ("不满足活动条件，按原价结算！");
+    		}
+        	var act = $("#act").combobox('getValue');
+        	if(act != ""){
+        		//
+            	var act = getActByID();
+            	var aType = act.aType;
+            	var aPersonnel = act.aPersonnel;
+            	var aCondition = act.aCondition;
+            	var aContent = act.aContent;
+            	//
+            	var mid = $("#mid").val();
+            	if(aPersonnel == "只限会员"){
+            		//
+                	var result = checkmid(mid);
+                	if(result == "0"){
+                		alert("请输入正确的会员号码");
+                		return;
+                	}
+                	//
+            	}
+            	if(aPersonnel == "普通会员" || aPersonnel == "超级会员"){
+                	var result = checkmid(mid);
+                	if(result == "0"){
+                		alert("请输入正确的会员号码");
+                		return;
+                	}else{
+                		var mType = result.mType;
+                		if(aPersonnel != mType){
+                			alert("该会员不满足活动条件！");
+                			return;
+                		}
+                	}
+            	}
+            	
+        	}
+        	var mymessage=confirm("您账单消费总价为：  " + yuanjia + " 元( " + info + " )。需要收费：  " + money + "元。是否确认订单？");  
+        	if(mymessage==false){  
+       	    	return;
+       	    }
         	$.ajax({
       		      type:"post",
       		      url: "checkoutBill.action",
@@ -420,6 +634,7 @@
       		      },
       		      dataType: "json",
       		      traditional: true,
+      		      async:false,
       		      success: function(result){
       		    	//window.location = "employeeList.html?dType=" + dType;
       		    	location.reload();

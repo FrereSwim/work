@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.xy.memberBean.MemActInfo;
 import cn.xy.memberBean.MemberInfo;
 import cn.xy.service.MemberService;
 import cn.xy.utils.JSONResult;
@@ -40,8 +41,13 @@ public class MemberAction extends ActionSupport {
 		JSONResult jSONResult = new JSONResult();
 		String id = str[0];
 		List list = memberService.getMemberById(id);
-		MemberInfo member = (MemberInfo) list.get(0);
-		jSONResult.jsonResult("member", member);
+		if(list.size() == 0) {
+			jSONResult.jsonResult("member", "0");
+		}else{
+			MemberInfo member = (MemberInfo) list.get(0);
+			jSONResult.jsonResult("member", member);
+		}
+		
 	} 
 	
 	public void updateMember() throws Exception{
@@ -62,6 +68,46 @@ public class MemberAction extends ActionSupport {
 		memberService.addMember(str);
 		jSONResult.jsonResult("result", true);
 	} 
+	
+	//会员活动管理
+	public void getMemActList() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List memActList = memberService.getMemActList();
+		jSONResult.jsonResult("memActList", memActList);
+	} 
+	
+	public void getMemActByInput() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List memActList = memberService.getMemActByInput(str);
+		jSONResult.jsonResult("memActList", memActList);
+	} 
+	
+	public void getMemActById() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String id = str[0];
+		List list = memberService.getMemActById(id);
+		MemActInfo memAct = (MemActInfo) list.get(0);
+		jSONResult.jsonResult("memAct", memAct);
+	} 
+	
+	public void updateMemAct() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		memberService.updateMemAct(str);
+		jSONResult.jsonResult("result", true);
+	} 
+	
+	public void delMemAct() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String id = str[0];
+		memberService.delMemAct(id);
+		jSONResult.jsonResult("result", true);
+	}
+	
+	public void addMemAct() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		memberService.addMemAct(str);
+		jSONResult.jsonResult("result", true);
+	}
 	
 
 }

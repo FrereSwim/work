@@ -63,6 +63,7 @@
 				<value>cn/xy/roomBean/RoomInfo.hbm.xml</value>
 				<value>cn/xy/roomBean/RoomBillInfo.hbm.xml</value>
 				<value>cn/xy/memberBean/MemberInfo.hbm.xml</value>
+				<value>cn/xy/memberBean/MemActInfo.hbm.xml</value>
 				<!-- 多个路径可以写多个value -->
 			</list>
 		</property>

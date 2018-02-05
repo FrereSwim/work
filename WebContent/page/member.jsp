@@ -84,6 +84,16 @@
                            <li><a href="javascript:addTag('../memberPage/memberList.html');">会员详细信息</a></li>
                         </ul>
                      </li>
+                     <li>
+                        <a href="javascript:;">
+                            <span class="iconfont sider-nav-icon"></span>
+                            <span class="sider-nav-title">活动管理</span>
+                            <i class="iconfont">&#xe642;</i>
+                        </a>
+                        <ul class="sider-nav-s">
+                           <li><a href="javascript:addTag('../memberPage/memActList.html');">活动详细信息</a></li>
+                        </ul>
+                     </li>
                  </ul> 
             </div>
 

@@ -14,5 +14,8 @@
 		<property name="days" column="days"></property>
 		<property name="state" column="state"></property>
 		<property name="createTime" column="createTime"></property>
+		<property name="actId" column="actId"></property>
+		<property name="actName" column="actName"></property>
+		<property name="mid" column="mid"></property>
 	</class>
 </hibernate-mapping>

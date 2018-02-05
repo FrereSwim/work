@@ -12,6 +12,9 @@ public class RoomBillInfo {
 	private String days;
 	private String state;
 	private String createTime;
+	private String actId;
+	private String actName;
+	private String mid;
 	public String getId() {
 		return id;
 	}
@@ -71,6 +74,24 @@ public class RoomBillInfo {
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public String getActId() {
+		return actId;
+	}
+	public void setActId(String actId) {
+		this.actId = actId;
+	}
+	public String getActName() {
+		return actName;
+	}
+	public void setActName(String actName) {
+		this.actName = actName;
+	}
+	public String getMid() {
+		return mid;
+	}
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
 	
 }

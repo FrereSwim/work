@@ -18,10 +18,6 @@
 	<div class="easyui-tabs1">
       	<table class="kv-table">
 			<tbody>
-				<!-- <tr>
-					<td class="kv-label">id</td>
-					<td  id="ID" class="kv-content"  colspan="5"></td>
-				</tr> -->
 				<tr>
 					<td class="kv-label">房间号</td>
 					<td class="kv-content" colspan="5">
@@ -49,15 +45,26 @@
 				<tr>
 					<td class="kv-label">入住时间</td>
 					<td class="kv-content" colspan="5">
-						<!-- <input id="startTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input> -->
 						<input id="startTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="kv-label">退宿时间</td>
 					<td class="kv-content" colspan="5">
-						<!-- <input id="startTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input> -->
 						<input id="endTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">参与活动</td>
+					<td class="kv-content" colspan="5">
+						<select id="act" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+						</select>
+					</td>
+				</tr>
+				<tr id="midTr">
+					<td class="kv-label">会员号码</td>
+					<td class="kv-content" colspan="5">
+						<input id="mid" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
 					</td>
 				</tr>
 			</tbody>
@@ -96,6 +103,50 @@
     	$("#endTime").textbox('setValue',d);
     }); 
     
+    $("#act").combobox({  
+   	    onSelect: function () {
+   	    	var act = $("#act").combobox('getValue');
+   	    	if(act == "0"){
+   	    		$("#midTr").hide();
+   	    	}else{
+   	    		$("#midTr").show();
+   	    	}
+   	    }
+    });
+    
+    $(function(){
+    	$("#midTr").hide();
+    	getAct();
+    });
+    
+    function getAct(){
+    	$.ajax({
+		      type:"post",
+		      url: "getMemActList.action",
+		      data: {
+		      },
+		      dataType: "json",
+		      async: false,
+		      traditional: true,
+		      success: function(result){
+		    	  var obj = new Object();
+		    	  var data = [];
+		    	  obj.text = "不选择参与活动";
+	    		  obj.value = "0";
+	    		  data.push(obj);
+		    	  $.each(result.memActList,function(index,val){
+		    		  if(val.aBelong == "room"){
+		    			  var obj = new Object();
+			    		  obj.text = val.aName;
+			    		  obj.value = val.id;
+			    		  data.push(obj);
+		    		  }
+		    	  });
+		    	  $("#act").combobox("loadData", data);
+		      }
+		});
+    }
+    
     function formatter(date){
         var year = date.getFullYear();
         var month = date.getMonth() + 1;
@@ -114,51 +165,153 @@
         }
     }
     
-    function save(){
-		var str = new Array;
-		var roomNum = $("#roomNum").val();
-		str.push(roomNum);
-		var startTime = $("#startTime").datetimebox("getValue");
-		var endTime = $("#endTime").datetimebox("getValue");
-		var days = DateDiff(startTime,endTime) + 1;
-		var price = $("#price").val();
-		var money = price * days;
-		str.push(money);
-		var phone = $("#phone").val();
-		str.push(phone);
-		var care = $("#care").val();
-		str.push(care);
-		str.push(startTime);
-		str.push(endTime);
-		str.push(days);
-		str.push(type);
-		
-		str.push(id);
-		var state;
-		if(type == "yuyue"){
-			state = "已预约";
-		}
-		if(type == "ruzhu"){
-			state = "已入住";
-		}
-		str.push(state);
-		
-		var mymessage=confirm("您选择入住的时间是 ：  " + startTime + "  至  " + endTime + "   , 一共: " + days + " 天, 总价：" + money + " 元。是否确认订单？");  
-	    if(mymessage==false){  
-	    	return;
-	    }
-		$.ajax({
+    function getActByID(){
+    	var res;
+    	var str = new Array;
+    	var actID = $("#act").combobox('getValue');
+    	str.push(actID);
+    	$.ajax({
 		      type:"post",
-		      url: "addRoomBill.action",
+		      url: "getMemActById.action",
 		      data: {
 		    	  "str":str
 		      },
 		      dataType: "json",
+		      async:false,
 		      traditional: true,
 		      success: function(result){
-		    	  window.location = "roomManageList.html";
+		    	  res = result.memAct; 
 		      }
 		});
+    	return res;
+    }
+    
+    function checkmid(mid){
+    	var res;
+    	var str = new Array;
+    	str.push(mid);
+    	$.ajax({
+		      type:"post",
+		      url: "getMemberById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      async:false,
+		      traditional: true,
+		      success: function(result){
+		    	  if(result.member == 0){
+		    		  res = "0";
+		    	  }else{
+		    		  res = result.member;
+		    	  }
+		      }
+		});
+    	return res;
+    }
+    
+    function save(){
+    	var act = $("#act").combobox('getValue');
+    	if(act != ""){
+    		//
+        	var act = getActByID();
+        	var aType = act.aType;
+        	var aPersonnel = act.aPersonnel;
+        	var aCondition = act.aCondition;
+        	var aContent = act.aContent;
+        	//
+        	var mid = $("#mid").val();
+        	if(aPersonnel == "只限会员"){
+        		//
+            	var result = checkmid(mid);
+            	if(result == "0"){
+            		alert("请输入正确的会员号码");
+            		return;
+            	}
+            	//
+        	}
+        	if(aPersonnel == "普通会员" || aPersonnel == "超级会员"){
+            	var result = checkmid(mid);
+            	if(result == "0"){
+            		alert("请输入正确的会员号码");
+            		return;
+            	}else{
+            		var mType = result.mType;
+            		if(aPersonnel != mType){
+            			alert("该会员不满足活动条件！");
+            			return;
+            		}
+            	}
+        	}
+        	
+    	}
+   		var str = new Array;
+   		var roomNum = $("#roomNum").val();
+   		str.push(roomNum);
+   		var startTime = $("#startTime").datetimebox("getValue");
+		var endTime = $("#endTime").datetimebox("getValue");
+		var days = DateDiff(startTime,endTime) + 1;
+		var price = $("#price").val();
+		var money = price * days;
+		var info;
+		if(money >= aCondition){
+			if(aType == "折扣"){
+				money = money * aContent;
+				info = "折扣价";
+			}
+			if(aType == "满减"){
+				money = money - aContent;
+				info = "满减价";
+			}
+			if(aType == "礼包"){
+				info = "赠送精美礼物【" + aContent + "】一份！";
+			}
+		}else{
+			info = ("不满足活动条件，按原价结算！");
+		}
+   		str.push(money);
+   		var phone = $("#phone").val();
+   		str.push(phone);
+   		var care = $("#care").val();
+   		str.push(care);
+   		str.push(startTime);
+   		str.push(endTime);
+   		str.push(days);
+   		str.push(type);
+   		//
+   		str.push(id);
+   		var state;
+   		if(type == "yuyue"){
+   			state = "已预约";
+   		}
+   		if(type == "ruzhu"){
+   			state = "已入住";
+   		}
+   		str.push(state);
+   		//
+   		var actid = $("#act").combobox('getValue');
+   		str.push(actid);
+   		var actName = $("#act").combobox('getText');
+   		str.push(actName);
+   		str.push(mid);
+   		
+   		var mymessage=confirm("您选择入住的时间是 ：  " + startTime + "  至  " + endTime + "   , 一共: " + days + " 天, 总价：" + money + " 元( " + info + " )。是否确认订单？");  
+   	    if(mymessage==false){  
+   	    	return;
+   	    }
+   		$.ajax({
+   		      type:"post",
+   		      url: "addRoomBill.action",
+   		      data: {
+   		    	  "str":str
+   		      },
+   		      dataType: "json",
+   		      traditional: true,
+   		      success: function(result){
+   		    	  window.location = "roomManageList.html";
+   		      }
+   		});
+    	
     }
     
     function  DateDiff(sDate1,  sDate2){

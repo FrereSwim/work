@@ -80,12 +80,16 @@ public class MenuDaoImpl implements MenuDao {
 	}
 	
 	@Override
-	public void addBill(String id, String tableNum, String price, String createTime) throws Exception {
+	public void addBill(String id, String tableNum, String price, String createTime, String actId, String actName, String mid) throws Exception {
 		DishBillInfo dDishBillInfo = new DishBillInfo();
 		dDishBillInfo.setId(id);
 		dDishBillInfo.setTableNum(tableNum);
 		dDishBillInfo.setPrice(price);
 		dDishBillInfo.setCreateTime(createTime);
+		dDishBillInfo.setTableNum(actId);
+		dDishBillInfo.setActId(actId);
+		dDishBillInfo.setActName(actName);
+		dDishBillInfo.setMid(mid);
 		hibernateTemplate.save(dDishBillInfo);
 	}
 

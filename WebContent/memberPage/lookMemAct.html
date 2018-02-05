@@ -1,0 +1,121 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="javascript:back()" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">id</td>
+					<td class="kv-content" colspan="5">
+						<input id="id" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;" readonly="true"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">活动名称</td>
+					<td class="kv-content" colspan="5">
+						<input id="aName" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">活动信息</td>
+					<td class="kv-content" colspan="5">
+						<input id="aInfo" class="easyui-textbox" data-options="multiline:true" type="text" name="code" style="width:960px;height:100px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">活动类型</td>
+					<td class="kv-content" colspan="5">
+						<select id="aType" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+							<option value="0">&nbsp;</option>
+		   	  				<option value="折扣">折扣</option>
+		   	  				<option value="满减">满减</option>
+		   	  				<option value="礼包">礼包</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">参与人员</td>
+					<td class="kv-content" colspan="5">
+						<select id="aPersonnel" class="easyui-combobox" name="language" style="height:35px;width:300px;"  panelHeight="auto">
+							<option value="0">&nbsp;</option>
+		   	  				<option value="不限人员">不限人员</option>
+		   	  				<option value="普通会员">普通会员</option>
+		   	  				<option value="超级会员">超级会员</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">活动条件</td>
+					<td class="kv-content" colspan="5">
+						<input id="aCondition" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+						<font color="red">(请输入参与活动的最低消费金额)</font>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">优惠内容</td>
+					<td class="kv-content" colspan="5">
+						<input id="aContent" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    var id;
+    $(function(){
+    	id = GetUID("id");
+    	addInfo();
+    }); 
+    
+    function back(){
+    	window.location = "memActList.html";
+    }
+    
+    function addInfo(){
+    	var str = new Array;
+    	str.push(id);
+    	$.ajax({
+		      type:"post",
+		      url: "getMemActById.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  var memAct = result.memAct;
+		    	  $("#id").textbox('setValue',memAct.id);
+		    	  $("#aName").textbox('setValue',memAct.aName);
+		    	  $("#aInfo").textbox('setValue',memAct.aInfo);
+		    	  $("#aType").combobox('setValue',memAct.aType);
+		    	  $("#aPersonnel").combobox('setValue',memAct.aPersonnel);
+		    	  $("#aCondition").textbox('setValue',memAct.aCondition);
+		    	  $("#aContent").textbox('setValue',memAct.aContent);
+		      }
+		});
+    }
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+</script>
+</html>
+    

@@ -63,7 +63,11 @@ public class MenuServiceImpl implements MenuService {
 		menuDao.updateTableState(tableNum, state);
 	}
 	@Override
-	public void checkoutBill(String tableNum) throws Exception {
+	public void checkoutBill(String[] str) throws Exception {
+		String tableNum = str[0];
+		String actId = str[1];
+		String actName = str[2];
+		String mid = str[3];
 		List list = menuDao.getdishBill(tableNum);
 		int len = list.size();
 		double prices = 0.0;
@@ -78,7 +82,7 @@ public class MenuServiceImpl implements MenuService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createTime = sdf.format(date);
         String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHBILL_ID_PREFIX,8);
-		menuDao.addBill(id, tableNum, prices+"", createTime);
+		menuDao.addBill(id, tableNum, prices+"", createTime, actId, actName, mid);
 		menuDao.deldishBill(tableNum);
 		menuDao.updateTableState(tableNum, "0");
 	}
@@ -116,6 +120,12 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public List getDishBillList() throws Exception {
 		return menuDao.getDishBillList();
+	}
+	
+	@Override
+	public List getDishBillListByTableNum(String tableNum) throws Exception {
+		List list = menuDao.getdishBill(tableNum);
+		return list;
 	}
 
 	@Override

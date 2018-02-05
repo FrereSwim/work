@@ -37,5 +37,31 @@ public class MemberServiceImpl implements MemberService {
 		String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.MEMBER_ID_PREFIX,8);
 		memberDao.addMember(id, str);
 	}
+	
+	@Override
+	public List getMemActList() throws Exception {
+		return memberDao.getMemActList();
+	}
+	@Override
+	public List getMemActByInput(String[] str) throws Exception {
+		return memberDao.getMemActByInput(str);
+	}
+	@Override
+	public List getMemActById(String id) throws Exception {
+		return memberDao.getMemActById(id);
+	}
+	@Override
+	public void updateMemAct(String[] str) throws Exception {
+		memberDao.updateMemAct(str);
+	}
+	@Override
+	public void delMemAct(String id) throws Exception {
+		memberDao.delMemAct(id);
+	}
+	@Override
+	public void addMemAct(String[] str) throws Exception {
+		String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.MEMACT_ID_PREFIX,8);
+		memberDao.addMemAct(id, str);
+	}
 
 }

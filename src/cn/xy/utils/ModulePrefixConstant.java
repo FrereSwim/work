@@ -54,5 +54,9 @@ public class ModulePrefixConstant {
 	 * 会员模块
 	 */
 	public static final  String  MEMBER_ID_PREFIX = "MI";
+	/**
+	 * 会员活动模块
+	 */
+	public static final  String  MEMACT_ID_PREFIX = "MAI";
 	
 }

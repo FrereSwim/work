@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.memberBean.MemActInfo" table="tb_memact_info">
+		<id name="id" column="id"></id>
+		<property name="aName" column="aName"></property>
+		<property name="aInfo" column="aInfo"></property>
+		<property name="aType" column="aType"></property>
+		<property name="aPersonnel" column="aPersonnel"></property>
+		<property name="aCondition" column="aCondition"></property>
+		<property name="aContent" column="aContent"></property>
+		<property name="createTime" column="createTime"></property>
+		<property name="aBelong" column="aBelong"></property>
+	</class>
+</hibernate-mapping>

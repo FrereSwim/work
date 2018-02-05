@@ -321,6 +321,9 @@
     	<action name="getDishBillList" class="menuAction" method="getDishBillList">
     		<result name="success"></result>
     	</action>
+    	<action name="getDishBillListByTableNum" class="menuAction" method="getDishBillListByTableNum">
+    		<result name="success"></result>
+    	</action>
     	<action name="getDishBillListByInput" class="menuAction" method="getDishBillListByInput">
     		<result name="success"></result>
     	</action>
@@ -384,6 +387,24 @@
     		<result name="success"></result>
     	</action>
     	<action name="addMember" class="memberAction" method="addMember">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getMemActList" class="memberAction" method="getMemActList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getMemActByInput" class="memberAction" method="getMemActByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getMemActById" class="memberAction" method="getMemActById">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateMemAct" class="memberAction" method="updateMemAct">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delMemAct" class="memberAction" method="delMemAct">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addMemAct" class="memberAction" method="addMemAct">
     		<result name="success"></result>
     	</action>
     	

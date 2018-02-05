@@ -10,7 +10,7 @@ public interface MenuDao {
 	void delDish(String[] str) throws Exception;
 	List getTableNumByTableType(String tableType, String state) throws Exception;
 	List getdishBill(String tableNum) throws Exception;
-	void addBill(String id, String tableNum, String price, String createTime) throws Exception;
+	void addBill(String id, String tableNum, String price, String createTime, String actId, String actName, String mid) throws Exception;
 	void updateTableState(String tableNum, String state) throws Exception;
 	void deldishBill(String tableNum) throws Exception;
 	

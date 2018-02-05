@@ -73,6 +73,9 @@ public class RoomDaoImpl implements RoomDao {
 		Date date = new Date();
 		String createTime = dateFormater.format(date);
 		roomBillInfo.setCreateTime(createTime);
+		roomBillInfo.setActId(str[10]);
+		roomBillInfo.setActName(str[11]);
+		roomBillInfo.setMid(str[12]);
 		hibernateTemplate.save(roomBillInfo);
 	}
 	@Override

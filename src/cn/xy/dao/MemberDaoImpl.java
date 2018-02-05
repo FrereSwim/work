@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
-import cn.xy.employeeBean.EmployeeInfo;
+import cn.xy.memberBean.MemActInfo;
 import cn.xy.memberBean.MemberInfo;
 
 public class MemberDaoImpl implements MemberDao {
@@ -17,6 +17,7 @@ public class MemberDaoImpl implements MemberDao {
 		public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
 			this.hibernateTemplate = hibernateTemplate;
 		}
+		
 		@Override
 		public List getMemberList() throws Exception {
 			List<MemberInfo> list =(List<MemberInfo>)hibernateTemplate.find("from MemberInfo");
@@ -82,7 +83,70 @@ public class MemberDaoImpl implements MemberDao {
 			memberInfo.setCreateTime(createTime);
 			hibernateTemplate.save(memberInfo);
 		}
-			
+		
+		@Override
+		public List getMemActList() throws Exception {
+			List<MemActInfo> list =(List<MemActInfo>)hibernateTemplate.find("from MemActInfo");
+			return list;
+		}
+		@Override
+		public List getMemActByInput(String[] str) throws Exception {
+			String sql = "from MemActInfo where id != ' ' ";
+			List arr = new ArrayList();
+			if(!str[0].equals("")){
+				sql += "and aName like ?";
+				arr.add("%" + str[0] + "%");
+			}
+			if(!str[1].equals("")){
+				sql += "and aType = ?";
+				arr.add(str[1]);
+			}
+			String[] strings = new String[arr.size()];
+			for(int i = 0; i < arr.size(); i++){
+				strings[i] = (String) arr.get(i);
+			}
+			List<MemActInfo> list = (List<MemActInfo>) hibernateTemplate.find(sql,strings);
+			return list;
+		}
+		@Override
+		public List getMemActById(String id) throws Exception {
+			List<MemActInfo> list = (List<MemActInfo>) hibernateTemplate.find("from MemActInfo where id=?", id);
+			return list;
+		}
+		@Override
+		public void updateMemAct(String[] str) throws Exception {
+			MemActInfo memActInfo = hibernateTemplate.load(MemActInfo.class, str[0]);
+			memActInfo.setaName(str[1]);
+			memActInfo.setaInfo(str[2]);
+			memActInfo.setaType(str[3]);
+			memActInfo.setaPersonnel(str[4]);
+			memActInfo.setaCondition(str[5]);
+			memActInfo.setaContent(str[6]);
+			hibernateTemplate.update(memActInfo);
+		}
+		@Override
+		public void delMemAct(String id) throws Exception {
+			MemActInfo memActInfo = hibernateTemplate.load(MemActInfo.class, id);
+			if(memActInfo != null) {
+				hibernateTemplate.delete(memActInfo);
+			}
+		}
+		@Override
+		public void addMemAct(String id, String[] str) throws Exception {
+			MemActInfo memActInfo = new MemActInfo();
+			memActInfo.setId(id);
+			memActInfo.setaName(str[0]);
+			memActInfo.setaInfo(str[1]);
+			memActInfo.setaType(str[2]);
+			memActInfo.setaPersonnel(str[3]);
+			memActInfo.setaCondition(str[4]);
+			memActInfo.setaContent(str[5]);
+			SimpleDateFormat dateFormater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date = new Date();
+			String createTime = dateFormater.format(date);
+			memActInfo.setCreateTime(createTime);
+			hibernateTemplate.save(memActInfo);
+		}
 			
 
 }
