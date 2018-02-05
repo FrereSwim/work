@@ -92,6 +92,7 @@
                         </a>
                         <ul class="sider-nav-s">
                            <li><a href="javascript:addTag('../roomPage/roomBillList.html');">订单明细</a></li>
+                           <li><a href="javascript:addTag('../roomPage/roomBillCount.html');">订单统计</a></li>
                         </ul>
                      </li>
                  </ul> 

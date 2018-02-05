@@ -1,0 +1,195 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<div class="conditions">
+			按期查询---
+			 开始时间： <input id="startTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+			 结束时间： <input id="endTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+				   <a href="javascript:query1()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+		</div>
+		</br>
+		<div class="conditions">
+			 按日查询--- 
+			 输入日期： <input id="dayTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+			 	   <a href="javascript:query(1)" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true" style="margin-left:387px;">查询</a>
+		</div>
+		</br>
+		<div class="conditions">
+			 按月查询---
+		 	输入年份： <select id="yearTime1" class="easyui-combobox" name="language" style="height:35px;width:300px;"></select>
+			输入月份： <select id="monthTime1" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto"></select>
+			       <a href="javascript:query(2)" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+		</div>
+		</br>
+		<div class="conditions">
+			 按年查询---
+			 输入年份： <select id="yearTime2" class="easyui-combobox" name="language" style="height:35px;width:300px;"></select>
+				   <a href="javascript:query(3)" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true" style="margin-left:387px;">查询</a>
+		</div>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">描述</td>
+					<td class="kv-content" colspan="5">
+						总计
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">住房单数</td>
+					<td class="kv-content" colspan="5">
+						<input id="numCount"  class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>单
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">客房收入</td>
+					<td class="kv-content" colspan="5">
+						<input id="priceCount"  class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>元
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	var data = [];
+    	for(var i = 2000; i < 2021; i++){
+    		var obj = new Object();
+    	    obj.text = i;
+    	    obj.value = i;
+    	    data.push(obj);
+    	}
+	    $("#yearTime1").combobox("loadData", data);
+	    $("#yearTime2").combobox("loadData", data);
+	    var data2 = [];
+    	for(var i = 1; i < 13; i++){
+    		var obj = new Object();
+    	    obj.text = i;
+    	    obj.value = i;
+    	    data2.push(obj);
+    	}
+	    $("#monthTime1").combobox("loadData", data2);
+	    
+    }); 
+    
+    var dTime;
+    $(function(){
+    	var date = new Date();
+    	var d = date.getFullYear() + "-"; + (date.getMonth()+1) + "-" + date.getDate();
+    	if((date.getMonth()+1) < 10){
+    		d += "0" +  (date.getMonth()+1) + "-";
+    	}else{
+    		d += (date.getMonth()+1) + "-";
+    	}
+    	if(date.getDate() < 10){
+    		d += "0" + date.getDate();
+    	}else{
+    		d += date.getDate();
+    	}
+    	dTime = d;
+    	$("#startTime").textbox('setValue','2000-01-01');
+    	$("#endTime").textbox('setValue',d);
+    	$("#dayTime").textbox('setValue',d);
+    }); 
+    
+    function formatter(date){
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+        return year + "-" + month + "-" + day;
+    }
+
+    function parser(s){
+        var t = Date.parse(s);
+        if (!isNaN(t)){
+            return new Date(t);
+        } else {
+            return new Date(s + ":00:00");
+        }
+    }
+    
+    function query1(){
+		var str = new Array;
+		var startTime = $("#startTime").datetimebox("getValue");
+		var endTime = $("#endTime").datetimebox("getValue");
+		str.push(startTime);
+		str.push(endTime);
+		$.ajax({
+		      type:"post",
+		      url: "getRoomBillInfoByInput.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  var billInfoArr = result.billInfoArr;
+		    	  $("#numCount").textbox('setValue',billInfoArr[0]);
+		    	  $("#priceCount").textbox('setValue',billInfoArr[1]);
+		      }
+		});
+    }
+    
+    function query(o){
+		var str = new Array;
+		if(o == "1"){
+			var dayTime = $("#dayTime").datetimebox("getValue");
+			str.push(dayTime);
+		}
+		if(o == "2"){
+			var yearTime1 = $("#yearTime1").combobox('getValue');
+			var monthTime1 = $("#monthTime1").combobox('getValue');
+			if(monthTime1 < 10){
+				monthTime1 = "0" + monthTime1;
+			}
+			var time = yearTime1 + "-" + monthTime1;
+			str.push(time);
+		}
+		if(o == "3"){
+			var yearTime2 = $("#yearTime2").combobox('getValue');
+			str.push(yearTime2);
+		}
+		$.ajax({
+		      type:"post",
+		      url: "getRoomBillInfoByInput2.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  var billInfoArr = result.billInfoArr;
+		    	  $("#numCount").textbox('setValue',billInfoArr[0]);
+		    	  $("#priceCount").textbox('setValue',billInfoArr[1]);
+		      }
+		});
+    }
+    
+    
+    
+    function isEmpty(message){
+		return  message=="" || message==null || message==undefined ;
+	}
+    
+    
+</script>
+</html>
+    

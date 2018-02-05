@@ -50,5 +50,9 @@ public class ModulePrefixConstant {
 	 * 房间账单模块
 	 */
 	public static final  String  ROOMBILL_ID_PREFIX = "RBI";
+	/**
+	 * 会员模块
+	 */
+	public static final  String  MEMBER_ID_PREFIX = "MI";
 	
 }

@@ -90,5 +90,17 @@ public class RoomAction extends ActionSupport {
 		RoomBillInfo roomBillInfo = roomService.getRoomBillInfoById(id);
 		jSONResult.jsonResult("roomBillInfo", roomBillInfo);
 	}
+	
+	public void getRoomBillInfoByInput() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String[] arr = roomService.getBillInfoByInput(str);
+		jSONResult.jsonResult("billInfoArr", arr);
+	}
+	
+	public void getRoomBillInfoByInput2() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String[] arr = roomService.getBillInfoByInput2(str);
+		jSONResult.jsonResult("billInfoArr", arr);
+	}
 
 }

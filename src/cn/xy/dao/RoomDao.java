@@ -17,4 +17,7 @@ public interface RoomDao {
 	List getRoomBillByInput(String[] str) throws Exception;
 
 	RoomBillInfo getRoomBillInfoById(String id) throws Exception;
+	
+	List getRoomBillListByInput(String[] str) throws Exception;
+	List getBillInfoByInput2(String[] str) throws Exception;
 }

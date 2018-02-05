@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="javascript:back()" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">会员名</td>
+					<td class="kv-content" colspan="5">
+						<input id="mName" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">会员手机</td>
+					<td class="kv-content" colspan="5">
+						<input id="mPhone" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">会员身份证号码</td>
+					<td class="kv-content" colspan="5">
+						<input id="mCare" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">会员生日</td>
+					<td class="kv-content" colspan="5">
+						<select id="year" class="easyui-combobox" name="language" style="height:35px;width:91px;"></select>
+						<select id="month" class="easyui-combobox" name="language" style="height:35px;width:91px;"></select>
+						<select id="day" class="easyui-combobox" name="language" style="height:35px;width:91px;"></select>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">会员类型</td>
+					<td class="kv-content" colspan="5">
+						<!-- <input id="cooperationTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input> -->
+						<select id="mType" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+		   					<option value="0">&nbsp;</option>
+		   	  				<option value="普通会员">普通会员</option>
+		   	  				<option value="超级会员">超级会员</option>
+		   				</select>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    	var data1 = [];
+		for(var i = 1900; i < 2021; i++){
+			var obj = new Object();
+		    obj.text = i;
+		    obj.value = i;
+		    data1.push(obj);
+		}
+	    $("#year").combobox("loadData", data1);
+	    var data2 = [];
+		for(var i = 1; i < 13; i++){
+			var obj = new Object();
+			if(i < 10){
+				i = "0" + i;
+			}
+		    obj.text = i;
+		    obj.value = i;
+		    data2.push(obj);
+		}
+	    $("#month").combobox("loadData", data2);
+	    var data3 = [];
+		for(var i = 1; i < 32; i++){
+			var obj = new Object();
+			if(i < 10){
+				i = "0" + i;
+			}
+		    obj.text = i;
+		    obj.value = i;
+		    data3.push(obj);
+		}
+	    $("#day").combobox("loadData", data3);
+    }); 
+    
+    function back(){
+    	window.location = "memberList.html";
+    }
+    
+    function save(){
+    	var str = new Array;
+		str.push($("#mName").val());
+		str.push($("#mPhone").val());
+		str.push($("#mCare").val());
+		var year = $("#year").combobox('getValue');
+		var month = $("#month").combobox('getValue');
+		var day = $("#day").combobox('getValue');
+		var mBirth = year + "-" + month + "-" + day;
+ 		str.push(mBirth);
+		var mType = $("#mType").combobox('getValue');
+		if(mType == "0"){
+			alert("请选择开通会员类型！");
+			return;
+		}
+		str.push(mType);
+		$.ajax({
+		      type:"post",
+		      url: "addMember.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  window.location = "memberList.html";
+		      }
+		});
+    }
+    
+    function GetUID(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+   	}
+</script>
+</html>
+    

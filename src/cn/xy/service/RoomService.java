@@ -18,4 +18,7 @@ public interface RoomService {
 	List getRoomBillByInput(String[] str) throws Exception;
 	
 	RoomBillInfo getRoomBillInfoById(String id) throws Exception;
+	
+	String[] getBillInfoByInput(String[] str) throws Exception;
+	String[] getBillInfoByInput2(String[] str) throws Exception;
 }

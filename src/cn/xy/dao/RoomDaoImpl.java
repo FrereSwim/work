@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
-import cn.xy.employeeBean.EmployeeInfo;
+import cn.xy.menuBean.DishBillInfo;
 import cn.xy.roomBean.RoomBillInfo;
 import cn.xy.roomBean.RoomInfo;
 import cn.xy.utils.IDMD5BuilderUtil;
@@ -112,7 +112,7 @@ public class RoomDaoImpl implements RoomDao {
 			arr.add(str[0]);
 		}
 		if(!roomNum.equals("")){
-			sql += "and area = ? ";
+			sql += "and roomNum = ? ";
 			arr.add(str[1]);
 		}
 		if(!state.equals("")){
@@ -138,8 +138,25 @@ public class RoomDaoImpl implements RoomDao {
 
 	@Override
 	public RoomBillInfo getRoomBillInfoById(String id) throws Exception {
-		RoomBillInfo roomBillInfo = hibernateTemplate.load(RoomBillInfo.class, id);
+		//RoomBillInfo roomBillInfo = hibernateTemplate.load(RoomBillInfo.class, id);
+		List list = (List<RoomBillInfo>) hibernateTemplate.find("from RoomBillInfo where id=?", id);
+		RoomBillInfo roomBillInfo = (RoomBillInfo) list.get(0);
 		return roomBillInfo;
+	}
+	
+	@Override
+	public List getRoomBillListByInput(String[] str) throws Exception {
+		String startTime = str[0];
+		String endTime = str[1];
+		List<RoomBillInfo> list = (List<RoomBillInfo>) hibernateTemplate.find("from RoomBillInfo where createTime >= ? and createTime <= ? ORDER BY createTime DESC", startTime, endTime);
+		return list;
+	}
+
+	@Override
+	public List getBillInfoByInput2(String[] str) throws Exception {
+		String time = str[0];
+		List<RoomBillInfo> list = (List<RoomBillInfo>) hibernateTemplate.find("from RoomBillInfo where createTime like ?", time + "%");
+		return list;
 	}
 			
 			

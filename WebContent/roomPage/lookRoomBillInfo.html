@@ -19,7 +19,9 @@
 			<tbody>
 				<tr>
 					<td class="kv-label">id</td>
-					<td  id="id" class="kv-content"  colspan="5"></td>
+					<td class="kv-content"  colspan="5">
+						<input id="id" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;" disable="true"></input>
+					</td>
 				</tr>
 				<tr>
 					<td class="kv-label">房间号码</td>
@@ -54,25 +56,25 @@
 				<tr>
 					<td class="kv-label">离宿时间</td>
 					<td class="kv-content" colspan="5">
-						<input id="endTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+						<input id="endTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
 					</td>
 				</tr>
 				<tr>
 					<td class="kv-label">入住天数</td>
 					<td class="kv-content" colspan="5">
-						<input id="days" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+						<input id="days" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
 					</td>
 				</tr>
 				<tr>
 					<td class="kv-label">订单状态</td>
 					<td class="kv-content" colspan="5">
-						<input id="state" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+						<input id="state" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
 					</td>
 				</tr>
 				<tr>
 					<td class="kv-label">订单创建时间</td>
 					<td class="kv-content" colspan="5">
-						<input id="createTime" name="code" class="easyui-datetimebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;"/>
+						<input id="createTime" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
 					</td>
 				</tr>
 				
@@ -122,7 +124,7 @@
 		    	  $("#roomNum").textbox('setValue',roomBillInfo.roomNum);
 		    	  $("#price").textbox('setValue',roomBillInfo.price);
 		    	  $("#phone").textbox('setValue',roomBillInfo.phone);
-		    	  $("#care").combobox('setValue',roomBillInfo.care);
+		    	  $("#care").textbox('setValue',roomBillInfo.care);
 		    	  $("#startTime").textbox('setValue',roomBillInfo.startTime);
 		    	  $("#endTime").textbox('setValue',roomBillInfo.endTime);
 		    	  $("#days").textbox('setValue',roomBillInfo.days);

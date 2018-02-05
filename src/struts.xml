@@ -360,8 +360,32 @@
     	<action name="getRoomBillInfoById" class="roomAction" method="getRoomBillInfoById">
     		<result name="success"></result>
     	</action>
+    	<action name="getRoomBillInfoByInput" class="roomAction" method="getRoomBillInfoByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getRoomBillInfoByInput2" class="roomAction" method="getRoomBillInfoByInput2">
+    		<result name="success"></result>
+    	</action>
     	
-    	
+    	<!-- 会员管理 -->
+    	<action name="getMemberList" class="memberAction" method="getMemberList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getMemberByInput" class="memberAction" method="getMemberByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getMemberById" class="memberAction" method="getMemberById">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateMember" class="memberAction" method="updateMember">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delMember" class="memberAction" method="delMember">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addMember" class="memberAction" method="addMember">
+    		<result name="success"></result>
+    	</action>
     	
     </package>
 </struts>
