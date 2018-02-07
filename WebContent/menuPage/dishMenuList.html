@@ -45,7 +45,7 @@
 		   	菜名：   <input id="inputDishName" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
 		            类型：   <input id="inputType" class="easyui-textbox" type="text" name="code" style="width:166px;height:35px;line-height:35px;"></input>
 		            级别：   <select id="inputeLevel" class="easyui-combobox" name="language" style="height:35px;width:166px;" panelHeight="auto">
-				 	<option value="0"></option>
+				 	<option value="0">&nbsp;</option>
 		   			<option value="s">特级</option>
 		   			<option value="1">一级</option>
 		   			<option value="2">二级</option>
@@ -62,8 +62,6 @@
 				<input class="easyui-filebox" data-options="buttonText:'选         择 '" style="height:35px;width:200px;" name="file" >
 		    	<a href="javascript:document.getElementById('fileForm').submit();" class="easyui-linkbutton" data-options="selected:false">上传文件</a>
 	        </form>
-	        <!-- <a href="javascript:addInfo()" style="position:absolute;right:0px;margin-top:11px;margin-right:100px;" class="easyui-linkbutton">>>导出</a>
-	        <a href="javascript:addInfo()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a> -->
 	     </div>
    	  </div>
     </div>
@@ -74,6 +72,7 @@
     <script type="text/javascript" src="../page/js/showListData.js"></script>
 
     <script type="text/javascript">
+    
 		$(function(){
 			hideDiv();
 		});
@@ -137,7 +136,6 @@
         	str.push(dishName);
         	str.push(type);
         	str.push(level);
-        	console.log(str);
         	$.ajax({
     		      type:"post",
     		      url: "getDishListByInput.action",
@@ -178,6 +176,7 @@
         	var a = $("#inputDishName").val();
         	var b = $("#inputType").val();
         	var c = $("#inputeLevel").combobox('getValue');
+        	console.log(a + b + c);
         	if(isEmpty(a) && isEmpty(b) && isEmpty(c)){
         		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
         	}else{
@@ -189,10 +188,11 @@
         }
         
         function reset(){
-        	$("#inputDishName").textbox('setValue',"");
+        	/* $("#inputDishName").textbox('setValue',"");
         	$("#inputType").textbox('setValue',"");
         	$("#inputeLevel").combobox('setValue',"");
-        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        	$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging'); */
+        	location.reload();
         }
         
         function delInfo(){

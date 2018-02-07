@@ -28,11 +28,13 @@
                 pageSize:10">
             <thead>
                 <tr>
-                    <th field="id" width="240" align="center">ID</th>
-                    <th field="tableNum" width="240" align="center">桌号</th>
-                    <th field="price" width="240" align="center">消费金额</th>
-                    <th field="createTime" width="240" align="center">创建时间</th>
-                    <th field="note" width="100" align="center">操作</th>
+                    <th field="id" width="190" align="center">ID</th>
+                    <th field="tableNum" width="80" align="center">桌号</th>
+                    <th field="price" width="80" align="center">消费金额</th>
+                    <th field="actId" width="190" align="center">参与活动ID</th>
+                    <th field="actName" width="200" align="center">参与活动名称</th>
+                    <th field="mid" width="190" align="center">会员号码</th>
+                    <th field="createTime" width="180" align="center">创建时间</th>
                 </tr>
             </thead>
         </table>
@@ -105,8 +107,10 @@
   		                    id: val.id,
   		                  	tableNum: val.tableNum,
   		                  	price: val.price,
+  		                  	actId: val.actId,
+		                  	actName: val.actName,
+		                  	mid: val.mid,
   		                  	createTime: val.createTime,
-  		                    note: "√"
   		                });
   		    		});
   		      	  }
@@ -142,11 +146,13 @@
         		    	  delInfo();
         		    	  $.each(dishBillList,function(index,val){
 	        		    	  rows.push({
-	        		    		  id: val.id,
+	        		    		  	id: val.id,
 	    		                  	tableNum: val.tableNum,
 	    		                  	price: val.price,
+	    		                  	actId: val.actId,
+	    		                  	actName: val.actName,
+	    		                  	mid: val.mid,
 	    		                  	createTime: val.createTime,
-	    		                    note: "√"
 	        	              });
         		    	  });
     		    	  }
@@ -169,9 +175,10 @@
         }
         
         function reset(){
-        	$("#startTime").textbox('setValue','2000-01-01');
+        	/* $("#startTime").textbox('setValue','2000-01-01');
         	$("#endTime").textbox('setValue',dTime);
-        	$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
+        	$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging'); */
+        	location.reload();
         }
         
         function delInfo(){

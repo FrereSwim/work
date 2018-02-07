@@ -17,8 +17,9 @@
                 //String fileName = new String(request.getParameter("uploadName").getBytes("iso-8859-1"), "utf-8");
                 String fileName = new String(request.getParameter("uploadName"));
                 //System.out.println(fileName);
-                smart.downloadFile("wenjian/" + fileName);   
-            }   
+                //smart.downloadFile("wenjian/" + fileName);//注意路径
+                smart.downloadFile("F:\\JAVA\\space\\work\\WebContent\\wenjian\\" + fileName);
+            }
             catch(Exception e){   
             }
          %>  

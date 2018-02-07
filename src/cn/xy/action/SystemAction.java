@@ -373,7 +373,8 @@ public class SystemAction extends ActionSupport {
 		public String addFile() throws Exception{
 			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 			String day = date.format(new Date());
-		    String root = "F:\\java\\work\\webapps\\RestaurantMain\\wenjian";
+		    //String root = "F:\\java\\work\\webapps\\RestaurantMain\\wenjian";
+		    String root = "F:\\JAVA\\space\\work\\WebContent\\wenjian";
 	        InputStream is = new FileInputStream(file);
 	        String[] names = fileFileName.split("\\.");
 	        String fileType = names[1];

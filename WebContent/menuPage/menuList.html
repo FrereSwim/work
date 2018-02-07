@@ -387,6 +387,10 @@
         	var dishID = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
         	var price = $(obj).parent().parent().parent().children('td').eq(4).children('div').eq(0).html();
         	var tableNum = $("#tableNum").combobox('getValue');
+        	if(isEmpty(tableNum)){
+        		alert("请选择桌号！");
+        		return;
+        	}
         	var str =new Array;
         	str.push(tableNum);
         	str.push(dishID);

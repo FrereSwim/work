@@ -7,6 +7,7 @@
 		<id name="id" column="id"></id>
 		<property name="tableNum" column="tableNum"></property>
 		<property name="price" column="price"></property>
+		<property name="createTime" column="createTime"></property>
 		<property name="actId" column="actId"></property>
 		<property name="actName" column="actName"></property>
 		<property name="mid" column="mid"></property>

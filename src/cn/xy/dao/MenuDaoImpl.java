@@ -1,6 +1,8 @@
 package cn.xy.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -80,17 +82,24 @@ public class MenuDaoImpl implements MenuDao {
 	}
 	
 	@Override
-	public void addBill(String id, String tableNum, String price, String createTime, String actId, String actName, String mid) throws Exception {
-		DishBillInfo dDishBillInfo = new DishBillInfo();
-		dDishBillInfo.setId(id);
-		dDishBillInfo.setTableNum(tableNum);
-		dDishBillInfo.setPrice(price);
-		dDishBillInfo.setCreateTime(createTime);
-		dDishBillInfo.setTableNum(actId);
-		dDishBillInfo.setActId(actId);
-		dDishBillInfo.setActName(actName);
-		dDishBillInfo.setMid(mid);
-		hibernateTemplate.save(dDishBillInfo);
+	public void addBill(String id, String[] str) throws Exception {
+		Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createTime = sdf.format(date);
+        String tableNum = str[0];
+        String money = str[1];
+		String actId = str[2];
+		String actName = str[3];
+		String mid = str[4];
+		DishBillInfo dishBillInfo = new DishBillInfo();
+		dishBillInfo.setId(id);
+		dishBillInfo.setTableNum(tableNum);
+		dishBillInfo.setPrice(money);
+		dishBillInfo.setCreateTime(createTime);
+		dishBillInfo.setActId(actId);
+		dishBillInfo.setActName(actName);
+		dishBillInfo.setMid(mid);
+		hibernateTemplate.save(dishBillInfo);
 	}
 
 	@Override
@@ -107,7 +116,7 @@ public class MenuDaoImpl implements MenuDao {
 
 	@Override
 	public List getDishList() throws Exception {
-		List<CarteInfo> list = (List<CarteInfo>) hibernateTemplate.find("from CarteInfo");
+		List<CarteInfo> list = (List<CarteInfo>) hibernateTemplate.find("from CarteInfo order by num DESC");
 		return list;
 	}
 
@@ -167,7 +176,7 @@ public class MenuDaoImpl implements MenuDao {
 
 
 	@Override
-	public void addDishInfo(String id, String[] str) throws Exception {
+	public void addDishInfo(String id, String[] str, int num) throws Exception {
 		CarteInfo carteInfo = new CarteInfo();
 		carteInfo.setId(id);
 		carteInfo.setDishName(str[0]);
@@ -176,6 +185,7 @@ public class MenuDaoImpl implements MenuDao {
 		carteInfo.setPrice(str[3]);
 		carteInfo.setLevel(str[4]);
 		carteInfo.setOrigin(str[5]);
+		carteInfo.setNum(num + 1);
 		hibernateTemplate.save(carteInfo);
 	}
 

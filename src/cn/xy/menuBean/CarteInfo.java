@@ -9,6 +9,7 @@ public class CarteInfo {
 	private String price;
 	private String level;
 	private String origin;
+	private int num;
 	public String getId() {
 		return id;
 	}
@@ -51,4 +52,11 @@ public class CarteInfo {
 	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	
 }

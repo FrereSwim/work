@@ -160,7 +160,7 @@
 	    		  obj.value = "0";
 	    		  data.push(obj);
 		    	  $.each(result.memActList,function(index,val){
-		    		  if(val.aBelong == "room"){
+		    		  if(val.aBelong == "dish"){
 		    			  var obj = new Object();
 			    		  obj.text = val.aName;
 			    		  obj.value = val.id;
@@ -622,10 +622,17 @@
             	}
             	
         	}
+        	money = money.toFixed(1);
         	var mymessage=confirm("您账单消费总价为：  " + yuanjia + " 元( " + info + " )。需要收费：  " + money + "元。是否确认订单？");  
         	if(mymessage==false){  
        	    	return;
        	    }
+        	var str = new Array;
+        	str.push(tableNum);
+        	str.push(money);
+        	str.push(actid);
+        	str.push(actName);
+        	str.push(mid);
         	$.ajax({
       		      type:"post",
       		      url: "checkoutBill.action",

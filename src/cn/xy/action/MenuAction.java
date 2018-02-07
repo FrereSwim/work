@@ -64,9 +64,9 @@ public class MenuAction extends ActionSupport {
         String[] strs  = fileFileName.split("\\.");
         fileFileName = strs[0] + date + "." + strs[1];
         OutputStream os = new FileOutputStream(new File(root, fileFileName));
-        System.out.println("fileFileName: " + fileFileName);
-        System.out.println("file: " + file.getName());
-        System.out.println("file: " + file.getPath());
+        //System.out.println("fileFileName: " + fileFileName);
+        //System.out.println("file: " + file.getName());
+        //System.out.println("file: " + file.getPath());
         byte[] buffer = new byte[500];
         int length = 0;
         while(-1 != (length = is.read(buffer, 0, buffer.length)))

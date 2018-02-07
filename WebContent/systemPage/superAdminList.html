@@ -50,6 +50,7 @@
     <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
     <script src="../page/js/qikoo.js"></script>
     <script type="text/javascript" src="js/system.js"></script>
+    <script type="text/javascript" src="../page/js/showListData.js"></script>
 
     <script type="text/javascript">
 
@@ -149,10 +150,11 @@
         }
         
         function reset(){
-        	$("#inputID").textbox('setValue',"");
+        	/* $("#inputID").textbox('setValue',"");
         	$("#inputName").textbox('setValue',"");
-        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
-        	addBut();
+        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging'); */
+        	location.reload();
+        	//addBut();
         }
         
         function delInfo(){

@@ -1,15 +1,12 @@
 package cn.xy.service;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import cn.xy.dao.MenuDao;
 import cn.xy.menuBean.CarteInfo;
 import cn.xy.menuBean.DishBillInfo;
-import cn.xy.menuBean.TemporaryDishInfo;
 import cn.xy.utils.IDMD5BuilderUtil;
+import cn.xy.utils.MenuDishID;
 import cn.xy.utils.ModulePrefixConstant;
 
 public class MenuServiceImpl implements MenuService {
@@ -31,8 +28,13 @@ public class MenuServiceImpl implements MenuService {
 		    str[3] = carteInfo.getPrice();
 		    str[4] = carteInfo.getLevel();
 		    str[5] = carteInfo.getOrigin();
-			String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
-			menuDao.addDishInfo(id, str);
+			//String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
+		    List list1 = menuDao.getDishList();
+			CarteInfo carteInfo1 = (CarteInfo) list1.get(0);
+		    int num = carteInfo1.getNum();
+			MenuDishID menuDishID = new MenuDishID();
+			String id =menuDishID.getDishID(num);
+			menuDao.addDishInfo(id, str, num);
 		}
 	}
 	
@@ -65,7 +67,7 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void checkoutBill(String[] str) throws Exception {
 		String tableNum = str[0];
-		String actId = str[1];
+		/*String actId = str[1];
 		String actName = str[2];
 		String mid = str[3];
 		List list = menuDao.getdishBill(tableNum);
@@ -77,12 +79,9 @@ public class MenuServiceImpl implements MenuService {
 			String price = temporaryDishInfo.getPrice();
 			double p = Double.parseDouble(price);
 			prices += p;
-		}
-		Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String createTime = sdf.format(date);
+		}*/
         String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHBILL_ID_PREFIX,8);
-		menuDao.addBill(id, tableNum, prices+"", createTime, actId, actName, mid);
+		menuDao.addBill(id, str);
 		menuDao.deldishBill(tableNum);
 		menuDao.updateTableState(tableNum, "0");
 	}
@@ -113,8 +112,13 @@ public class MenuServiceImpl implements MenuService {
 	}
 	@Override
 	public void addDishInfo(String[] str) throws Exception {
-		String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
-		menuDao.addDishInfo(id, str);
+		//String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.DISHINFO_ID_PREFIX,8);
+		List list = menuDao.getDishList();
+		CarteInfo carteInfo = (CarteInfo) list.get(0);
+		int num = carteInfo.getNum();
+		MenuDishID menuDishID = new MenuDishID();
+		String id =menuDishID.getDishID(num);
+		menuDao.addDishInfo(id, str, num);
 	}
 
 	@Override

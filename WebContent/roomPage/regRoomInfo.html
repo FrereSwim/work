@@ -293,6 +293,7 @@
    		str.push(actid);
    		var actName = $("#act").combobox('getText');
    		str.push(actName);
+   		var mid = $("#mid").val();
    		str.push(mid);
    		
    		var mymessage=confirm("您选择入住的时间是 ：  " + startTime + "  至  " + endTime + "   , 一共: " + days + " 天, 总价：" + money + " 元( " + info + " )。是否确认订单？");  

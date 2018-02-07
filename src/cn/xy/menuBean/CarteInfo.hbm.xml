@@ -11,5 +11,6 @@
 		<property name="price" column="price"></property>
 		<property name="level" column="level"></property>
 		<property name="origin" column="origin"></property>
+		<property name="num" column="num"></property>
 	</class>
 </hibernate-mapping>
