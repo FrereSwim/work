@@ -408,5 +408,30 @@
     		<result name="success"></result>
     	</action>
     	
+    	<!-- 财务 -->
+    	<action name="getIncomeInfo" class="financeAction" method="getIncomeInfo">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getIncomeInfoByYear" class="financeAction" method="getIncomeInfoByYear">
+    		<result name="success"></result>
+    	</action>
+    	
+    	<action name="getIncomeByInput" class="financeAction" method="getIncomeByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getIncomeById" class="financeAction" method="getIncomeById">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateIncome" class="financeAction" method="updateIncome">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delIncome" class="financeAction" method="delIncome">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addIncome" class="financeAction" method="addIncome">
+    		<result name="success"></result>
+    	</action>
+    	
+    	
     </package>
 </struts>

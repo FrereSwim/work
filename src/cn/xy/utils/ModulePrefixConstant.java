@@ -58,5 +58,9 @@ public class ModulePrefixConstant {
 	 * 会员活动模块
 	 */
 	public static final  String  MEMACT_ID_PREFIX = "MAI";
+	/**
+	 * 纯收入模块
+	 */
+	public static final  String  INCOME_ID_PREFIX = "II";
 	
 }

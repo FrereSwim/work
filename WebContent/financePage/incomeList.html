@@ -1,0 +1,273 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>年度收入列表</title> 
+
+	<link href="../page/css/base.css" rel="stylesheet">
+	<link rel="stylesheet" href="../custom/uimaker/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+	<link rel="stylesheet" href="../page/css/providers.css">
+	<link href="../page/css/qikoo.css" rel="stylesheet">
+
+</head> 
+<body>
+    <div class="container">
+       <table id="dg" style="width:100%;height:554px" title="年度收入列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                pagination:true,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb',
+                pageSize:10">
+            <thead>
+                <tr>
+                    <th field="id" width="120" align="center">ID</th>
+                    <th field="year" width="60" align="center">年份</th>
+                    <th field="type" width="60" align="center">类型</th>
+                    <th field="Jan" width="60" align="center">一月</th>
+                    <th field="Feb" width="60" align="center">二月</th>
+                    <th field="Mar" width="60" align="center">三月</th>
+                    <th field="Apr" width="60" align="center">四月</th>
+                    <th field="May" width="60" align="center">五月</th>
+                    <th field="Jun" width="60" align="center">六月</th>
+                    <th field="Jul" width="60" align="center">七月</th>
+                    <th field="Aug" width="60" align="center">八月</th>
+                    <th field="Sept" width="60" align="center">九月</th>
+                    <th field="Oct" width="60" align="center">十月</th>
+                    <th field="Nov" width="60" align="center">十一月</th>
+                    <th field="Dec" width="60" align="center">十二月</th>
+                    <th field="note" width="60" align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+      <div id="tb" style="padding:0 30px;">
+      	<div class="conditions">
+	        年份: <select id="year" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+		   </select>
+	        类型: <select id="type" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+	       		<option value="0">&nbsp;</option>
+		   	  	<option value="dish">餐厅</option>
+		   	  	<option value="room">客房</option>
+	       </select>
+	        <a href="javascript:query()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
+	        <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
+	        <a href="javascript:add()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a>
+      </div>
+      <div class="opt-buttons">
+      </div>
+    </div>
+    <script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
+    <script src="../page/js/qikoo.js"></script>
+    <script type="text/javascript" src="../page/js/showListData.js"></script>
+
+    <script type="text/javascript">
+    $(function(){
+    	var data = [];
+    	for(var i = 2018; i > 1999; i--){
+    		var obj = new Object();
+    	    obj.text = i;
+    	    obj.value = i;
+    	    data.push(obj);
+    	}
+	    $("#year").combobox("loadData", data);
+    }); 
+    
+
+    	var rows = [];
+        function getData(){
+        	var str = new Array;
+            $.ajax({
+  		      type:"post",
+  		      url: "getIncomeInfo.action",
+  		      data: {
+  		    	 "str":str 
+  		      },
+  		      dataType: "json",
+  		      async:false,
+  		      traditional: true,
+  		      success: function(result){
+  		    		var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
+                	str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+  		    		delInfo();
+  		    		$.each(result.incomeInfo,function(index,val){
+  		    			if(val.type == "dish"){
+  		    				var type = "餐厅";
+  		    			}
+  		    			if(val.type == "room"){
+  		    				var type = "客房";
+  		    			}
+  		    			rows.push({
+  		    				id: val.id,
+      		    		  	year: val.year,
+      		    		 	type: type,
+      		    		  	Jan: val.jan,
+      		    		  	Feb: val.feb,
+      		    		 	Mar: val.mar,
+      		    		 	Apr: val.apr,
+      		    		    May: val.may,
+      		    		    Jun: val.jun,
+      		    		    Jul: val.jul,
+      		    		    Aug: val.aug,
+      		    		    Sept: val.sept,
+      		    		    Oct: val.oct,
+      		    		    Nov: val.nov,
+      		    		    Dec: val.dec,
+		                    note: str
+  		                });
+  		    		});
+  		      	  }
+  		      });
+            return rows;
+        }
+        
+        $(function(){
+            $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+          //添加操作按钮
+            var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
+            str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+            $("div[class='datagrid-body'] td[field='note'] div").html(str);
+        });
+        
+        function changeRow(){
+        	var year = $("#year").combobox('getValue');
+        	var type = $("#type").combobox('getValue');
+        	if(year == "0"){
+        		year = "";
+        	}
+        	if(type == "0"){
+        		type = "";
+        	}
+        	var str =new Array;
+        	str.push(year);
+        	str.push(type);
+        	$.ajax({
+    		      type:"post",
+    		      url: "getIncomeByInput.action",
+    		      data: {
+    		    	  "str":str
+    		      },
+    		      dataType: "json",
+    		      async:false,
+    		      traditional: true,
+    		      success: function(result){
+    		    	  var incomeInfo = result.incomeInfo;
+    		    	  if(incomeInfo == "0"){
+    		    		  delInfo();
+    		    		  return;
+    		    	  }else{
+    		    		  var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
+        	              str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+        		    	  delInfo();
+        		    	  $.each(incomeInfo,function(index,val){
+        		    		  if(val.type == "dish"){
+        		    				var type = "餐厅";
+       		    			  }
+       		    			  if(val.type == "room"){
+       		    			     	var type = "客房";
+       		    			  }
+	        		    	  rows.push({
+	        		    		  id: val.id,
+	        		    		  	year: val.year,
+	        		    		 	type: type,
+	        		    		  	Jan: val.jan,
+	        		    		  	Feb: val.feb,
+	        		    		 	Mar: val.mar,
+	        		    		 	Apr: val.apr,
+	        		    		    May: val.may,
+	        		    		    Jun: val.jun,
+	        		    		    Jul: val.jul,
+	        		    		    Aug: val.aug,
+	        		    		    Sept: val.sept,
+	        		    		    Oct: val.oct,
+	        		    		    Nov: val.nov,
+	        		    		    Dec: val.dec,
+	  		                    	note: str
+	        	              });
+        		    	  });
+    		    	  }
+    		      	}
+    		      });
+        	return rows;
+        }
+        
+        function query(){
+        	var a = $("#year").combobox('getValue');
+        	var b = $("#type").combobox('getValue');
+        	if(isEmpty(a) && isEmpty(b)){
+        		$('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+        	}else{
+        		$('#dg').datagrid({data:changeRow()}).datagrid('clientPaging');
+        		if(isEmpty(rows)){
+        			$(".datagrid-view2 .datagrid-body").html("无此信息");
+        		}
+        	}
+        }
+        
+        function reset(){
+        	/* $("#inputmid").textbox('setValue',"");
+        	$("#inputmName").textbox('setValue',"");
+        	$("#inputmType").combobox("setValue","0");
+        	$('#dg').datagrid({data:getData()}).datagrid('clientPaging'); */
+        	location.reload();
+        }
+        
+        function delInfo(){
+        	rows.splice(0,rows.length);
+        }
+        
+        function updateButton(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	var str = "../financePage/updateIncome.html?id=" + id;
+        	document.location.href = str;
+        }
+        
+        var delId;
+        function delButton(obj){
+        	var id = $(obj).parent().parent().parent().children('td').eq(0).children('div').eq(0).html();
+        	delId = id;
+        	var phone = $(obj).parent().parent().parent().children('td').eq(2).children('div').eq(0).html();
+        	qikoo.dialog.confirm('请确认是否删除此条记录',function(){
+        		var str = new Array;
+            	str.push(delId);
+            	$.ajax({
+      		      type:"post",
+      		      url: "delIncome.action",
+      		      data: {
+      		    	  "str":str
+      		      },
+      		      dataType: "json",
+      		      traditional: true,
+      		      success: function(result){
+      		    	window.location = "incomeList.html";
+      		      }
+      			});
+            },function(){
+    	    });
+        }
+        
+        function add(){
+        	window.location = "addIncome.html";
+        }
+        
+        function isEmpty(message){
+    		return  message=="" || message==null || message==undefined ;
+    	}
+        
+        function GetUID(name){
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if(r!=null)return  unescape(r[2]); return null;
+       	}
+                
+    </script>
+</body> 
+</html>

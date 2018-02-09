@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cn.xy.financeBean.IncomeInfo" table="tb_income_info">
+		<id name="id" column="id"></id>
+		<property name="year" column="year"></property>
+		<property name="type" column="type"></property>
+		<property name="Jan" column="Jan"></property>
+		<property name="Feb" column="Feb"></property>
+		<property name="Mar" column="Mar"></property>
+		<property name="Apr" column="Apr"></property>
+		<property name="May" column="May"></property>
+		<property name="Jun" column="Jun"></property>
+		<property name="Jul" column="Jul"></property>
+		<property name="Aug" column="Aug"></property>
+		<property name="Sept" column="Sept"></property>
+		<property name="Oct" column="Oct"></property>
+		<property name="Nov" column="Nov"></property>
+		<property name="Dec" column="Dec"></property>
+	</class>
+</hibernate-mapping>
