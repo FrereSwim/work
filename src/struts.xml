@@ -432,6 +432,26 @@
     		<result name="success"></result>
     	</action>
     	
+    	<!-- 仓库 -->
+    	<action name="getGoodsInfo" class="warehouseAction" method="getGoodsInfo">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getGoodsByInput" class="warehouseAction" method="getGoodsByInput">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getGoodsById" class="warehouseAction" method="getGoodsById">
+    		<result name="success"></result>
+    	</action>
+    	<action name="updateGoods" class="warehouseAction" method="updateGoods">
+    		<result name="success"></result>
+    	</action>
+    	<action name="delGoods" class="warehouseAction" method="delGoods">
+    		<result name="success"></result>
+    	</action>
+    	<action name="addGoods" class="warehouseAction" method="addGoods">
+    		<result name="success"></result>
+    	</action>
+    	
     	
     </package>
 </struts>

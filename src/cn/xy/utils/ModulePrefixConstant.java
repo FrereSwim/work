@@ -62,5 +62,9 @@ public class ModulePrefixConstant {
 	 * 纯收入模块
 	 */
 	public static final  String  INCOME_ID_PREFIX = "II";
+	/**
+	 * 仓库模块
+	 */
+	public static final  String  WAREHOUSE_ID_PREFIX = "WI";
 	
 }

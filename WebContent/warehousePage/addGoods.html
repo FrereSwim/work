@@ -1,0 +1,103 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title></title> 
+    <link href="../page/css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../custom/uimaker/easyui.css">
+    <link href="../page/css/process.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+    <link href="../page/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+</head> 
+<body>
+	<div class="opt-buttons" style="padding-top:10px;">
+		<a href="goodsList.html" class="easyui-linkbutton" data-options="iconCls:'icon-back'">返回</a>
+		<a href="javascript:save()" class="easyui-linkbutton" data-options="iconCls:'icon-list'">保存</a>
+	</div>
+	<div class="easyui-tabs1">
+      	<table class="kv-table">
+			<tbody>
+				<tr>
+					<td class="kv-label">货名</td>
+					<td class="kv-content" colspan="5">
+						<input id="goodsName"  class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">类型</td>
+					<td class="kv-content" colspan="5">
+						<input id="type" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">库存</td>
+					<td class="kv-content" colspan="5">
+						<input id="num" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">单位</td>
+					<td class="kv-content" colspan="5">
+						<input id="unit" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">单价</td>
+					<td class="kv-content" colspan="5">
+						<input id="unitPrice" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+				<tr>
+					<td class="kv-label">管理员</td>
+					<td class="kv-content" colspan="5">
+						<input id="warden" class="easyui-textbox" type="text" name="code" style="width:300px;height:35px;line-height:35px;"></input>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+</body> 
+
+	<script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+    }); 
+    
+    function save(){
+		var str = new Array;
+		var goodsName = $("#goodsName").val();
+		str.push(goodsName);
+		var type = $("#type").val();
+		str.push(type);
+		var num = $("#num").val();
+		str.push(num);
+		var unit = $("#unit").val();
+		str.push(unit);
+		var unitPrice = $("#unitPrice").val();
+		str.push(unitPrice);
+		var warden = $("#warden").val();
+		str.push(warden);
+		$.ajax({
+		      type:"post",
+		      url: "addGoods.action",
+		      data: {
+		    	  "str":str
+		      },
+		      dataType: "json",
+		      traditional: true,
+		      success: function(result){
+		    	  window.location = "goodsList.html";
+		      }
+		});
+    }
+    
+    function isEmpty(message){
+		return  message=="" || message==null || message==undefined ;
+	}
+    
+    
+</script>
+</html>
+    

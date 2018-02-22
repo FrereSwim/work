@@ -123,6 +123,7 @@
 		
 		$("#year").combobox({  
 	   	   onSelect: function () {
+	   		    $("#type").combobox('setValue','0');
 	   		   	$("#chart1").empty();
 	   		 	$("#chart2").empty();
 	   			var str = new Array;
