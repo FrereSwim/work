@@ -5,18 +5,18 @@ public class IncomeInfo {
 	private String id;
 	private String year;
 	private String type;
-	private String Jan;
-	private String Feb;
-	private String Mar;
-	private String Apr;
-	private String May;
-	private String Jun;
-	private String Jul;
-	private String Aug;
-	private String Sept;
-	private String Oct;
-	private String Nov;
-	private String Dec;
+	private String jan;
+	private String feb;
+	private String mar;
+	private String apr;
+	private String may;
+	private String jun;
+	private String jul;
+	private String aug;
+	private String sept;
+	private String oct;
+	private String nov;
+	private String dec;
 	public String getId() {
 		return id;
 	}
@@ -36,76 +36,76 @@ public class IncomeInfo {
 		this.type = type;
 	}
 	public String getJan() {
-		return Jan;
+		return jan;
 	}
 	public void setJan(String jan) {
-		Jan = jan;
+		this.jan = jan;
 	}
 	public String getFeb() {
-		return Feb;
+		return feb;
 	}
 	public void setFeb(String feb) {
-		Feb = feb;
+		this.feb = feb;
 	}
 	public String getMar() {
-		return Mar;
+		return mar;
 	}
 	public void setMar(String mar) {
-		Mar = mar;
+		this.mar = mar;
 	}
 	public String getApr() {
-		return Apr;
+		return apr;
 	}
 	public void setApr(String apr) {
-		Apr = apr;
+		this.apr = apr;
 	}
 	public String getMay() {
-		return May;
+		return may;
 	}
 	public void setMay(String may) {
-		May = may;
+		this.may = may;
 	}
 	public String getJun() {
-		return Jun;
+		return jun;
 	}
 	public void setJun(String jun) {
-		Jun = jun;
+		this.jun = jun;
 	}
 	public String getJul() {
-		return Jul;
+		return jul;
 	}
 	public void setJul(String jul) {
-		Jul = jul;
+		this.jul = jul;
 	}
 	public String getAug() {
-		return Aug;
+		return aug;
 	}
 	public void setAug(String aug) {
-		Aug = aug;
+		this.aug = aug;
 	}
 	public String getSept() {
-		return Sept;
+		return sept;
 	}
 	public void setSept(String sept) {
-		Sept = sept;
+		this.sept = sept;
 	}
 	public String getOct() {
-		return Oct;
+		return oct;
 	}
 	public void setOct(String oct) {
-		Oct = oct;
+		this.oct = oct;
 	}
 	public String getNov() {
-		return Nov;
+		return nov;
 	}
 	public void setNov(String nov) {
-		Nov = nov;
+		this.nov = nov;
 	}
 	public String getDec() {
-		return Dec;
+		return dec;
 	}
 	public void setDec(String dec) {
-		Dec = dec;
+		this.dec = dec;
 	}
 	
 }

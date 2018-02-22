@@ -58,7 +58,7 @@
 	       </select>
 	        <a href="javascript:query()" class="easyui-linkbutton" iconCls="icon-search" data-options="selected:true">查询</a>
 	        <a href="javascript:reset()" class="easyui-linkbutton" iconCls="icon-reload">重置</a>
-	        <a href="javascript:add()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a>
+	        <!-- <a href="javascript:add()" style="position:absolute;right:0px;margin-top:11px;margin-right:20px;" class="easyui-linkbutton">+ 新增</a> -->
       </div>
       <div class="opt-buttons">
       </div>
@@ -95,8 +95,8 @@
   		      async:false,
   		      traditional: true,
   		      success: function(result){
-  		    		var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
-                	str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+  		    		//var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
+                	var str = "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
   		    		delInfo();
   		    		$.each(result.incomeInfo,function(index,val){
   		    			if(val.type == "dish"){
@@ -132,8 +132,8 @@
         $(function(){
             $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
           //添加操作按钮
-            var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
-            str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+            //var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
+            var str = "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
             $("div[class='datagrid-body'] td[field='note'] div").html(str);
         });
         
@@ -164,8 +164,8 @@
     		    		  delInfo();
     		    		  return;
     		    	  }else{
-    		    		  var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
-        	              str += "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
+    		    		  //var str = "<a href='#' onclick='updateButton(this)'>修改</a>";
+        	              var str = "<a style='padding-left:8px' href='#' onclick='delButton(this)'>删除</a>";
         		    	  delInfo();
         		    	  $.each(incomeInfo,function(index,val){
         		    		  if(val.type == "dish"){

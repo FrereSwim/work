@@ -72,7 +72,11 @@ public class FinanceDaoImpl implements FinanceDao {
 	@Override
 	public void updateIncome(String[] str) throws Exception {
 		List<IncomeInfo> list = (List<IncomeInfo>) hibernateTemplate.find("from IncomeInfo where id=?", str[0]);
-		IncomeInfo incomeInfo = list.get(0);
+		IncomeInfo incomeInfo1 = list.get(0);
+		//IncomeInfo incomeInfo = hibernateTemplate.load(IncomeInfo.class, str[0]);
+		hibernateTemplate.delete(incomeInfo1);
+		IncomeInfo incomeInfo = new IncomeInfo();
+		incomeInfo.setId(str[0]);
 		incomeInfo.setYear(str[1]);
 		incomeInfo.setType(str[2]);
 		incomeInfo.setJan(str[3]);
@@ -87,7 +91,7 @@ public class FinanceDaoImpl implements FinanceDao {
 		incomeInfo.setOct(str[12]);
 		incomeInfo.setNov(str[13]);
 		incomeInfo.setDec(str[14]);
-		hibernateTemplate.update(incomeInfo);
+		hibernateTemplate.save(incomeInfo);
 	}
 
 	@Override

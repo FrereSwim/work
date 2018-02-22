@@ -7,17 +7,17 @@
 		<id name="id" column="id"></id>
 		<property name="year" column="year"></property>
 		<property name="type" column="type"></property>
-		<property name="Jan" column="Jan"></property>
-		<property name="Feb" column="Feb"></property>
-		<property name="Mar" column="Mar"></property>
-		<property name="Apr" column="Apr"></property>
-		<property name="May" column="May"></property>
-		<property name="Jun" column="Jun"></property>
-		<property name="Jul" column="Jul"></property>
-		<property name="Aug" column="Aug"></property>
-		<property name="Sept" column="Sept"></property>
-		<property name="Oct" column="Oct"></property>
-		<property name="Nov" column="Nov"></property>
-		<property name="Dec" column="Dec"></property>
+		<property name="jan" column="jan"></property>
+		<property name="feb" column="feb"></property>
+		<property name="mar" column="mar"></property>
+		<property name="apr" column="apr"></property>
+		<property name="may" column="may"></property>
+		<property name="jun" column="jun"></property>
+		<property name="jul" column="jul"></property>
+		<property name="aug" column="aug"></property>
+		<property name="sept" column="sept"></property>
+		<property name="oct" column="oct"></property>
+		<property name="nov" column="nov"></property>
+		<property name="dec" column="dec"></property>
 	</class>
 </hibernate-mapping>
