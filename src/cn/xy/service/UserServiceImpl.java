@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService{
 		userDao.add();
 	}
 	@Override
-	public  List<User> checkLogin(String username, String password) throws Exception{
-		List<User> userList = userDao.checkLogin(username,password);
+	public  List<User> checkLogin(String username) throws Exception{
+		List<User> userList = userDao.checkLogin(username);
 		return userList;
 	}
 	@Override

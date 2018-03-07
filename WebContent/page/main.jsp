@@ -96,8 +96,8 @@
                   <div title="系统简介" data-options="closable:true" style="padding:10px 5px 5px 10px;">
                     <iframe class="page-iframe" src="sysIntro.html" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
-                  <div title="采购组织" style="padding:10px 5px 5px 10px;" data-options="closable:true">
-                    <iframe class="page-iframe" src="../memberPage/aa.html" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
+                  <div title="警示语" style="padding:10px 5px 5px 10px;" data-options="closable:true">
+                    <iframe class="page-iframe" src="demo.html" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                     </div>
                   <div title="基本信息" data-options="closable:true" style="padding:10px 5px 5px 10px;">
                     <iframe class="page-iframe" src="basic_info.html" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>

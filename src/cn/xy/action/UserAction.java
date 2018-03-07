@@ -50,7 +50,7 @@ public class UserAction extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String sessionVerCode = (String) request.getSession().getAttribute("verCode");
 		//获取user对象
-		List<User> userList = userService.checkLogin(username,password);
+		List<User> userList = userService.checkLogin(username);
 		if(userList.isEmpty()){
 			res = "0";
 		}else if(!verCode.equals(sessionVerCode)){

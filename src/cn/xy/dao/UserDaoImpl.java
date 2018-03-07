@@ -43,8 +43,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> checkLogin(String username, String password) throws Exception {
-		List<User> userList = (List<User>) hibernateTemplate.find("from User where username=? and password=?", username,password);
+	public List<User> checkLogin(String username) throws Exception {
+		List<User> userList = (List<User>) hibernateTemplate.find("from User where username=?", username);
 		return userList;
 	}
 
