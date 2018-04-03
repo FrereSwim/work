@@ -77,12 +77,22 @@
                       <li>
                         <a href="javascript:;">
                             <span class="iconfont sider-nav-icon"></span>
-                            <span class="sider-nav-title">数据展示</span>
+                            <span class="sider-nav-title">总收入数据展示</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
                            <li><a href="javascript:addTag('../financePage/showChart.html');">纯收入展示图表</a></li>
                            <li><a href="javascript:addTag('../financePage/incomeList.html');">纯收入展示列表</a></li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="javascript:;">
+                            <span class="iconfont sider-nav-icon"></span>
+                            <span class="sider-nav-title">客房数据展示</span>
+                            <i class="iconfont">&#xe642;</i>
+                        </a>
+                        <ul class="sider-nav-s">
+                           <li><a href="javascript:addTag('../financePage/roomTypeShowChart.html');">客房年度订单数</a></li>
                         </ul>
                      </li>
                  </ul> 

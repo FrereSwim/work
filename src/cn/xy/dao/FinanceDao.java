@@ -15,4 +15,6 @@ public interface FinanceDao {
 	void updateIncome(String[] str) throws Exception;
 	void delIncome(String id) throws Exception;
 	void addIncome(String id, String[] str) throws Exception;
+	
+	List getRoomBillByYear(String roomType, String year) throws Exception;
 }

@@ -296,6 +296,26 @@
    		var mid = $("#mid").val();
    		str.push(mid);
    		
+   		var price = $("#price").val();
+   		var p = parseInt(price);
+   		if(p == 100){
+   			str.push("1");
+   		}else if(p == 200){
+   			str.push("2");
+   		}else if(p == 300){
+   			str.push("3");
+   		}else if(p == 400){
+   			str.push("4");
+   		}else if(p == 500){
+   			str.push("5");
+   		}else if(p == 600){
+   			str.push("6");
+   		}else if(p == 700){
+   			str.push("7");
+   		}else if(p == 800){
+   			str.push("8");
+   		}
+   		
    		var mymessage=confirm("您选择入住的时间是 ：  " + startTime + "  至  " + endTime + "   , 一共: " + days + " 天, 总价：" + money + " 元( " + info + " )。是否确认订单？");  
    	    if(mymessage==false){  
    	    	return;

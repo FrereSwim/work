@@ -126,6 +126,13 @@ public class MenuAction extends ActionSupport {
     	jSONResult.jsonResult("list", list);
     }
     
+    public void getTableNum() throws Exception{
+    	JSONResult jSONResult = new JSONResult();
+    	String state = str[0];
+    	List list = menuService.getTableNum(state);
+    	jSONResult.jsonResult("list", list);
+    }
+    
     public void updateTableState() throws Exception{
     	JSONResult jSONResult = new JSONResult();
     	String tableNum = str[0];
@@ -214,6 +221,16 @@ public class MenuAction extends ActionSupport {
 		JSONResult jSONResult = new JSONResult();
 		String[] arr = menuService.getBillInfoByInput2(str);
 		jSONResult.jsonResult("billInfoArr", arr);
+	}
+	
+	
+	
+	public void getdishInfo() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String tableNum = str[0];
+		List dishInfoList =  menuService.getdishInfo(tableNum);
+		jSONResult.jsonResult("dishInfoList", dishInfoList);
+		
 	}
 	
 }

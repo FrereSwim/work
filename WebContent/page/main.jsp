@@ -99,7 +99,7 @@
                   <div title="警示语" style="padding:10px 5px 5px 10px;" data-options="closable:true">
                     <iframe class="page-iframe" src="demo.html" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                     </div>
-                  <div title="基本信息" data-options="closable:true" style="padding:10px 5px 5px 10px;">
+                  <!-- <div title="基本信息" data-options="closable:true" style="padding:10px 5px 5px 10px;">
                     <iframe class="page-iframe" src="basic_info.html" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
                   </div>
                   <div title="供应商" data-options="closable:true" style="padding:10px 5px 5px 10px;">
@@ -110,7 +110,7 @@
                   </div>
                   <div title="表单管理" data-options="closable:true" style="padding:10px 5px 5px 10px;">
                     <iframe class="page-iframe" src="providers1.html" frameborder="no"   border="no" height="100%" width="100%" scrolling="auto"></iframe>
-                  </div>
+                  </div> -->
                   
                 </div>
             </div>

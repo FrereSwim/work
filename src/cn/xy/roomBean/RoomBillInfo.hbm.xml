@@ -17,5 +17,6 @@
 		<property name="actId" column="actId"></property>
 		<property name="actName" column="actName"></property>
 		<property name="mid" column="mid"></property>
+		<property name="roomType" column="roomType"></property>
 	</class>
 </hibernate-mapping>

@@ -11,6 +11,7 @@ public interface MenuService {
 	List getTemporarydish(String tableNum) throws Exception;
 	void delDish(String[] str) throws Exception;
 	List getTableNumByTableType(String tableType, String state) throws Exception;
+	List getTableNum(String state) throws Exception;//xinzeng
 	void updateTableState(String tableNum, String state) throws Exception;
 	void checkoutBill(String[] str) throws Exception;
 	void revokeBill(String tableNum) throws Exception;
@@ -28,4 +29,6 @@ public interface MenuService {
 	
 	String[] getBillInfoByInput(String[] str) throws Exception;
 	String[] getBillInfoByInput2(String[] str) throws Exception;
+	
+	List getdishInfo(String tableNum) throws Exception;
 }

@@ -2,6 +2,8 @@ package cn.xy.dao;
 
 import java.util.List;
 
+import cn.xy.menuBean.TemporaryDishInfo;
+
 public interface MenuDao {
 
 	List getMenuByEid(String id) throws Exception;
@@ -9,6 +11,7 @@ public interface MenuDao {
 	List getTemporarydish(String tableNum) throws Exception;
 	void delDish(String[] str) throws Exception;
 	List getTableNumByTableType(String tableType, String state) throws Exception;
+	List getTableNum(String state) throws Exception;//xinzeng
 	List getdishBill(String tableNum) throws Exception;
 	void addBill(String id, String[] str) throws Exception;
 	void updateTableState(String tableNum, String state) throws Exception;
@@ -26,4 +29,7 @@ public interface MenuDao {
 	
 	//List getBillInfoByInput(String[] str) throws Exception;
 	List getBillInfoByInput2(String[] str) throws Exception;
+	
+	List<TemporaryDishInfo> getdishInfo(String tableNum) throws Exception;
+	int getDishCount(String dishID) throws Exception;
 }

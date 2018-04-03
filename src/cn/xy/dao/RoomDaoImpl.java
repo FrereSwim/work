@@ -76,6 +76,7 @@ public class RoomDaoImpl implements RoomDao {
 		roomBillInfo.setActId(str[10]);
 		roomBillInfo.setActName(str[11]);
 		roomBillInfo.setMid(str[12]);
+		roomBillInfo.setRoomType(str[13]);
 		hibernateTemplate.save(roomBillInfo);
 	}
 	@Override

@@ -17,4 +17,6 @@ public interface FinanceService {
 	void delIncome(String id) throws Exception;
 	void addIncome(String[] str) throws Exception;
 	
+	List getRoomBillByYear(String year) throws Exception;
+	
 }

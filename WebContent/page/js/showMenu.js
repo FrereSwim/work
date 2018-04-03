@@ -4,7 +4,7 @@ function showSuperMenu(){
 	var str = "<li id='main' class='pf-nav-item home' data-menu='sys-manage'><a href='main.jsp'><span class='iconfont'>&#xe620;</span><span class='pf-nav-title'>--首页--</span></a></li>";
 		str += "<li id='system' class='pf-nav-item home' data-menu='sys-manage'><a href='system.jsp'><span class='iconfont'>&#xe63f;</span><span class='pf-nav-title'>系统管理</span></a></li>";
 		str += "<li id='employee' class='pf-nav-item home' data-menu='org-manage'><a href='employee.jsp'><span class='iconfont'>&#xe60d;</span><span class='pf-nav-title'>员工管理</span></a></li>";
-		str += "<li id='menu' class='pf-nav-item home' data-menu='main-data'><a href='menu.jsp'><span class='iconfont'>&#xe61e;</span><span class='pf-nav-title'>菜单管理</span></a></li>";
+		str += "<li id='menu' class='pf-nav-item home' data-menu='main-data'><a href='menu.jsp'><span class='iconfont'>&#xe61e;</span><span class='pf-nav-title'>餐厅管理</span></a></li>";
 		str += "<li id='room' class='pf-nav-item home' data-menu='supplier-mange'><a href='room.jsp'><span class='iconfont'>&#xe64b;</span><span class='pf-nav-title'>客房管理</span></a></li>";
 		str += "<li id='member' class='pf-nav-item home' data-menu='supplier-dev'><a href='member.jsp'><span class='iconfont'>&#xe60d;</span><span class='pf-nav-title'>会员管理</span></a></li>";//&#xe646;
 		str += "<li id='warehouse' class='pf-nav-item home' data-menu='pur-source'><a href='warehouse.jsp'><span class='iconfont'>&#xe623;</span><span class='pf-nav-title'>仓库管理</span></a></l>";

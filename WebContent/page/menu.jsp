@@ -69,7 +69,7 @@
             <div id="pf-sider">
                 <h2 class="pf-model-name">
                     <span class="iconfont">&#xe64a;</span>
-                    <span class="pf-name">菜单管理</span>
+                    <span class="pf-name">餐厅管理</span>
                     <span class="toggle-icon"></span>
                 </h2>
 
@@ -87,7 +87,7 @@
                      <li>
                         <a href="javascript:;">
                             <span class="iconfont sider-nav-icon"></span>
-                            <span class="sider-nav-title">餐厅管理</span>
+                            <span class="sider-nav-title">订餐管理</span>
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">

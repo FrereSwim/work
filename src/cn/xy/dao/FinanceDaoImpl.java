@@ -120,6 +120,12 @@ public class FinanceDaoImpl implements FinanceDao {
 		incomeInfo.setDec(str[13]);
 		hibernateTemplate.save(incomeInfo);
 	}
+
+	@Override
+	public List getRoomBillByYear(String roomType, String year) throws Exception {
+		List list = hibernateTemplate.find("from RoomBillInfo where roomType = ? and date_format(startTime,'%Y')=?)",roomType, year);
+		return list;
+	}
 			
 			
 

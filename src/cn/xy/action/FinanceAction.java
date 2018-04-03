@@ -97,5 +97,12 @@ public class FinanceAction extends ActionSupport {
 		financeService.addIncome(str);
 		jSONResult.jsonResult("result", true);
 	}
+	
+	public void getRoomBillByYear() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String year = str[0];
+		List list = financeService.getRoomBillByYear(year);
+		jSONResult.jsonResult("RoomBillCount", list);
+	}
 
 }

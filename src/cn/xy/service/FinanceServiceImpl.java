@@ -65,6 +65,16 @@ public class FinanceServiceImpl implements FinanceService {
 		String id = IDMD5BuilderUtil.builder(ModulePrefixConstant.INCOME_ID_PREFIX,1);
 		financeDao.addIncome(id, str);
 	}
+	@Override
+	public List getRoomBillByYear(String year) throws Exception {
+		List list = new ArrayList();
+		for(int i = 1; i < 7; i++) {
+			List RoomBillCountlist = financeDao.getRoomBillByYear(i + "", year);
+			int num = RoomBillCountlist.size();
+			list.add(num);
+		}
+		return list;
+	}
 	
 	
 

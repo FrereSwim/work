@@ -3,7 +3,7 @@
 <head> 
     <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
-    <title>员工信息列表</title> 
+    <title></title> 
 
 	<link href="../page/css/base.css" rel="stylesheet">
 	<link rel="stylesheet" href="../custom/uimaker/easyui.css">
@@ -21,14 +21,14 @@
       			<tr>
 					<td class="kv-label">桌号</td>
 					<td class="kv-content" colspan="5">
-						<select id="tableType" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+						<!-- <select id="tableType" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
 				   			<option value="0"></option>
 				   			<option value="2">双人桌</option>
 				   			<option value="4">四人桌</option>
 				   			<option value="6">六人桌</option>
 				   			<option value="8">八人桌</option>
 				   			<option value="10">多人桌</option>
-		   				</select>
+		   				</select> -->
 		   				<select id="tableNum" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
 				   			<!-- <option value="0"></option>
 				   			<option value="2">二人桌</option>
@@ -111,7 +111,7 @@
 
     <script type="text/javascript">
     
-    $("#tableType").combobox({  
+    /* $("#tableType").combobox({  
    	   onSelect: function () {
    			$("#tableNum").combobox('setValue', "");
    			var tableType = $("#tableType").combobox('getValue');
@@ -141,7 +141,32 @@
 			});
    	　　  }  
 
-    });
+    }); */
+    
+    $(function(){
+    	var str = new Array;
+		str.push("1");
+    	$.ajax({
+		      type:"post",
+		      url: "getTableNum.action",
+		      data: {
+		    	 "str":str 
+		      },
+		      dataType: "json",
+		      async:false,
+		      traditional: true,
+		      success: function(result){
+		    	var data = [];
+		    	$.each(result.list,function(index,val){
+		    		  var obj = new Object();
+		    		  obj.text = val.tableNum;
+		    		  obj.value = val.tableNum;
+		    		  data.push(obj);
+		    	  });
+		    	  $("#tableNum").combobox("loadData", data);
+		      }
+		});
+	});
     
     (function($){
         function pagerFilter(data){

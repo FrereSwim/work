@@ -1,10 +1,13 @@
 package cn.xy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.xy.dao.MenuDao;
 import cn.xy.menuBean.CarteInfo;
 import cn.xy.menuBean.DishBillInfo;
+import cn.xy.menuBean.TemporaryDishInfo;
+import cn.xy.menuBean.DishMenuInfo;
 import cn.xy.utils.IDMD5BuilderUtil;
 import cn.xy.utils.MenuDishID;
 import cn.xy.utils.ModulePrefixConstant;
@@ -59,6 +62,10 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public List getTableNumByTableType(String tableType, String state) throws Exception {
 		return menuDao.getTableNumByTableType(tableType, state);
+	}
+	@Override
+	public List getTableNum(String state) throws Exception {
+		return menuDao.getTableNum(state);
 	}
 	@Override
 	public void updateTableState(String tableNum, String state) throws Exception {
@@ -168,7 +175,31 @@ public class MenuServiceImpl implements MenuService {
 		arr[1] = count + "";
 		return arr;
 	}
-	
+
+	@Override
+	public List getdishInfo(String tableNum) throws Exception {
+		List<TemporaryDishInfo> list = menuDao.getdishInfo(tableNum);
+		int len = list.size();
+		List dishMenuInfoList = new ArrayList();
+		for(int i = 0; i < len; i++) {
+			DishMenuInfo dishMenuInfo = new DishMenuInfo();
+			String dishID = list.get(i).getDishID();
+			
+			List dishInfo = menuDao.getDishById(dishID);
+			CarteInfo carteInfo = (CarteInfo) dishInfo.get(0);
+			
+			int count = menuDao.getDishCount(dishID);
+			dishMenuInfo.setDishID(dishID);
+			dishMenuInfo.setNum(count);
+			dishMenuInfo.setDan(carteInfo.getPrice());
+			dishMenuInfo.setName(carteInfo.getDishName());
+			int price = Integer.parseInt(carteInfo.getPrice());
+			int zong = price * count;
+			dishMenuInfo.setZong(zong + "");
+			dishMenuInfoList.add(dishMenuInfo);
+		}
+		return dishMenuInfoList;
+	}
 	
 
 }

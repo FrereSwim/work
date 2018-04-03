@@ -64,6 +64,12 @@ public class MenuDaoImpl implements MenuDao {
 		List<TableInfo> list = (List<TableInfo>) hibernateTemplate.find("from TableInfo where mapping=? and state=?", tableType, state);
 		return list;
 	}
+	
+	@Override
+	public List getTableNum(String state) throws Exception {
+		List<TableInfo> list = (List<TableInfo>) hibernateTemplate.find("from TableInfo where state=?", state);
+		return list;
+	}
 
 
 	@Override
@@ -210,6 +216,21 @@ public class MenuDaoImpl implements MenuDao {
 		return list;
 	}
 
+
+	@Override
+	public List getdishInfo(String tableNum) throws Exception {
+		List<TemporaryDishInfo> list = (List<TemporaryDishInfo>) hibernateTemplate.find("from TemporaryDishInfo where tableNum=? group by dishID", tableNum);
+		return list;
+	}
+
+
+	@Override
+	public int getDishCount(String dishID) throws Exception {
+		List<TemporaryDishInfo> list = (List<TemporaryDishInfo>) hibernateTemplate.find("from TemporaryDishInfo where dishID=?", dishID);
+		int count = list.size();
+		return count;
+	}
+	
 			
 
 }

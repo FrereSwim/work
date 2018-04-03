@@ -15,6 +15,7 @@ public class RoomBillInfo {
 	private String actId;
 	private String actName;
 	private String mid;
+	private String roomType;
 	public String getId() {
 		return id;
 	}
@@ -92,6 +93,12 @@ public class RoomBillInfo {
 	}
 	public void setMid(String mid) {
 		this.mid = mid;
+	}
+	public String getRoomType() {
+		return roomType;
+	}
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
 	}
 	
 }

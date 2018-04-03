@@ -281,10 +281,16 @@
     	<action name="getTemporarydish" class="menuAction" method="getTemporarydish">
     		<result name="success"></result>
     	</action>
+    	<action name="getdishInfo" class="menuAction" method="getdishInfo">
+    		<result name="success"></result>
+    	</action><!-- new  -->
     	<action name="delDish" class="menuAction" method="delDish">
     		<result name="success"></result>
     	</action>
     	<action name="getTableNumByTableType" class="menuAction" method="getTableNumByTableType">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getTableNum" class="menuAction" method="getTableNum">
     		<result name="success"></result>
     	</action>
     	<action name="updateTableState" class="menuAction" method="updateTableState">
@@ -431,6 +437,11 @@
     	<action name="addIncome" class="financeAction" method="addIncome">
     		<result name="success"></result>
     	</action>
+    	
+    	<action name="getRoomBillByYear" class="financeAction" method="getRoomBillByYear">
+    		<result name="success"></result>
+    	</action>
+    	
     	
     	<!-- 仓库 -->
     	<action name="getGoodsInfo" class="warehouseAction" method="getGoodsInfo">
