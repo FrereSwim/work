@@ -123,7 +123,25 @@ public class FinanceDaoImpl implements FinanceDao {
 
 	@Override
 	public List getRoomBillByYear(String roomType, String year) throws Exception {
-		List list = hibernateTemplate.find("from RoomBillInfo where roomType = ? and date_format(startTime,'%Y')=?)",roomType, year);
+		List list = hibernateTemplate.find("from RoomBillInfo where roomType = ? and date_format(startTime,'%Y')=? and state='ruzhu'",roomType, year);
+		return list;
+	}
+	
+	@Override
+	public List getRoomBillByYear1(String yearAndMonth) throws Exception {
+		List list = hibernateTemplate.find("from RoomBillInfo where date_format(startTime,'%Y-%m')=? and date_format(startTime,'%Y-%m') = date_format(endTime,'%Y-%m') and state='ruzhu'", yearAndMonth);
+		return list;
+	}
+	
+	@Override
+	public List getRoomBillByYear2() throws Exception {
+		List list = hibernateTemplate.find("from RoomBillInfo where date_format(startTime,'%Y-%m') != date_format(endTime,'%Y-%m') and state='ruzhu'");
+		return list;
+	}
+
+	@Override
+	public List getDishBill(String time) throws Exception {
+		List list = hibernateTemplate.find("from DishBillInfo where date_format(createTime,'%Y-%m-%d')=?", time);
 		return list;
 	}
 			

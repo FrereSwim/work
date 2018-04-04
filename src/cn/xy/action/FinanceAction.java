@@ -104,5 +104,20 @@ public class FinanceAction extends ActionSupport {
 		List list = financeService.getRoomBillByYear(year);
 		jSONResult.jsonResult("RoomBillCount", list);
 	}
+	
+	public void getRoomCheckIn() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String year = str[0];
+		List list = financeService.getRoomCheckIn(year);
+		jSONResult.jsonResult("RoomCheckIn", list);
+	}
+	
+	public void getDishBill() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		String time = str[0];
+		time = "2018-02-05";
+		List list = financeService.getDishBill(time);
+		jSONResult.jsonResult("DishBill", list);
+	}
 
 }

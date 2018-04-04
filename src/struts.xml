@@ -441,6 +441,13 @@
     	<action name="getRoomBillByYear" class="financeAction" method="getRoomBillByYear">
     		<result name="success"></result>
     	</action>
+    	<action name="getRoomCheckIn" class="financeAction" method="getRoomCheckIn">
+    		<result name="success"></result>
+    	</action>
+    	
+    	<action name="getDishBill" class="financeAction" method="getDishBill">
+    		<result name="success"></result>
+    	</action>
     	
     	
     	<!-- 仓库 -->

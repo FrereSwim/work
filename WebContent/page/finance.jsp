@@ -92,7 +92,19 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li><a href="javascript:addTag('../financePage/roomTypeShowChart.html');">客房年度订单数</a></li>
+                           <li><a href="javascript:addTag('../financePage/roomTypeShowChart.html');">年度各类型客房订单数</a></li>
+                           <li><a href="javascript:addTag('../financePage/checkInShowChart.html');">各月客房入住率</a></li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="javascript:;">
+                            <span class="iconfont sider-nav-icon"></span>
+                            <span class="sider-nav-title">餐厅数据展示</span>
+                            <i class="iconfont">&#xe642;</i>
+                        </a>
+                        <ul class="sider-nav-s">
+                           <li><a href="javascript:addTag('../financePage/dishBillHourShowChart.html');">餐厅隔天时段订单数</a></li>
+                           <li><a href="javascript:addTag('../financePage/checkInShowChart.html');">各月客房入住率</a></li>
                         </ul>
                      </li>
                  </ul> 

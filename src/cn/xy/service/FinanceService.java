@@ -18,5 +18,8 @@ public interface FinanceService {
 	void addIncome(String[] str) throws Exception;
 	
 	List getRoomBillByYear(String year) throws Exception;
+	List getRoomCheckIn(String year) throws Exception;
+	
+	List getDishBill(String time) throws Exception;
 	
 }
