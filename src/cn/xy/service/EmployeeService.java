@@ -36,4 +36,7 @@ public interface EmployeeService {
 	
 	List getRemindList(String eStage) throws Exception;  
 	List getRemindBirthDateList() throws Exception;
+	
+	List getAttendanceList() throws Exception;
+	List getAttendanceByInput(String[] str) throws Exception;
 }

@@ -212,6 +212,16 @@ public class EmployeeAction extends ActionSupport {
 		jSONResult.jsonResult("employeeList", employeeList);
 	}
 	
+	public void getAttendanceList() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List attendanceList = employeeService.getAttendanceList();
+		jSONResult.jsonResult("attendanceList", attendanceList);
+	}
+	public void getAttendanceByInput() throws Exception{
+		JSONResult jSONResult = new JSONResult();
+		List attendanceList = employeeService.getAttendanceByInput(str);
+		jSONResult.jsonResult("attendanceList", attendanceList);
+	}
 	  
 	
 }

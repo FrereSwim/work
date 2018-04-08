@@ -1,7 +1,6 @@
 package cn.xy.action;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +14,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import cn.xy.bean.User;
 import cn.xy.service.UserService;
-import cn.xy.utils.ExportExcel;
 import cn.xy.utils.VerifyCodeUtils;
+import cn.xy.utils.sendEmail;
 import net.sf.json.JSONObject;
 
 public class UserAction extends ActionSupport {
@@ -90,11 +89,11 @@ public class UserAction extends ActionSupport {
 		if(checkEmail){
 			System.out.println(verifyCode);
 			//发送验证码  
-			/*boolean sendresult = sendEmail.sendEmail(email, verifyCode);
+			boolean sendresult = sendEmail.sendEmail(email, verifyCode);
 			if(!sendresult){
 				jsonResult("result","0");
 				return;
-			}*/
+			}
 			HttpServletRequest request = ServletActionContext.getRequest();
 			request.getSession().setAttribute("verifyCode", verifyCode);
 			jsonResult("result","1");

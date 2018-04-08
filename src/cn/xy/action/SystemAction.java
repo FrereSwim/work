@@ -374,7 +374,8 @@ public class SystemAction extends ActionSupport {
 			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 			String day = date.format(new Date());
 		    //String root = "F:\\java\\work\\webapps\\RestaurantMain\\wenjian";
-		    String root = "F:\\JAVA\\space\\work\\WebContent\\wenjian";
+		    //String root = "F:\\JAVA\\space\\work\\WebContent\\wenjian";
+			String root ="C:\\Program Files (x86)\\Apache Software Foundation\\Tomcat 7.0\\webapps\\restaurantmain\\wenjian";
 	        InputStream is = new FileInputStream(file);
 	        String[] names = fileFileName.split("\\.");
 	        String fileType = names[1];

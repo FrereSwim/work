@@ -18,7 +18,8 @@
                 String fileName = new String(request.getParameter("uploadName"));
                 //System.out.println(fileName);
                 //smart.downloadFile("wenjian/" + fileName);//注意路径
-                smart.downloadFile("F:\\JAVA\\space\\work\\WebContent\\wenjian\\" + fileName);
+                //smart.downloadFile("F:\\JAVA\\space\\work\\WebContent\\wenjian\\" + fileName);
+                smart.downloadFile("C:\\Program Files (x86)\\Apache Software Foundation\\Tomcat 7.0\\webapps\\restaurantmain\\wenjian\\" + fileName);
             }
             catch(Exception e){   
             }

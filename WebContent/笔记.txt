@@ -8,3 +8,4 @@ function GetUID(name){
    	
 修改路径   download.jsp
 SystemAction.java  addFile方法
+MenuAction.java    fileImport方法

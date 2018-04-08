@@ -523,6 +523,32 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				}
 			}
 			return elist;
+		}
+
+		@Override
+		public List getAttendanceList() throws Exception {
+			List<AttendanceInfo> list = (List<AttendanceInfo>) hibernateTemplate.find("from AttendanceInfo");
+			return list;
+		}
+
+		@Override
+		public List getAttendanceByInput(String[] str) throws Exception {
+			String sql = "from AttendanceInfo where id != ' ' ";
+			List arr = new ArrayList();
+			if(!str[0].equals("")){
+				sql += "and eid = ?";
+				arr.add(str[0]);
+			}
+			if(!str[1].equals("")){
+				sql += "and eName like ?";
+				arr.add("%" + str[1] + "%");
+			}
+			String[] strings = new String[arr.size()];
+			for(int i = 0; i < arr.size(); i++){
+				strings[i] = (String) arr.get(i);
+			}
+			List<AttendanceInfo> list = (List<AttendanceInfo>) hibernateTemplate.find(sql,strings);
+			return list;
 		} 
 		
 		

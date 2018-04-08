@@ -94,7 +94,7 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li><a href="javascript:addTag('../employeePage/');">日常考勤</a></li>
+                           <li><a href="javascript:addTag('../employeePage/attendanceList.html');">日常考勤</a></li>
                            <li><a href="javascript:addTag('../employeePage/leaveList.html');">请假登记</a></li>
                            <li><a href="javascript:addTag('../employeePage/businessTripList.html');">出差登记</a></li>
                         </ul>

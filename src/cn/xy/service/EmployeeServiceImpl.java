@@ -155,4 +155,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeDao.getRemindBirthDateList();
 	}
 
+	@Override
+	public List getAttendanceList() throws Exception {
+		return employeeDao.getAttendanceList();
+	}
+
+	@Override
+	public List getAttendanceByInput(String[] str) throws Exception {
+		return employeeDao.getAttendanceByInput(str);
+	}
+
 }

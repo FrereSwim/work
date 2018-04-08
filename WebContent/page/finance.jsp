@@ -103,8 +103,7 @@
                             <i class="iconfont">&#xe642;</i>
                         </a>
                         <ul class="sider-nav-s">
-                           <li><a href="javascript:addTag('../financePage/dishBillHourShowChart.html');">餐厅隔天时段订单数</a></li>
-                           <li><a href="javascript:addTag('../financePage/checkInShowChart.html');">各月客房入住率</a></li>
+                           <li><a href="javascript:addTag('../financePage/dishBillHourShowChart.html');">餐厅各天时段订单数</a></li>
                         </ul>
                      </li>
                  </ul> 

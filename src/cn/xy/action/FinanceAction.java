@@ -115,7 +115,7 @@ public class FinanceAction extends ActionSupport {
 	public void getDishBill() throws Exception{
 		JSONResult jSONResult = new JSONResult();
 		String time = str[0];
-		time = "2018-02-05";
+		//time = "2018-02-05";
 		List list = financeService.getDishBill(time);
 		jSONResult.jsonResult("DishBill", list);
 	}

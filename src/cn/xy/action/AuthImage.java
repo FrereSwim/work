@@ -20,7 +20,7 @@ public class AuthImage extends HttpServlet implements Servlet {
         response.setHeader("Cache-Control", "no-cache"); 
         response.setDateHeader("Expires", 0); 
         response.setContentType("image/jpeg");
-        String verifyCode = VerifyCodeUtils.generateVerifyCode(1); 
+        String verifyCode = VerifyCodeUtils.generateVerifyCode(5); 
         //存入会话session 
         HttpSession session = request.getSession(true); 
         //删除以前的

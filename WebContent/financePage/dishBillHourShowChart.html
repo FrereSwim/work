@@ -17,14 +17,16 @@
 <body>
 	
 	<div class="easyui-tabs1" style="height:80px;padding-left:58px;">
-    	<div class="panel-title">选择年份</div>
+    	<div class="panel-title">选择日期</div>
       	<table class="kv-table">
       		<tbody>
       			<tr>
-					<td class="kv-label" colspan="1">年份选择</td>
+					<td class="kv-label" colspan="1">日期选择</td>
 					<td class="kv-content" colspan="2">
-						<select id="year" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
-		   				</select>
+						<!-- <select id="year" class="easyui-combobox" name="language" style="height:35px;width:300px;" panelHeight="auto">
+		   				</select> -->
+		   				<input id="year" type="text" class="easyui-datebox" data-options="required:false,editable:false,formatter:formatter,parser:parser" style="width:300px;height:35px;line-height:35px;">
+		   				<a href="javascript:search()" class="easyui-linkbutton" data-options="selected:true">查询</a>
 		   			</td>
 		   		</tr>
 		   	</tbody>
@@ -42,22 +44,50 @@
 	<script type="text/javascript">
 		
 		$(function(){
-			var data = [];
-	    	for(var i = 2018; i > 1999; i--){
-	    		var obj = new Object();
-	    	    obj.text = i;
-	    	    obj.value = i;
-	    	    data.push(obj);
+			var date = new Date();
+	    	var d = date.getFullYear() + "-"; + (date.getMonth()+1) + "-" + date.getDate();
+	    	if((date.getMonth()+1) < 10){
+	    		d += "0" +  (date.getMonth()+1) + "-";
+	    	}else{
+	    		d += (date.getMonth()+1) + "-";
 	    	}
-		    $("#year").combobox("loadData", data);
-		    $("#year").combobox("setValue", "2018");
+	    	if(date.getDate() < 10){
+	    		d += "0" + date.getDate();
+	    	}else{
+	    		d += date.getDate();
+	    	}
+	    	dTime = d;
+	    	$("#year").textbox('setValue',d);
 		    init();
 		});
+		
+		function formatter(date){
+			//$.fn.datebox.defaults.formatter = function(date){
+				var year = date.getFullYear();
+		        var month = date.getMonth() + 1;
+		        var day = date.getDate();
+		        month = month < 10 ? '0' + month : month;
+		        day = day < 10 ? '0' + day : day;
+		        return year + "-" + month + "-" + day;
+			//}
+		}
+		
+		function parser(s){
+			//$.fn.datebox.defaults.parser = function(s){
+				var t = Date.parse(s);
+				if (!isNaN(t)){
+					return new Date(t);
+				} else {
+					return new Date(s);
+				}
+			//}
+		}
 		
 		function init(){
 			var str = new Array;
    			//var year = $("#year").combobox('getValue');
-   			str.push("2018");
+   			var v = $('#year').datebox('getValue');
+   			str.push(v);
    			$.ajax({
 			      type:"post",
 			      url: "getDishBill.action",
@@ -73,7 +103,6 @@
 		    			  roomArr.push(object[i]);
 			    	  }
 			    	  var data = [roomArr];
-			    	  console.log(roomArr);
 			  		  var data_max = 5; //Y轴最大刻度
 			  		  var line_title = ["餐厅"]; //曲线名称
 			  		  var y_label = "订单数"; //Y轴标题
@@ -85,13 +114,14 @@
 			});
 		}
 		
-		$("#year").combobox({  
-	   	   onSelect: function () {
+		//$("#year").combobox({  
+	   	   //onSelect: function () {
+	   	function search(){
 	   		   	$("#chart1").empty();
 	   		 	$("#chart2").empty();
 	   			var str = new Array;
-	   			var year = $("#year").combobox('getValue');
-	   			str.push(year);
+	   			var v = $('#year').datebox('getValue');
+	   			str.push(v);
 	   			$.ajax({
 				      type:"post",
 				      url: "getDishBill.action",
@@ -116,8 +146,9 @@
 				  		  j.jqplot.diagram.base("chart2", data, line_title, "", x, "", y_label, data_max, 2);
 				      }
 				});
-	   	   }
-		});
+	   	}
+	   	   //}
+		//});
 		
 	</script>
 </body>

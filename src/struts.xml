@@ -267,6 +267,13 @@
     		<result name="success"></result>
     	</action>
     	
+    	<action name="getAttendanceList" class="employeeAction" method="getAttendanceList">
+    		<result name="success"></result>
+    	</action>
+    	<action name="getAttendanceByInput" class="employeeAction" method="getAttendanceByInput">
+    		<result name="success"></result>
+    	</action>
+    	
     	
     	<!-- 菜单管理操作 -->
     	<action name="fileImport" class="menuAction" method="fileImport">

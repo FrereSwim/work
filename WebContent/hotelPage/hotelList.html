@@ -1,0 +1,77 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>酒店信息列表</title> 
+
+	<link href="../page/css/base.css" rel="stylesheet">
+	<link rel="stylesheet" href="../custom/uimaker/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../custom/uimaker/icon.css">
+	<link rel="stylesheet" href="../page/css/providers.css">
+	<link href="../page/css/qikoo.css" rel="stylesheet">
+
+</head> 
+<body>
+    <div class="container">
+       <table id="dg" style="width:100%;height:554px" title="酒店信息列表" data-options="
+                rownumbers:true,
+                singleSelect:false,
+                autoRowHeight:false,
+                pagination:true,
+                fitColumns:true,
+                striped:true,
+                checkOnSelect:false,
+                selectOnCheck:false,
+                collapsible:true,
+                toolbar:'#tb',
+                pageSize:10">
+            <thead>
+                <tr>
+                    <th field="name" width="200" align="center">酒店名称</th>
+                    <th field="address" width="140" align="center">酒店地址</th>
+                    <th field="man" width="140" align="center">总负责人</th>
+                    <th field="phone" width="140" align="center">联系电话</th>
+                </tr>
+            </thead>
+        </table>
+    <div id="tb" style="padding:0 30px;">
+    </div>
+    <script type="text/javascript" src="../custom/jquery.min.js"></script>
+    <script type="text/javascript" src="../custom/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../custom/easyui-lang-zh_CN.js"></script>
+    <script src="../page/js/qikoo.js"></script>
+    <script type="text/javascript" src="../page/js/showListData.js"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+        $('#dg').datagrid({data:getData()}).datagrid('clientPaging');
+    });
+    
+    function getData(){
+    	var rows = [];
+    	rows.push({
+			name: "随梦国际大酒店-广东广州分部",
+			address: "广东省广州市越秀区府前路2号",
+			man: "谢第一",
+			phone: "188-8888-8888",
+	    });
+		rows.push({
+			name: "随梦国际大酒店-浙江杭州分部",
+			address: "浙江省杭州市江干区解放东路1号",
+			man: "谢第二",
+			phone: "166-6666-6666",
+	    });
+		rows.push({
+			name: "随梦国际大酒店-北京分部",
+			address: "北京市朝阳区北辰东路1号",
+			man: "谢第三",
+			phone: "155-5555-5555",
+	    });
+		return rows;
+    }
+       
+</script>
+</body> 
+</html>

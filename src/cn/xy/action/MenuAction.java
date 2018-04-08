@@ -58,7 +58,8 @@ public class MenuAction extends ActionSupport {
     }
     
     public String fileImport() throws Exception{
-    	String root = "F:\\java\\work\\webapps\\RestaurantMain\\数据导入";
+    	//String root = "F:\\java\\work\\webapps\\RestaurantMain\\数据导入";
+    	String root = "C:\\Program Files (x86)\\Apache Software Foundation\\Tomcat 7.0\\webapps\\restaurantmain\\wenjian";
         InputStream is = new FileInputStream(file);
         long date = new Date().getTime();
         String[] strs  = fileFileName.split("\\.");

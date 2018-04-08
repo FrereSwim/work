@@ -148,13 +148,13 @@ public class FinanceServiceImpl implements FinanceService {
 	public List getDishBill(String time) throws Exception {
 		List dishBillInfoList = financeDao.getDishBill(time);
 		int size  = dishBillInfoList.size();
-		String[] billCount = new String[24];
+		int[] billCount = new int[24];
 		int len = billCount.length;
 		for(int i = 0; i < size; i++) {
 			DishBillInfo dishBillInfo = (DishBillInfo) dishBillInfoList.get(i);
 			String createTime = dishBillInfo.getCreateTime();
 			String[] str1 = createTime.split("\\s+");
-			String[] str2 = str1[1].split("\\.");
+			String[] str2 = str1[1].split("\\:");
 			String hour = str2[0];
 			for(int j =0; j < len; j++) {
 				String str = "";
