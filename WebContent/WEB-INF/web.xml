@@ -91,6 +91,11 @@
  	<listener>
     	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   	</listener>
+  	
+  	<error-page>
+	<error-code>404</error-code>
+	<location>/page/error.html</location>
+	</error-page>
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
